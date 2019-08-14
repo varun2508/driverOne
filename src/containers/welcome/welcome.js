@@ -3,9 +3,9 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import styled from 'styled-components';
 import Swiper from 'react-native-web-swiper';
 
-import { Header } from '@shared';
+// import { Header } from '@shared';
 
-console.log(Header);
+// console.log(Header);
 
 const styles = StyleSheet.create({
   container: {
