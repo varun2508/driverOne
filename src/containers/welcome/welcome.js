@@ -3,7 +3,9 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import styled from 'styled-components';
 import Swiper from 'react-native-web-swiper';
 
-// import { Header } from '@shared';
+// import Header from '@shared/headers/header';
+
+import { Header } from '@shared';
 
 // console.log(Header);
 
@@ -28,11 +30,30 @@ const styles = StyleSheet.create({
   },
 });
 
-const WelcomeScreen = () => <Container />;
+const WelcomeScreen = () => (
+  <Container>
+    <Swiper>
+      <Slide1 />
+      <Slide2 />
+      <Slide3 />
+    </Swiper>
+  </Container>
+);
 
 export default WelcomeScreen;
 
 const Container = styled.View`
   flex: 1;
-  background: #7ac0ff;
+  background: #2182d9;
+`;
+
+const Slide1 = styled.View`
+flex: 1
+  background-color: rgba(20, 20, 200, 0.3);
+`;
+const Slide2 = styled.View`
+  background-color: rgba(20, 200, 20, 0.3);
+`;
+const Slide3 = styled.View`
+  background-color: rgba(200, 20, 20, 0.3);
 `;

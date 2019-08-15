@@ -13,5 +13,8 @@ const Header = () => (
 export default Header;
 
 const Container = styled.View`
-  background: #fff;
+  background: #7ac0ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
