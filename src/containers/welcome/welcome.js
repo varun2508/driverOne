@@ -1,41 +1,50 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 import Swiper from 'react-native-web-swiper';
 
-// import Header from '@shared/headers/header';
-
-import { Header } from '@shared';
-
-// console.log(Header);
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'red',
-  },
-  slideContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  slide1: {
-    backgroundColor: 'rgba(20,20,200,0.3)',
-  },
-  slide2: {
-    backgroundColor: 'rgba(20,200,20,0.3)',
-  },
-  slide3: {
-    backgroundColor: 'rgba(200,20,20,0.3)',
-  },
-});
+import { Cash, Track, Rating } from 'assets/icons';
 
 const WelcomeScreen = () => (
   <Container>
     <Swiper>
-      <Slide1 />
-      <Slide2 />
-      <Slide3 />
+      <Slide>
+        <Track height={120} />
+        <DescriptionContainer>
+          <FirstText>
+            <Text>Be your own boss</Text>
+            <Text>Drive when you want</Text>
+          </FirstText>
+          <SecondText>
+            <Text>Work as much or little as you want</Text>
+            <Text>Using our platform to book jobs.</Text>
+          </SecondText>
+        </DescriptionContainer>
+      </Slide>
+      <Slide>
+        <Rating height={120} />
+        <DescriptionContainer>
+          <FirstText>
+            <Text>Build a reputation</Text>
+          </FirstText>
+          <SecondText>
+            <Text>Earn an individual rating and get </Text>
+            <Text>rewarded for safe drivin</Text>
+          </SecondText>
+        </DescriptionContainer>
+      </Slide>
+      <Slide>
+        <Cash height={120} />
+        <DescriptionContainer>
+          <FirstText>
+            <Text>Sign up here to see a world </Text>
+            <Text>where drivers come first</Text>
+          </FirstText>
+          <SecondText>
+            <Text>Quick signup process. Make $$ </Text>
+            <Text>when your friends drive. Next day pay.</Text>
+          </SecondText>
+        </DescriptionContainer>
+      </Slide>
     </Swiper>
   </Container>
 );
@@ -44,16 +53,28 @@ export default WelcomeScreen;
 
 const Container = styled.View`
   flex: 1;
-  background: #2182d9;
+  background: #5baaf2;
 `;
 
-const Slide1 = styled.View`
-flex: 1
-  background-color: rgba(20, 20, 200, 0.3);
+const Slide = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
 `;
-const Slide2 = styled.View`
-  background-color: rgba(20, 200, 20, 0.3);
+
+const DescriptionContainer = styled.View`
+  margin-top: 64px;
+  align-items: center;
+  justify-content: center;
 `;
-const Slide3 = styled.View`
-  background-color: rgba(200, 20, 20, 0.3);
+const Text = styled.Text`
+  color: #fff;
+  font-size: 18px;
 `;
+
+const FirstText = styled.View`
+  margin-bottom: 20px;
+`;
+
+const SecondText = styled.View``;

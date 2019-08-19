@@ -1,20 +1,17 @@
-import {
-  Navigation
-} from 'react-native-navigation';
-import {
-  Header
-} from '@shared';
+import { Navigation } from 'react-native-navigation';
 
 const goToMain = async () => {
   Navigation.setRoot({
     root: {
       stack: {
         id: 'WelcomeScreen',
-        children: [{
-          component: {
-            name: 'WelcomeScreen',
+        children: [
+          {
+            component: {
+              name: 'WelcomeScreen',
+            },
           },
-        }, ],
+        ],
       },
     },
   });
@@ -26,37 +23,35 @@ function pushSingleScreenApp() {
   Navigation.setRoot({
     root: {
       stack: {
-        children: [{
-          component: {
-            name: 'WelcomeScreen',
-            options: {
-              topBar: {
-                title: {
-                  component: {
-                    name: 'NavHeader',
+        children: [
+          {
+            component: {
+              name: 'WelcomeScreen',
+              options: {
+                topBar: {
+                  title: {
+                    component: {
+                      name: 'NavHeader',
+                    },
                   },
+                  background: {
+                    color: '#7ac0ff',
+                  },
+                  noBorder: true,
+                  drawBehind: false,
+                  visible: true,
+                  animate: false,
                 },
-                background: {
-                  color: '#7ac0ff',
-                },
-                noBorder: true,
-                drawBehind: false,
-                visible: true,
-                animate: false,
               },
             },
           },
-        }, ],
+        ],
       },
     },
   });
 }
 
-export {
-  goToMain,
-  goHome,
-  pushSingleScreenApp
-};
+export { goToMain, goHome, pushSingleScreenApp };
 
 // export const goHome = async (props) => {
 //   return Navigation.setRoot({

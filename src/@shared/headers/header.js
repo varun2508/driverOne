@@ -1,8 +1,7 @@
 import React from 'react';
-import { View } from 'react-native';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 
-import Logo from './logo.svg';
+import { Logo } from 'assets/icons';
 
 const Header = () => (
   <Container>

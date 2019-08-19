@@ -8,7 +8,6 @@ Navigation.events().registerAppLaunchedListener(() => {
     root: {
       component: {
         name: 'App',
-        // eslint-disable-next-line prettier/prettier
       },
     },
   });
