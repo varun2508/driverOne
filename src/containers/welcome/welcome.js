@@ -1,80 +1,60 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
-import Swiper from 'react-native-web-swiper';
+import { Button } from 'react-native-elements';
 
-import { Cash, Track, Rating } from 'assets/icons';
+import { navigate } from '@shared/helpers';
 
-const WelcomeScreen = () => (
-  <Container>
-    <Swiper>
-      <Slide>
-        <Track height={120} />
-        <DescriptionContainer>
-          <FirstText>
-            <Text>Be your own boss</Text>
-            <Text>Drive when you want</Text>
-          </FirstText>
-          <SecondText>
-            <Text>Work as much or little as you want</Text>
-            <Text>Using our platform to book jobs.</Text>
-          </SecondText>
-        </DescriptionContainer>
-      </Slide>
-      <Slide>
-        <Rating height={120} />
-        <DescriptionContainer>
-          <FirstText>
-            <Text>Build a reputation</Text>
-          </FirstText>
-          <SecondText>
-            <Text>Earn an individual rating and get </Text>
-            <Text>rewarded for safe drivin</Text>
-          </SecondText>
-        </DescriptionContainer>
-      </Slide>
-      <Slide>
-        <Cash height={120} />
-        <DescriptionContainer>
-          <FirstText>
-            <Text>Sign up here to see a world </Text>
-            <Text>where drivers come first</Text>
-          </FirstText>
-          <SecondText>
-            <Text>Quick signup process. Make $$ </Text>
-            <Text>when your friends drive. Next day pay.</Text>
-          </SecondText>
-        </DescriptionContainer>
-      </Slide>
-    </Swiper>
-  </Container>
-);
+import { Sliders } from './components';
+
+const WelcomeScreen = ({ componentId }) => {
+  const navigateTo = (props) => {
+    const isLogIn = props === 'Log In';
+
+    navigate('AuthScreen', componentId, { isLogIn });
+  };
+  return (
+    <Container>
+      <Sliders />
+      <ButtonContainer>
+        <Button
+          type="outline"
+          title="Sign Up"
+          buttonStyle={styles.buttonColor}
+          onPress={navigateTo}
+        />
+        <Button
+          title="Log In"
+          buttonStyle={{ width: '100%' }}
+          onPress={() => navigateTo('Log In')}
+        />
+      </ButtonContainer>
+    </Container>
+  );
+};
 
 export default WelcomeScreen;
+
+const styles = StyleSheet.create({
+  buttonColor: {
+    backgroundColor: '#fff',
+    width: 176,
+    marginRight: 15,
+  },
+});
 
 const Container = styled.View`
   flex: 1;
   background: #5baaf2;
 `;
 
-const Slide = styled.View`
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  padding: 48px;
-`;
-
-const DescriptionContainer = styled.View`
-  margin-top: 64px;
-  align-items: center;
+const ButtonContainer = styled.View`
+  height: 100px;
+  display: flex;
+  background-color: #3098f4;
+  padding-left: 59px;
+  padding-right: 59px;
+  padding-top: 16px;
+  flex-direction: row;
   justify-content: center;
 `;
-const Text = styled.Text`
-  color: #fff;
-  font-size: 18px;
-`;
-
-const FirstText = styled.View`
-  margin-bottom: 20px;
-`;
-
-const SecondText = styled.View``;

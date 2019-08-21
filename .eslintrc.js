@@ -10,6 +10,7 @@ module.exports = {
   },
   "rules": {
     "no-use-before-define": "off",
+    "react/state-in-constructor": "off",
     "module-resolver/use-alias": 2,
     "react/jsx-filename-extension": [
       1,
@@ -39,9 +40,12 @@ module.exports = {
     "prettier/prettier": [
       "error",
       {
-        "trailingComma": "es5",
         "singleQuote": true,
-        "printWidth": 100
+        "semi": true,
+        "printWidth": 100,
+        "trailingComma": "all",
+        "tabWidth": 2,
+        "arrowParens": "always"
       }
     ]
   },
@@ -49,6 +53,20 @@ module.exports = {
     "prettier",
     "module-resolver"
   ],
+  "settings": {
+    "import/resolver": {
+      "babel-module": {
+        "screens": "./src/containers",
+        "@shared": "./src/@shared",
+        "assets": "./src/assets",
+        "stores": "./src/stores",
+        "config": "./src/config",
+        "navigation": "./src/navigation",
+        "icons": "./src/assets/icons",
+        "image": "./src/assets/image"
+      }
+    }
+  },
   "globals": {
     "fetch": false
   }

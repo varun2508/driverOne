@@ -26,25 +26,30 @@ function pushSingleScreenApp() {
         children: [
           {
             component: {
-              name: 'WelcomeScreen',
-              options: {
-                topBar: {
-                  title: {
-                    component: {
-                      name: 'NavHeader',
-                    },
-                  },
-                  background: {
-                    color: '#7ac0ff',
-                  },
-                  noBorder: true,
-                  drawBehind: false,
-                  visible: true,
-                  animate: false,
-                },
-              },
+              name: 'AuthScreen',
             },
           },
+          // {
+          //   component: {
+          //     name: 'WelcomeScreen',
+          //     options: {
+          //       topBar: {
+          //         title: {
+          //           component: {
+          //             name: 'NavHeader',
+          //           },
+          //         },
+          //         background: {
+          //           color: '#7ac0ff',
+          //         },
+          //         noBorder: true,
+          //         drawBehind: false,
+          //         visible: true,
+          //         animate: false,
+          //       },
+          //     },
+          //   },
+          // },
         ],
       },
     },
