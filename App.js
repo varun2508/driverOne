@@ -7,22 +7,15 @@
  */
 
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
-import { goToMain, pushSingleScreenApp } from './src/navigation';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\n' + 'Shake or press menu button for dev menu',
-});
+import { pushSingleScreenApp } from './src/navigation';
 
 export default class App extends Component {
   componentDidMount() {}
 
   render() {
-    if (true) {
-      pushSingleScreenApp();
-    }
+    pushSingleScreenApp();
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}> Loading </Text>
