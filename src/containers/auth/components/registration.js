@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { Input, Button } from 'react-native-elements';
 
-const Login = () => {
+const Registration = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
@@ -22,9 +22,17 @@ const Login = () => {
       />
       <Input
         secureTextEntry
+        inputContainerStyle={styles.input}
         value={password}
         placeholder="Password"
         label={password && 'Password'}
+        onChangeText={(e) => setPassword(e)}
+      />
+      <Input
+        secureTextEntry
+        value={password}
+        placeholder="Confirm password"
+        label={password && 'Confirm password'}
         onChangeText={(e) => setPassword(e)}
       />
       <Button title="SUBMIT" buttonStyle={styles.button} onPress={submit} />
@@ -32,7 +40,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Registration;
 
 const styles = StyleSheet.create({
   input: {

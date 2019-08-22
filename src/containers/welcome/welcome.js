@@ -23,11 +23,7 @@ const WelcomeScreen = ({ componentId }) => {
           buttonStyle={styles.buttonColor}
           onPress={navigateTo}
         />
-        <Button
-          title="Log In"
-          buttonStyle={{ width: '100%' }}
-          onPress={() => navigateTo('Log In')}
-        />
+        <Button title="Log In" buttonStyle={styles.button} onPress={() => navigateTo('Log In')} />
       </ButtonContainer>
     </Container>
   );
@@ -40,6 +36,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     width: 176,
     marginRight: 15,
+  },
+  button: {
+    width: '100%',
   },
 });
 
