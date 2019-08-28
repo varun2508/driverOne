@@ -37,6 +37,7 @@ class Auth extends Component {
 
   render() {
     const { isLogIn } = this.state;
+    const { componentId } = this.props;
 
     return (
       <Container>
@@ -55,7 +56,13 @@ class Auth extends Component {
             onPress={() => this.handlerAuth(false)}
           />
         </ButtonContainer>
-        <Wrapper>{isLogIn ? <Login /> : <Registration />}</Wrapper>
+        <Wrapper>
+          {isLogIn ? (
+            <Login componentId={componentId} />
+          ) : (
+            <Registration componentId={componentId} />
+          )}
+        </Wrapper>
       </Container>
     );
   }

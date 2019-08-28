@@ -1,34 +1,59 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { Input, Button } from 'react-native-elements';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
-const Login = () => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+import Auth from '@mobx/auth';
 
-  const submit = () => {
-    console.log({ email, password });
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .required('please! email?')
+    .email("well that's not an email"),
+  password: Yup.string()
+    .required()
+    .min(2, 'pretty sure this will be hacked'),
+});
+
+const Login = ({ componentId }) => {
+  const submit = ({ email, password }) => {
+    Auth.logIn({ email, password }, componentId);
   };
 
   return (
-    <Container>
-      <Input
-        value={email}
-        placeholder="Email adress"
-        inputContainerStyle={styles.input}
-        label={email && 'Email adress'}
-        onChangeText={(e) => setEmail(e)}
-      />
-      <Input
-        secureTextEntry
-        value={password}
-        placeholder="Password"
-        label={password && 'Password'}
-        onChangeText={(e) => setPassword(e)}
-      />
-      <Button title="SUBMIT" buttonStyle={styles.button} onPress={submit} />
-    </Container>
+    <Formik
+      validateOnChange={false}
+      validateOnBlur={false}
+      validationSchema={validationSchema}
+      initialValues={{ email: '', password: '' }}
+      onSubmit={(values) => submit(values)}
+    >
+      {({ handleChange, handleBlur, values, handleSubmit, errors }) => (
+        <Container>
+          <Input
+            value={values.email}
+            onBlur={handleBlur('email')}
+            placeholder="Email adress"
+            containerStyle={styles.input}
+            label={values.email && 'Email adress'}
+            onChangeText={handleChange('email')}
+            errorMessage={errors.email}
+          />
+          <Input
+            secureTextEntry
+            value={values.password}
+            onBlur={handleBlur('password')}
+            containerStyle={styles.input}
+            onChangeText={handleChange('password')}
+            placeholder="Password"
+            label={values.password && 'Password'}
+            errorMessage={errors.password}
+          />
+          <Button onPress={handleSubmit} title="Submit" style={styles.button} />
+        </Container>
+      )}
+    </Formik>
   );
 };
 
@@ -36,7 +61,7 @@ export default Login;
 
 const styles = StyleSheet.create({
   input: {
-    marginBottom: 25,
+    marginBottom: 5,
   },
   button: {
     marginTop: 73,

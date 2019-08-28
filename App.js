@@ -8,11 +8,23 @@
 
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { pushSingleScreenApp } from './src/navigation';
 
 export default class App extends Component {
-  componentDidMount() {}
+  state = {
+    token: null,
+  };
+
+  componentDidMount() {
+    this.checkToken();
+  }
+
+  async checkToken() {
+    const token = await AsyncStorage.getItem('token');
+    this.setState({ token });
+  }
 
   render() {
     pushSingleScreenApp();

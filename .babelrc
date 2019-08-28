@@ -12,7 +12,9 @@
         "config": "./src/config",
         "navigation": "./src/navigation",
         "icons": "./src/assets/icons",
-        "image": "./src/assets/image"
+        "image": "./src/assets/image",
+        "api": "./src/api",
+        "@mobx": "./src/@mobx"
       }
     }]
   ]

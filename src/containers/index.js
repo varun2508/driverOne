@@ -4,6 +4,7 @@ import { Header } from '@shared';
 
 import WelcomeScreen from './welcome/welcome';
 import AuthScreen from './auth/auth';
+import ProfileScreen from './profile/profile';
 import App from '../../App';
 
 export default function registerScreens() {
@@ -11,4 +12,5 @@ export default function registerScreens() {
   Navigation.registerComponent('App', () => App);
   Navigation.registerComponent('WelcomeScreen', () => WelcomeScreen);
   Navigation.registerComponent('AuthScreen', () => AuthScreen);
+  Navigation.registerComponent('ProfileScreen', () => ProfileScreen);
 }

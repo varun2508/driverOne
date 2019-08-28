@@ -11,6 +11,7 @@ module.exports = {
   "rules": {
     "no-use-before-define": "off",
     "react/state-in-constructor": "off",
+    'no-param-reassign': ['error', { props: true, ignorePropertyModificationsFor: ['self'] }],
     "module-resolver/use-alias": 2,
     "react/jsx-filename-extension": [
       1,

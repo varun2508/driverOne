@@ -26,11 +26,6 @@ function pushSingleScreenApp() {
         children: [
           {
             component: {
-              name: 'AuthScreen',
-            },
-          },
-          {
-            component: {
               name: 'WelcomeScreen',
               options: {
                 topBar: {
