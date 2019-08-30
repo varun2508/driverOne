@@ -18,8 +18,11 @@ const validationSchema = Yup.object().shape({
 });
 
 const Registration = ({ componentId }) => {
-  const submit = ({ email, password }) => {
-    Auth.registration({ email, password }, componentId);
+  const submit = ({ email, password, passwordConfirmation }) => {
+    Auth.registration(
+      { email, password, password_confirmation: passwordConfirmation },
+      componentId,
+    );
   };
 
   return (

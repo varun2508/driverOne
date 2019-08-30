@@ -14,10 +14,12 @@ const Profile = types
   })
   .actions((self) => {
     const logIn = flow(function* logIn(data, componentId) {
+      const userData = { user: data };
       try {
-        const response = yield api.post('/login', data);
-        const { token, email } = response;
-        yield AsyncStorage.setItem('token', token);
+        const response = yield api.post('/auth/login', userData);
+        // eslint-disable-next-line camelcase
+        const { auth_token, email } = response;
+        yield AsyncStorage.setItem('token', auth_token);
 
         self.email = email;
         navigate('ProfileScreen', componentId);
@@ -27,10 +29,13 @@ const Profile = types
     });
 
     const registration = flow(function* registration(data, componentId) {
+      const userData = { user: data };
       try {
-        const response = yield api.post('/register', data);
-        const { token, email } = response;
-        yield AsyncStorage.setItem('token', token);
+        const response = yield api.post('/users', userData);
+        // const { token, email } = response;
+        // eslint-disable-next-line camelcase
+        const { auth_token, email } = response.user;
+        yield AsyncStorage.setItem('token', auth_token);
         self.email = email;
 
         navigate('ProfileScreen', componentId);
