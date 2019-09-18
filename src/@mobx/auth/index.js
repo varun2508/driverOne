@@ -1,5 +1,6 @@
 import { types, flow } from 'mobx-state-tree';
-import AsyncStorage from '@react-native-community/async-storage';
+import { AsyncStorage } from 'react-native';
+// import AsyncStorage from '@react-native-community/async-storage';
 
 import { navigate } from '@shared/helpers';
 import api from 'api';
@@ -11,36 +12,36 @@ const ProfileInfo = {
 const Profile = types
   .model('Profile', {
     email: types.optional(types.string, ''),
+    errorMessage: types.optional(types.string, ''),
   })
   .actions((self) => {
     const logIn = flow(function* logIn(data, componentId) {
-      const userData = { user: data };
       try {
-        const response = yield api.post('/auth/login', userData);
+        const response = yield api.post('/login', data);
         // eslint-disable-next-line camelcase
-        const { auth_token, email } = response;
-        yield AsyncStorage.setItem('token', auth_token);
+        const { token, email } = response;
+        yield AsyncStorage.setItem('token', token);
 
         self.email = email;
         navigate('ProfileScreen', componentId);
       } catch (e) {
-        console.log(e);
+        const { message } = e.response.data;
+        self.errorMessage = message;
       }
     });
 
     const registration = flow(function* registration(data, componentId) {
-      const userData = { user: data };
       try {
-        const response = yield api.post('/users', userData);
-        // const { token, email } = response;
-        // eslint-disable-next-line camelcase
-        const { auth_token, email } = response.user;
-        yield AsyncStorage.setItem('token', auth_token);
+        const response = yield api.post('/register', data);
+        const { token, email } = response;
+        yield AsyncStorage.setItem('token', token);
         self.email = email;
 
         navigate('ProfileScreen', componentId);
       } catch (e) {
-        console.log(e);
+        const { message } = e.response.data;
+        console.log(message);
+        self.errorMessage = message;
       }
     });
 

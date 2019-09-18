@@ -61,7 +61,7 @@ export default Login;
 
 const styles = StyleSheet.create({
   input: {
-    marginBottom: 5,
+    marginBottom: 52,
   },
   button: {
     marginTop: 73,

@@ -7,8 +7,9 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
+
+// import AsyncStorage from '@react-native-community/async-storage';
 
 import { pushSingleScreenApp } from './src/navigation';
 

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
+import { observer } from 'mobx-react';
+import AuthStore from '@mobx/auth';
 
 import { BlueLogo } from 'assets/icons';
-
 import { Login, Registration } from './components';
 
+@observer
 class Auth extends Component {
   static options() {
     return {
@@ -14,6 +16,7 @@ class Auth extends Component {
           translucent: true,
           blur: false,
         },
+        height: 0,
         noBorder: true,
         backButton: {
           visible: false,
@@ -38,6 +41,9 @@ class Auth extends Component {
   render() {
     const { isLogIn } = this.state;
     const { componentId } = this.props;
+    const { errorMessage } = AuthStore;
+    console.log(errorMessage, 'errorMessage');
+    const isError = errorMessage || false;
 
     return (
       <Container>
@@ -56,6 +62,7 @@ class Auth extends Component {
             onPress={() => this.handlerAuth(false)}
           />
         </ButtonContainer>
+        {isError && <ErrorMessage>{errorMessage}</ErrorMessage>}
         <Wrapper>
           {isLogIn ? (
             <Login componentId={componentId} />
@@ -72,10 +79,15 @@ export default Auth;
 
 const Container = styled.View`
   flex: 1;
+  margin-top: 40px;
   background-color: #f8f8f8;
   align-items: center;
   padding-left: 56px;
   padding-right: 38px;
+`;
+
+const ErrorMessage = styled.Text`
+  color: red;
 `;
 
 const Wrapper = styled.View`
