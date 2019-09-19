@@ -50,7 +50,7 @@ const Login = ({ componentId }) => {
             label={values.password && 'Password'}
             errorMessage={errors.password}
           />
-          <Button onPress={handleSubmit} title="Submit" style={styles.button} />
+          <Button onPress={handleSubmit} title="Submit" containerStyle={styles.button} />
         </Container>
       )}
     </Formik>
@@ -61,9 +61,10 @@ export default Login;
 
 const styles = StyleSheet.create({
   input: {
-    marginBottom: 52,
+    // marginBottom: 52,
   },
   button: {
+    backgroundColor: 'red',
     marginTop: 73,
   },
 });

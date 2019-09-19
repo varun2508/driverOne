@@ -60,7 +60,7 @@ const Registration = ({ componentId }) => {
             onChangeText={handleChange('passwordConfirmation')}
             errorMessage={errors.passwordConfirmation}
           />
-          <Button onPress={handleSubmit} title="Submit" style={styles.button} />
+          <Button onPress={handleSubmit} title="Submit" containerStyle={styles.button} />
         </Container>
       )}
     </Formik>
@@ -71,7 +71,7 @@ export default Registration;
 
 const styles = StyleSheet.create({
   input: {
-    marginBottom: 10,
+    // marginBottom: 10,
   },
   button: {
     marginTop: 73,

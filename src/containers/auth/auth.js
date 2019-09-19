@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
 import { observer } from 'mobx-react';
@@ -42,23 +43,22 @@ class Auth extends Component {
     const { isLogIn } = this.state;
     const { componentId } = this.props;
     const { errorMessage } = AuthStore;
-    console.log(errorMessage, 'errorMessage');
     const isError = errorMessage || false;
 
     return (
       <Container>
         <BlueLogo />
         <ButtonContainer>
-          <NavButton
+          <Button
             title="Log In"
             type="clear"
-            isLogIn={isLogIn}
+            containerStyle={isLogIn && styles.isLogin}
             onPress={() => this.handlerAuth(true)}
           />
           <SignUpButton
             title="Sign Up"
             type="clear"
-            isLogIn={!isLogIn}
+            containerStyle={!isLogIn && styles.isLogin}
             onPress={() => this.handlerAuth(false)}
           />
         </ButtonContainer>
@@ -89,6 +89,17 @@ const Container = styled.View`
 const ErrorMessage = styled.Text`
   color: red;
 `;
+
+const styles = StyleSheet.create({
+  isLogin: {
+    opacity: 1,
+    borderBottomWidth: 1,
+    borderBottomColor: '#4a90e2',
+  },
+  button: {
+    marginTop: 73,
+  },
+});
 
 const Wrapper = styled.View`
   margin-top: 33px;
