@@ -1,13 +1,8 @@
 import { types, flow } from 'mobx-state-tree';
 import { AsyncStorage } from 'react-native';
-// import AsyncStorage from '@react-native-community/async-storage';
 
 import { navigate } from '@shared/helpers';
 import api from 'api';
-
-const ProfileInfo = {
-  user: types.optional(types.string, ''),
-};
 
 const Profile = types
   .model('Profile', {
@@ -18,12 +13,11 @@ const Profile = types
     const logIn = flow(function* logIn(data, componentId) {
       try {
         const response = yield api.post('/login', data);
-        // eslint-disable-next-line camelcase
         const { token, email } = response;
         yield AsyncStorage.setItem('token', token);
 
         self.email = email;
-        navigate('ProfileScreen', componentId);
+        navigate('App', componentId);
       } catch (e) {
         const { message } = e.response.data;
         self.errorMessage = message;
@@ -37,10 +31,9 @@ const Profile = types
         yield AsyncStorage.setItem('token', token);
         self.email = email;
 
-        navigate('ProfileScreen', componentId);
+        navigate('App', componentId);
       } catch (e) {
         const { message } = e.response.data;
-        console.log(message);
         self.errorMessage = message;
       }
     });

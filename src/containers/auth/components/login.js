@@ -60,11 +60,8 @@ const Login = ({ componentId }) => {
 export default Login;
 
 const styles = StyleSheet.create({
-  input: {
-    // marginBottom: 52,
-  },
+  input: {},
   button: {
-    backgroundColor: 'red',
     marginTop: 73,
   },
 });

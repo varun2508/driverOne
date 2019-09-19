@@ -1,41 +1,34 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 
-// import AsyncStorage from '@react-native-community/async-storage';
+import { pushSingleScreenApp, goHome } from './src/navigation';
 
-import { pushSingleScreenApp } from './src/navigation';
+const App = () => {
+  const [token, setToken] = useState();
 
-export default class App extends Component {
-  state = {
-    token: null,
+  const checkToken = async () => {
+    const loalToken = await AsyncStorage.getItem('token');
+    setToken(loalToken);
   };
+  useEffect(() => {
+    checkToken();
+  }, []);
 
-  componentDidMount() {
-    this.checkToken();
+  if (token) {
+    goHome();
+  } else {
+    goHome();
+    // pushSingleScreenApp();
   }
 
-  async checkToken() {
-    const token = await AsyncStorage.getItem('token');
-    this.setState({ token });
-  }
+  return (
+    <View style={styles.container}>
+      <Text style={styles.welcome}> Loading </Text>
+    </View>
+  );
+};
 
-  render() {
-    pushSingleScreenApp();
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}> Loading </Text>
-      </View>
-    );
-  }
-}
+export default App;
 
 const styles = StyleSheet.create({
   container: {

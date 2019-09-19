@@ -17,7 +17,22 @@ const goToMain = async () => {
   });
 };
 
-const goHome = () => {};
+const goHome = () => {
+  Navigation.setRoot({
+    root: {
+      stack: {
+        id: 'ProfileScreen',
+        children: [
+          {
+            component: {
+              name: 'ProfileScreen',
+            },
+          },
+        ],
+      },
+    },
+  });
+};
 
 function pushSingleScreenApp() {
   Navigation.setRoot({
