@@ -16,13 +16,35 @@ class Profile extends Component {
     };
   }
 
+  state = {
+    firstName: null,
+    lastName: null,
+    location: 0,
+  };
+
+  handleFirstName = (firstName) => this.setState({ firstName });
+
+  handleLastName = (lastName) => this.setState({ lastName });
+
+  handleLocation = (location) => this.setState({ location });
+
   render() {
+    const { firstName, lastName, location } = this.state;
+    const isActive = !(firstName && lastName && location);
+
     return (
       <Container>
         <View>
           <Header />
           <Card title="Your Profile">
-            <YourProfile />
+            <YourProfile
+              handleFirstName={this.handleFirstName}
+              handleLastName={this.handleLastName}
+              handleLocation={this.handleLocation}
+              firstName={firstName}
+              lastName={lastName}
+              location={location}
+            />
           </Card>
         </View>
         <View>
@@ -32,7 +54,7 @@ class Profile extends Component {
             <Circle />
             <Circle />
           </Dots>
-          <Button disabled onPress={() => {}} title="Next" />
+          <Button disabled={isActive} onPress={() => {}} title="Next" />
         </View>
       </Container>
     );
