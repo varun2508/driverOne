@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Linking, View, StyleSheet } from 'react-native';
 import { Input } from 'react-native-elements';
 import styled from 'styled-components/native';
@@ -6,6 +6,14 @@ import styled from 'styled-components/native';
 import Card from './card';
 
 const Policy = () => {
+  const [digits, setDigit] = useState({ 0: '', 1: '', 2: '', 3: '', 4: '', 5: '' });
+  const handleDigits = (key, digit) => {
+    if (digit.length < 2) {
+      const newDigit = digits[digit];
+      setDigit({ ...digits, [key]: newDigit });
+    }
+    return null;
+  };
   return (
     <Card title="Join the Driver One Team!">
       <Text>
@@ -31,12 +39,36 @@ const Policy = () => {
           <SubText>6 Digit Referral Code</SubText>
         </View>
         <InputContainer>
-          <Input value="" containerStyle={styles.input} onChangeText={() => {}} />
-          <Input value="" containerStyle={styles.input} onChangeText={() => {}} />
-          <Input value="" containerStyle={styles.input} onChangeText={() => {}} />
-          <Input value="" containerStyle={styles.input} onChangeText={() => {}} />
-          <Input value="" containerStyle={styles.input} onChangeText={() => {}} />
-          <Input value="" containerStyle={styles.input} onChangeText={() => {}} />
+          <Input
+            value={digits[0]}
+            onChangeText={(value) => handleDigits(0, value)}
+            containerStyle={styles.input}
+          />
+          <Input
+            value={digits[1]}
+            onChangeText={(value) => handleDigits(1, value)}
+            containerStyle={styles.input}
+          />
+          <Input
+            value={digits[2]}
+            onChangeText={(value) => handleDigits(2, value)}
+            containerStyle={styles.input}
+          />
+          <Input
+            containerStyle={styles.input}
+            value={digits[3]}
+            onChangeText={(value) => handleDigits(3, value)}
+          />
+          <Input
+            containerStyle={styles.input}
+            value={digits[4]}
+            onChangeText={(value) => handleDigits(4, value)}
+          />
+          <Input
+            value={digits[5]}
+            onChangeText={(value) => handleDigits(5, value)}
+            containerStyle={styles.input}
+          />
         </InputContainer>
       </ReferralCodeContainer>
     </Card>

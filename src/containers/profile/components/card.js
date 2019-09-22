@@ -1,10 +1,13 @@
 import React from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, Dimensions } from 'react-native';
 import styled from 'styled-components/native';
+
+const { height, width } = Dimensions.get('window');
+const h = height - 350;
 
 const Card = ({ children, title }) => {
   return (
-    <Container style={styles.card}>
+    <Container style={styles.card} ht={h}>
       <ScrollView contentContainerStyle={styles.scroll}>
         <Title>{title}</Title>
         <Body>{children}</Body>
@@ -40,7 +43,7 @@ const Container = styled.View`
   background-color: #fff;
   z-index: 999;
   margin-top: -30px;
-  max-height: 450;
+  max-height: ${({ ht }) => ht};
   box-shadow: 10px 5px 5px black;
 `;
 
