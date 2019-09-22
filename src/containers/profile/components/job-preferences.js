@@ -11,6 +11,7 @@ import Card from './card';
 class JobPreferences extends Component {
   state = {
     multiSliderValue: [3, 7],
+    checkboxSelected: { week: false, sixMonths: false, year: false, permanent: false },
   };
 
   multiSliderValuesChange = (values) => {
@@ -19,8 +20,15 @@ class JobPreferences extends Component {
     });
   };
 
+  handleContract = (value) => {
+    const { checkboxSelected } = this.state;
+    const contract = checkboxSelected[value];
+
+    this.setState({ checkboxSelected: { ...checkboxSelected, [value]: !contract } });
+  };
+
   render() {
-    const { multiSliderValue } = this.state;
+    const { multiSliderValue, checkboxSelected } = this.state;
     return (
       <Card title="Your Job Preferences">
         <ScrollView>
@@ -54,25 +62,29 @@ class JobPreferences extends Component {
             <Text style={{ marginBottom: 10 }}>Contract Length </Text>
             <CheckBox
               title="1 week"
-              checked
+              checked={checkboxSelected.week}
+              onPress={() => this.handleContract('week')}
               containerStyle={styles.container}
               textStyle={styles.text}
             />
             <CheckBox
               title="3 - 6 months"
-              checked
+              checked={checkboxSelected.sixMonths}
+              onPress={() => this.handleContract('sixMonths')}
               containerStyle={styles.container}
               textStyle={styles.text}
             />
             <CheckBox
               title="1 year"
-              checked
+              checked={checkboxSelected.year}
+              onPress={() => this.handleContract('year')}
               containerStyle={styles.container}
               textStyle={styles.text}
             />
             <CheckBox
               title="Permanent"
-              checked
+              checked={checkboxSelected.permanent}
+              onPress={() => this.handleContract('permanent')}
               containerStyle={styles.container}
               textStyle={styles.text}
             />
