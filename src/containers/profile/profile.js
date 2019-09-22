@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
 
-import { Header, Card, YourProfile } from './components';
+import { Header, YourProfile, JobPreferences, Qualifications, Policy } from './components';
 
 class Profile extends Component {
   static options() {
@@ -20,6 +20,7 @@ class Profile extends Component {
     firstName: null,
     lastName: null,
     location: 0,
+    step: 0,
   };
 
   handleFirstName = (firstName) => this.setState({ firstName });
@@ -28,33 +29,60 @@ class Profile extends Component {
 
   handleLocation = (location) => this.setState({ location });
 
+  nextStep = () => {
+    const { step } = this.state;
+    this.setState({ step: step + 1 });
+  };
+
+  backStep = () => {
+    const { step } = this.state;
+    this.setState({ step: step - 1 });
+  };
+
   render() {
-    const { firstName, lastName, location } = this.state;
+    const { firstName, lastName, location, step } = this.state;
     const isActive = !(firstName && lastName && location);
+
+    const arr = [
+      <YourProfile
+        handleFirstName={this.handleFirstName}
+        handleLastName={this.handleLastName}
+        handleLocation={this.handleLocation}
+        firstName={firstName}
+        lastName={lastName}
+        location={location}
+      />,
+      <JobPreferences />,
+      <Qualifications />,
+      <Policy />,
+    ];
 
     return (
       <Container>
         <View>
           <Header />
-          <Card title="Your Profile">
-            <YourProfile
-              handleFirstName={this.handleFirstName}
-              handleLastName={this.handleLastName}
-              handleLocation={this.handleLocation}
-              firstName={firstName}
-              lastName={lastName}
-              location={location}
-            />
-          </Card>
+          {arr[step]}
         </View>
         <View>
           <Dots>
-            <Circle isActive />
-            <Circle />
-            <Circle />
-            <Circle />
+            <Circle isActive={step === 0} />
+            <Circle isActive={step === 1} />
+            <Circle isActive={step === 2} />
+            <Circle isActive={step === 3} />
           </Dots>
-          <Button disabled={isActive} onPress={() => {}} title="Next" />
+          {!step ? (
+            <Button onPress={this.nextStep} title="Next" />
+          ) : (
+            <ButtonContainer>
+              <Button
+                containerStyle={styles.outline}
+                onPress={this.backStep}
+                title="Back"
+                type="outline"
+              />
+              <Button containerStyle={styles.button} onPress={this.nextStep} title="Skip" />
+            </ButtonContainer>
+          )}
         </View>
       </Container>
     );
@@ -62,6 +90,18 @@ class Profile extends Component {
 }
 
 export default Profile;
+
+const styles = StyleSheet.create({
+  outline: {
+    flex: 1,
+    height: 40,
+    marginRight: 10,
+  },
+  button: {
+    flex: 1,
+    height: 40,
+  },
+});
 
 const Container = styled.View`
   display: flex;
@@ -86,5 +126,11 @@ const Circle = styled.View`
   height: 10px;
   width: 10px;
   border-radius: 100;
-  background-color: ${({ isActive }) => (isActive ? '#2090fb' : '#66b0f6')};
+  background-color: ${({ isActive }) => (isActive ? '#2090fb' : '#A7CBEE')};
+`;
+
+const ButtonContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
 `;

@@ -1,12 +1,14 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 
 const Card = ({ children, title }) => {
   return (
     <Container style={styles.card}>
-      <Title>{title}</Title>
-      <Body>{children}</Body>
+      <ScrollView contentContainerStyle={styles.scroll}>
+        <Title>{title}</Title>
+        <Body>{children}</Body>
+      </ScrollView>
     </Container>
   );
 };
@@ -22,6 +24,11 @@ const styles = StyleSheet.create({
     shadowRadius: 2,
     elevation: 1,
   },
+  scroll: {
+    paddingHorizontal: 31,
+    paddingTop: 31,
+    paddingBottom: 41,
+  },
 });
 
 const Title = styled.Text`
@@ -30,13 +37,10 @@ const Title = styled.Text`
 
 const Container = styled.View`
   display: flex;
-  padding-top: 31px;
-  padding-bottom: 41px;
-  padding-left: 31px;
-  padding-right: 31px;
   background-color: #fff;
   z-index: 999;
   margin-top: -30px;
+  max-height: 450;
   box-shadow: 10px 5px 5px black;
 `;
 

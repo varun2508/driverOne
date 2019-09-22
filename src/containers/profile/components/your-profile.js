@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Input } from 'react-native-elements';
 
 import { LocationInput } from '@shared';
+import Card from './card';
 
 class YourProfile extends Component {
   state = {};
@@ -18,7 +19,7 @@ class YourProfile extends Component {
     } = this.props;
 
     return (
-      <>
+      <Card title="Your Profile">
         <Input
           value={firstName}
           containerStyle={{ paddingHorizontal: 0, marginBottom: 10 }}
@@ -34,7 +35,7 @@ class YourProfile extends Component {
           label={lastName && 'Last Name'}
         />
         <LocationInput handleLocation={handleLocation} location={location} />
-      </>
+      </Card>
     );
   }
 }
