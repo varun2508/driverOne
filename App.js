@@ -1,25 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 
 import { pushSingleScreenApp, goHome } from './src/navigation';
 
 const App = () => {
-  const [token, setToken] = useState();
-
   const checkToken = async () => {
     const loalToken = await AsyncStorage.getItem('token');
-    setToken(loalToken);
+    if (loalToken) {
+      goHome();
+    } else {
+      // goHome();
+      pushSingleScreenApp();
+    }
   };
   useEffect(() => {
     checkToken();
   }, []);
-
-  if (token) {
-    goHome();
-  } else {
-    goHome();
-    // pushSingleScreenApp();
-  }
 
   return (
     <View style={styles.container}>

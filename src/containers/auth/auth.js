@@ -55,7 +55,7 @@ class Auth extends Component {
             containerStyle={isLogIn && styles.isLogin}
             onPress={() => this.handlerAuth(true)}
           />
-          <SignUpButton
+          <Button
             title="Sign Up"
             type="clear"
             containerStyle={!isLogIn && styles.isLogin}
@@ -104,23 +104,6 @@ const styles = StyleSheet.create({
 const Wrapper = styled.View`
   margin-top: 33px;
   width: 100%;
-`;
-
-const NavButton = styled(Button)`
-  color: #4a90e2;
-  ${({ isLogIn }) => {
-    return (
-      isLogIn &&
-      `
-    opacity: 1;
-    border-bottom-width: 1px;
-    border-bottom-color: #4a90e2;`
-    );
-  }}
-`;
-
-const SignUpButton = styled(NavButton)`
-  margin-left: 71px;
 `;
 
 const ButtonContainer = styled.View`
