@@ -71,7 +71,7 @@ class Profile extends Component {
             <Circle isActive={step === 3} />
           </Dots>
           {!step ? (
-            <Button onPress={this.nextStep} title="Next" />
+            <Button onPress={this.nextStep} title="Next" disabled={isActive} />
           ) : (
             <ButtonContainer>
               <Button
