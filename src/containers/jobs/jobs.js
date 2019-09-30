@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-const Profile = () => {
+const Jobs = () => {
   return (
     <Container>
-      <Text>Profile</Text>
+      <Text>Jobs</Text>
     </Container>
   );
 };
 
-export default Profile;
+export default Jobs;
 
 const Container = styled.View``;
 const Text = styled.Text``;

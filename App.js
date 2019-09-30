@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 
-import { pushSingleScreenApp, goHome } from './src/navigation';
+import Icons from '@mobx/icons';
+import { PreviewScreens, goHome } from './src/navigation';
 
 const App = () => {
   const checkToken = async () => {
@@ -9,11 +10,16 @@ const App = () => {
     if (loalToken) {
       goHome();
     } else {
-      // goHome();
-      pushSingleScreenApp();
+      goHome();
+      // PreviewScreens();
     }
   };
+
+  const fetchIcons = async () => {
+    await Icons.fetchIcons();
+  };
   useEffect(() => {
+    fetchIcons();
     checkToken();
   }, []);
 

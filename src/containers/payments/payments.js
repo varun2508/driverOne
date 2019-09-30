@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components/native';
 
-const Profile = () => {
+const Payments = () => {
   return (
     <Container>
-      <Text>Profile</Text>
+      <Text>Payments</Text>
     </Container>
   );
 };
 
-export default Profile;
+export default Payments;
 
 const Container = styled.View``;
 const Text = styled.Text``;

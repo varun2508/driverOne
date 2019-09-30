@@ -13,12 +13,15 @@ class Auth extends Component {
   static options() {
     return {
       topBar: {
+        elevation: 0,
+        drawBehind: false,
         background: {
           translucent: true,
           blur: false,
+          color: '#f8f8f8',
         },
-        height: 0,
         noBorder: true,
+        visible: true,
         backButton: {
           visible: false,
         },
@@ -79,7 +82,7 @@ export default Auth;
 
 const Container = styled.View`
   flex: 1;
-  margin-top: 40px;
+  /* margin-top: 40px; */
   background-color: #f8f8f8;
   align-items: center;
   padding-left: 56px;
