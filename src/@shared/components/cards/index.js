@@ -5,10 +5,10 @@ import styled from 'styled-components/native';
 const { height } = Dimensions.get('window');
 const h = height - 350;
 
-const Card = ({ children, title }) => {
+const Card = ({ children, title, containerStyle }) => {
   return (
     <Container style={styles.card} ht={h}>
-      <ScrollView contentContainerStyle={styles.scroll}>
+      <ScrollView contentContainerStyle={{ ...styles.scroll, ...containerStyle }}>
         <Title>{title}</Title>
         <Body>{children}</Body>
       </ScrollView>
@@ -21,11 +21,12 @@ export default Card;
 const styles = StyleSheet.create({
   card: {
     borderBottomWidth: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
+    shadowColor: '#999',
+    shadowOffset: { width: 0, height: 0.5 },
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
     elevation: 1,
+    zIndex: 1,
   },
   scroll: {
     paddingHorizontal: 31,

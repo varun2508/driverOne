@@ -69,7 +69,7 @@ function PreviewScreens() {
 }
 
 const defaultTobBarOption = {
-  visible: true,
+  visible: false,
   animate: false,
   height: 0,
   noBorder: true,
@@ -84,12 +84,17 @@ const goHome = async (props) => {
   const Icon = getSnapshot(Icons.icons);
   const iconColor = '#8e8e93';
   const textColor = '#8e8e93';
-  const selectedTextColor = '#ef476f';
-  const selectedIconColor = '#ef476f';
+  const selectedTextColor = '#0393FD';
+  const selectedIconColor = '#0393FD';
 
   return Navigation.setRoot({
     root: {
       bottomTabs: {
+        options: {
+          bottomTabs: {
+            currentTabIndex: 3,
+          },
+        },
         children: [
           {
             stack: {
@@ -108,7 +113,7 @@ const goHome = async (props) => {
                   iconColor,
                   textColor,
                   selectedTextColor,
-                  icon: Icon.Home,
+                  icon: Icon.Search,
                 },
               },
             },
@@ -129,7 +134,7 @@ const goHome = async (props) => {
                   iconColor,
                   textColor,
                   selectedTextColor,
-                  icon: Icon.MyList,
+                  icon: Icon.Work,
                 },
               },
             },
@@ -150,7 +155,7 @@ const goHome = async (props) => {
                   iconColor,
                   textColor,
                   selectedTextColor,
-                  icon: Icon.Search,
+                  icon: Icon.LocalAtm,
                 },
               },
             },
@@ -172,13 +177,12 @@ const goHome = async (props) => {
                   iconColor,
                   textColor,
                   selectedTextColor,
-                  icon: Icon.Profile,
+                  icon: Icon.Person,
                 },
               },
             },
           },
         ],
-        options: {},
       },
     },
   });

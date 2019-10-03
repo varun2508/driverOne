@@ -9,6 +9,7 @@ import ProfileScreen from './profile/profile';
 import Jobs from './jobs/jobs';
 import Payments from './payments/payments';
 import ProfileInfoScreen from './profile-info/profile';
+import UpdateProfile from './update-profile/update-profile';
 import App from '../../App';
 
 export default function registerScreens() {
@@ -21,4 +22,5 @@ export default function registerScreens() {
   Navigation.registerComponent('JobsScreen', () => Jobs);
   Navigation.registerComponent('ProfileScreen', () => ProfileScreen);
   Navigation.registerComponent('SearchScreen', () => Search);
+  Navigation.registerComponent('UpdateProfile', () => UpdateProfile);
 }
