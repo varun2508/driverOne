@@ -5,14 +5,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 
-// let Home;
-// let Search;
-// let MyList;
-// let Profile;
-// let More;
-// let Settings;
-// let DotsVertical;
-
 const Fonts = [
   Entypo.getImageSource('home', 30),
   FontAwesome.getImageSource('search', 30),

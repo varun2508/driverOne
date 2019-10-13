@@ -10,29 +10,51 @@ const list = [
   {
     title: 'Profile',
     icon: 'person-outline',
+    value: {
+      key: 'Profile',
+      title: 'Your Profile',
+    },
   },
   {
     title: 'Job Preferences',
     icon: 'assignment',
+    value: {
+      key: 'Preferences',
+      title: 'Job Preferences',
+    },
   },
   {
     title: 'Qualifications',
     icon: 'check-circle',
+    value: {
+      key: 'Qualifications',
+      title: 'Qualifications',
+    },
   },
   {
     title: 'Driver One Employment Verified',
     icon: 'verified-user',
-  },
-  {
-    title: 'Make a Referral',
-    icon: 'people',
+    value: {
+      key: 'DriverVerified',
+      title: 'Driver One Employment',
+    },
   },
 ];
 
+// {
+//   title: 'Make a Referral',
+//   icon: 'people',
+// },
+
 const Profile = ({ componentId }) => {
-  const navigateTo = () => {
-    navigate('UpdateProfile', componentId);
+  const navigateTo = (value) => {
+    navigate('UpdateProfile', componentId, value);
   };
+
+  const navigation = () => {
+    navigate('HowItWorks', componentId);
+  };
+
   return (
     <Container>
       <Header>
@@ -69,10 +91,18 @@ const Profile = ({ componentId }) => {
                 title={item.title}
                 leftIcon={{ name: item.icon, color: 'gray' }}
                 bottomDivider
-                onPress={navigateTo}
+                onPress={() => navigateTo(item.value)}
                 chevron={{ color: '#64abef' }}
               />
             ))}
+            <ListItem
+              title="Make a Referral"
+              titleStyle={{ fontSize: 14 }}
+              leftIcon={{ name: 'people', color: 'gray' }}
+              bottomDivider
+              onPress={() => navigation()}
+              chevron={{ color: '#64abef' }}
+            />
           </NavigationBar>
         </Card>
         <ListItem

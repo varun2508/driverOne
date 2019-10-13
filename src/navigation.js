@@ -162,6 +162,7 @@ const goHome = async (props) => {
           },
           {
             stack: {
+              id: 'ProfileInfoScreen',
               children: [
                 {
                   component: {

@@ -4,7 +4,9 @@ const navigate = (screenName, componentId, props) => {
   Navigation.push(componentId, {
     component: {
       name: screenName,
-      passProps: props,
+      passProps: {
+        data: props,
+      },
     },
     options: {
       animations: false,

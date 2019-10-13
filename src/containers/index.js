@@ -11,6 +11,7 @@ import Payments from './payments/payments';
 import ProfileInfoScreen from './profile-info/profile';
 import UpdateProfile from './update-profile/update-profile';
 import App from '../../App';
+import { HowItWorks, Referal } from './referal';
 
 export default function registerScreens() {
   Navigation.registerComponent('NavHeader', () => Header);
@@ -23,4 +24,6 @@ export default function registerScreens() {
   Navigation.registerComponent('ProfileScreen', () => ProfileScreen);
   Navigation.registerComponent('SearchScreen', () => Search);
   Navigation.registerComponent('UpdateProfile', () => UpdateProfile);
+  Navigation.registerComponent('HowItWorks', () => HowItWorks);
+  Navigation.registerComponent('Referal', () => Referal);
 }

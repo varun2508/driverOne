@@ -1,19 +1,51 @@
 import React from 'react';
-import { Image, View, TouchableOpacity } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Image, View, TouchableOpacity, Text } from 'react-native';
+import { Button, Input } from 'react-native-elements';
 import styled from 'styled-components/native';
 import { Navigation } from 'react-native-navigation';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-import { Card, YourProfile, JobPreferences, Qualifications, Policy } from '@shared';
+import {
+  Card,
+  YourProfile,
+  JobPreferences,
+  Qualifications,
+  Policy,
+  DriverStateVerification,
+} from '@shared';
 
-const UpdateProfile = ({ componentId }) => {
-  // const navigateTo = () => {
-  //   navigate('UpdateProfile', componentId);
-  // };
-
+const UpdateProfile = ({ componentId, data }) => {
   const backNavigation = () => {
     Navigation.pop(componentId);
+  };
+
+  const { key, title } = data;
+  const Label = () => (
+    <View style={{ display: 'flex', flexDirection: 'row' }}>
+      <Text style={{ marginRight: 5 }}>About me</Text>
+      <Text style={{ color: '#82c0fb' }}>(Viewable by employers)</Text>
+    </View>
+  );
+
+  const Profile = () => (
+    <ProfileContainer>
+      <YourProfile />
+      <Input
+        label={<Label />}
+        multiline
+        containerStyle={{ paddingHorizontal: 0, marginBottom: 10, marginTop: 10 }}
+        numberOfLiness={10}
+        style={{ height: 200, textAlignVertical: 'top' }}
+      />
+    </ProfileContainer>
+  );
+
+  const Steps = {
+    Profile: <Profile />,
+    Preferences: <JobPreferences />,
+    Qualifications: <Qualifications />,
+    Policy: <Policy />,
+    DriverVerified: <DriverStateVerification />,
   };
   return (
     <Container>
@@ -29,9 +61,9 @@ const UpdateProfile = ({ componentId }) => {
           </ProfileImg>
         </Header>
         <CardWrapper>
-          <Card>
+          <Card containerStyle={{ paddingBottom: 0 }}>
             <TitleContainer>
-              <Title>Profile</Title>
+              <Title>{title}</Title>
             </TitleContainer>
             <TouchableOpacity onPress={backNavigation}>
               <BackNavigation>
@@ -39,15 +71,17 @@ const UpdateProfile = ({ componentId }) => {
                 <SubText>Back to dashboard</SubText>
               </BackNavigation>
             </TouchableOpacity>
-            <YourProfile />
+            {Steps[key]}
           </Card>
         </CardWrapper>
       </View>
-      <Button
-        containerStyle={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}
-        onPress={() => {}}
-        title="Confirm"
-      />
+      {!key === 'DriverVerified' && (
+        <Button
+          containerStyle={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}
+          onPress={() => {}}
+          title="Confirm"
+        />
+      )}
     </Container>
   );
 };
@@ -81,6 +115,8 @@ const SubText = styled.Text`
   color: #64abef;
 `;
 
+const ProfileContainer = styled.View``;
+
 const Statistic = styled.View`
   display: flex;
   flex-direction: row;
@@ -98,7 +134,7 @@ const CardWrapper = styled.View`
 
 const Header = styled.View`
   display: flex;
-  flex: 0.5;
+  flex: 0.7;
   height: 234px;
   z-index: 9;
   background-color: #82c0fb;
