@@ -55,7 +55,7 @@ class HowItWorks extends Component {
           navigationState={this.state}
           renderScene={SceneMap({
             first: () => <ScreenOne componentId={componentId} />,
-            second: SecondRoute,
+            second: () => <SecondRoute componentId={componentId} />,
           })}
           onIndexChange={(index) => this.setState({ index })}
           initialLayout={{ width: Dimensions.get('window').width }}

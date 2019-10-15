@@ -41,11 +41,6 @@ const list = [
   },
 ];
 
-// {
-//   title: 'Make a Referral',
-//   icon: 'people',
-// },
-
 const Profile = ({ componentId }) => {
   const navigateTo = (value) => {
     navigate('UpdateProfile', componentId, value);

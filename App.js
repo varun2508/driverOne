@@ -2,16 +2,17 @@ import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 
 import Icons from '@mobx/icons';
-import { PreviewScreens, goHome } from './src/navigation';
+import { PreviewScreens, goHome, profileDetails } from './src/navigation';
 
 const App = () => {
   const checkToken = async () => {
     const loalToken = await AsyncStorage.getItem('token');
     if (loalToken) {
-      goHome();
+      // goHome();
+      profileDetails();
     } else {
-      goHome();
-      // PreviewScreens();
+      // goHome();
+      PreviewScreens();
     }
   };
 

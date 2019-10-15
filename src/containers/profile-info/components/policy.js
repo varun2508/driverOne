@@ -3,7 +3,7 @@ import { Linking, View, StyleSheet } from 'react-native';
 import { Input } from 'react-native-elements';
 import styled from 'styled-components/native';
 
-import Card from './card';
+import { Card } from '@shared';
 
 const Policy = () => {
   const [digits, setDigit] = useState({ 0: '', 1: '', 2: '', 3: '', 4: '', 5: '' });

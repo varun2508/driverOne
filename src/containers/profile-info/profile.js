@@ -20,7 +20,7 @@ class Profile extends Component {
     firstName: null,
     lastName: null,
     location: 0,
-    step: 0,
+    step: 1,
   };
 
   handleFirstName = (firstName) => this.setState({ firstName });

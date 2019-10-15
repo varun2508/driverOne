@@ -3,7 +3,7 @@ import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import styled from 'styled-components/native';
 
-import Card from './card';
+import { Card } from '@shared';
 
 const Qualifications = () => {
   const [classes, setClass] = useState();

@@ -1,11 +1,9 @@
 /* eslint-disable import/named */
 import React, { Component } from 'react';
-import { Input } from 'react-native-elements';
 
-import { LocationInput } from '@shared';
-import Card from './card';
+import { YourProfile, Card } from '@shared';
 
-class YourProfile extends Component {
+class Profile extends Component {
   state = {};
 
   render() {
@@ -20,24 +18,17 @@ class YourProfile extends Component {
 
     return (
       <Card title="Your Profile">
-        <Input
-          value={firstName}
-          containerStyle={{ paddingHorizontal: 0, marginBottom: 10 }}
-          onChangeText={handleFirstName}
-          placeholder="First Name"
-          label={firstName && 'First Name'}
+        <YourProfile
+          handleFirstName={handleFirstName}
+          handleLastName={handleLastName}
+          handleLocation={handleLocation}
+          firstName={firstName}
+          lastName={lastName}
+          location={location}
         />
-        <Input
-          value={lastName}
-          containerStyle={{ paddingHorizontal: 0, marginBottom: 10 }}
-          onChangeText={handleLastName}
-          placeholder="Last Name"
-          label={lastName && 'Last Name'}
-        />
-        <LocationInput handleLocation={handleLocation} location={location} />
       </Card>
     );
   }
 }
 
-export default YourProfile;
+export default Profile;

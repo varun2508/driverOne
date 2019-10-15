@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -29,17 +29,16 @@ const ScreenOne = ({ componentId }) => {
         </TextContainer>
       </Wrapper>
       <InfoText>
-        <SubText numberOfLines={3} ellipsizeMode="tail">
-          Give a friend $10 and get $10 overtime you refer a friend. PLUS earn 50c per hour that
-          your friend drives.
-        </SubText>
+        <SubText>Give a friend $10 and get $10 overtime you </SubText>
+        <SubText>refer a friend. PLUS earn 50c per hour that</SubText>
+        <SubText>your friend drives.</SubText>
       </InfoText>
 
       <CodeContainer>
-        <Text>Your Code</Text>
-        <CodeWrapper style={styles.button}>
+        <Text>Your Code:</Text>
+        <View style={styles.button}>
           <Code>GR832</Code>
-        </CodeWrapper>
+        </View>
 
         <ButtonContainer>
           <Button containerStyle={{ flex: 1 }} onPress={() => {}} title="Copy code" />
@@ -61,8 +60,6 @@ export default ScreenOne;
 const styles = StyleSheet.create({
   button: {
     shadowColor: '#999',
-    borderWidth: 0.5,
-    borderColor: '#999',
     shadowOffset: { width: 0, height: 0.5 },
     shadowOpacity: 0.5,
     shadowRadius: 1,
@@ -71,7 +68,12 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
+    marginBottom: 20,
+    marginTop: 8,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderTopWidth: 0,
+    height: 40,
   },
 });
 
@@ -84,10 +86,13 @@ const ButtonContainer = styled.View`
   flex-direction: row;
   height: 40px;
 `;
+
 const CodeWrapper = styled.View`
   height: 40px;
   border-radius: 4px;
+  margin-top: 8px;
 `;
+
 const CodeContainer = styled.View`
   margin-top: 40px;
 `;
@@ -126,9 +131,8 @@ const InfoText = styled.View`
 `;
 
 const SubText = styled.Text`
-    font-size: 14px;
-    width: 250px;
-    color: #000;
+  font-size: 14px;
+  color: #000;
 `;
 const TextContainer = styled.View`
     display: flex;
