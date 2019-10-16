@@ -14,8 +14,8 @@ const options = [
   { value: 2, label: 'Austin' },
 ];
 
-const LocationInput = ({ location, placeholder = defaultPlaceholder, name }) => {
-  const [locationId, setLocationId] = useState();
+const LocationInput = ({ location, label, placeholder = defaultPlaceholder, name }) => {
+  const [locationId, setLocationId] = useState(location);
 
   const handleLocation = (value) => {
     setProfileInfo({ [name]: value });
@@ -24,7 +24,7 @@ const LocationInput = ({ location, placeholder = defaultPlaceholder, name }) => 
 
   return (
     <WrapperContaiener>
-      {locationId ? <Label>Location</Label> : null}
+      {locationId ? <Label>{label}</Label> : null}
 
       <Container>
         <Icon name="map-marker-alt" size={12} color="#000" style={{ marginBottom: 5 }} />

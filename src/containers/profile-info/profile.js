@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { Button } from 'react-native-elements';
+import { observer } from 'mobx-react';
 
-import { Header, YourProfile, JobPreferences, Qualifications, Policy } from './components';
+import User from '@mobx/user';
 
+import { Header, YourProfile, JobPreferences, Qualifications, Policy, Buttons } from './components';
+
+@observer
 class Profile extends Component {
   static options() {
     return {
@@ -17,17 +21,8 @@ class Profile extends Component {
   }
 
   state = {
-    firstName: null,
-    lastName: null,
-    location: 0,
-    step: 1,
+    step: 0,
   };
-
-  handleFirstName = (firstName) => this.setState({ firstName });
-
-  handleLastName = (lastName) => this.setState({ lastName });
-
-  handleLocation = (location) => this.setState({ location });
 
   nextStep = () => {
     const { step } = this.state;
@@ -40,23 +35,14 @@ class Profile extends Component {
   };
 
   render() {
-    const { firstName, lastName, location, step } = this.state;
-    const isActive = !(firstName && lastName && location);
+    const { step } = this.state;
+    const { profile } = User;
 
-    const arr = [
-      <YourProfile
-        handleFirstName={this.handleFirstName}
-        handleLastName={this.handleLastName}
-        handleLocation={this.handleLocation}
-        firstName={firstName}
-        lastName={lastName}
-        location={location}
-      />,
-      <JobPreferences />,
-      <Qualifications />,
-      <Policy />,
-    ];
+    const { firstName, lastName, locationId } = profile;
 
+    const isActive = !(firstName && lastName && locationId);
+
+    const arr = [<YourProfile />, <JobPreferences />, <Qualifications />, <Policy />];
     return (
       <Container>
         <View>
@@ -80,7 +66,7 @@ class Profile extends Component {
                 title="Back"
                 type="outline"
               />
-              <Button containerStyle={styles.button} onPress={this.nextStep} title="Skip" />
+              <Buttons nextStep={this.nextStep} step={step} />
             </ButtonContainer>
           )}
         </View>

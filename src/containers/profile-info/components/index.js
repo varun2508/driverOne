@@ -4,3 +4,4 @@ export YourProfile from './your-profile';
 export JobPreferences from './job-preferences';
 export Qualifications from './qualifications';
 export Policy from './policy';
+export Buttons from './buttons';

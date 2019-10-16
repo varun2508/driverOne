@@ -15,11 +15,9 @@ const time = { week: false, sixMonths: false, year: false, permanent: false };
 
 const JobPreferences = () => {
   const { profile, setProfileInfo } = User;
-  const { checkState, priceRange } = profile;
+  const { checkState, priceRange, pickupPointId, deliveryLocationid } = profile;
   const [multiSliderValue, setMultiSliderValuesChange] = useState(priceRange);
   const [selectedTime, setTime] = useState(checkState);
-
-  console.log(profile, 'profileprofileprofile');
 
   const multiSliderValuesChange = (values) => {
     setMultiSliderValuesChange(values);
@@ -34,11 +32,18 @@ const JobPreferences = () => {
   return (
     <>
       <ScrollView>
-        <LocationInput placeholder={{ label: 'Pickup point', value: null }} name="pickupPointId" />
+        <LocationInput
+          placeholder={{ label: 'Pickup point', value: null }}
+          name="pickupPointId"
+          label="Pickup point"
+          location={pickupPointId}
+        />
         <Wrapper>
           <LocationInput
             placeholder={{ label: 'Delivery location', value: null }}
             name="deliveryLocationid"
+            label="Delivery location"
+            location={deliveryLocationid}
           />
         </Wrapper>
         <SwiperContainer>

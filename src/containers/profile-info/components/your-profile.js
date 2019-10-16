@@ -7,25 +7,9 @@ class Profile extends Component {
   state = {};
 
   render() {
-    const {
-      handleFirstName,
-      handleLastName,
-      firstName,
-      lastName,
-      handleLocation,
-      location,
-    } = this.props;
-
     return (
       <Card title="Your Profile">
-        <YourProfile
-          handleFirstName={handleFirstName}
-          handleLastName={handleLastName}
-          handleLocation={handleLocation}
-          firstName={firstName}
-          lastName={lastName}
-          location={location}
-        />
+        <YourProfile />
       </Card>
     );
   }

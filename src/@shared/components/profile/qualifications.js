@@ -2,38 +2,43 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import styled from 'styled-components/native';
+import { observer } from 'mobx-react';
+
+import User from '@mobx/user';
 
 const Qualifications = () => {
-  const [classes, setClass] = useState();
-  const [contractLength, setContract] = useState({
-    T: false,
-    P: false,
-    N: false,
-    H: false,
-    X: false,
-    TC: false,
-  });
+  const { profile, setProfileInfo } = User;
+
+  const [classes, setClass] = useState(profile.classLicince);
+  const [contractLength, setcontractLength] = useState(profile.contractLength || {});
 
   const handleContract = (value) => {
-    const contractState = contractLength[value];
-    setContract({ ...contractLength, [value]: !contractState });
+    setcontractLength({ [value]: true });
+    setProfileInfo({ contractLength: { [value]: true } });
   };
+
+  const handleClass = (value) => {
+    setClass(value);
+    setProfileInfo({ classLicince: value });
+  };
+
+  console.log(profile.classLicince, 'clsses');
   return (
     <>
       <ClassesContainer>
         <Text>License Classes</Text>
         <Classes>
-          <TouchableOpacity onPress={() => setClass('A')}>
+          <TouchableOpacity onPress={() => handleClass('A')}>
             <ButtonContainer isActvie={classes === 'A'}>
               <ClassText isActvie={classes === 'A'}>A</ClassText>
             </ButtonContainer>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setClass('B')}>
+          <TouchableOpacity onPress={() => handleClass('B')}>
             <ButtonContainer isActvie={classes === 'B'}>
               <ClassText isActvie={classes === 'B'}>B</ClassText>
             </ButtonContainer>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setClass('C')}>
+          <TouchableOpacity onPress={() => handleClass('C')}>
             <ButtonContainer isActvie={classes === 'C'}>
               <ClassText isActvie={classes === 'C'}>C</ClassText>
             </ButtonContainer>
@@ -87,7 +92,7 @@ const Qualifications = () => {
   );
 };
 
-export default Qualifications;
+export default observer(Qualifications);
 
 const styles = StyleSheet.create({
   container: {
