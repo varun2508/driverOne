@@ -11,5 +11,12 @@ const Jobs = () => {
 
 export default Jobs;
 
-const Container = styled.View``;
-const Text = styled.Text``;
+const Container = styled.View`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+const Text = styled.Text`
+  color: red;
+`;

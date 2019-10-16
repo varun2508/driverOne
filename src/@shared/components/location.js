@@ -9,9 +9,16 @@ import User from '@mobx/user';
 const defaultPlaceholder = { label: 'Select location', value: null };
 const { setProfileInfo } = User;
 const options = [
-  { value: 0, label: 'Location', disabled: true },
+  { value: 0, label: 'New York', disabled: true },
   { value: 1, label: 'Chicago' },
   { value: 2, label: 'Austin' },
+  { value: 3, label: 'Los Angeles' },
+  { value: 4, label: 'Houston' },
+  { value: 5, label: 'Philadelphia' },
+  { value: 6, label: 'Phoenix' },
+  { value: 7, label: 'San Antonio' },
+  { value: 8, label: 'San Diego' },
+  { value: 9, label: 'Dallas' },
 ];
 
 const LocationInput = ({ location, label, placeholder = defaultPlaceholder, name }) => {
