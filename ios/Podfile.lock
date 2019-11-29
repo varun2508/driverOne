@@ -1,9 +1,9 @@
 PODS:
   - boost-for-react-native (1.63.0)
-  - Crashlytics (3.13.1):
-    - Fabric (~> 1.10.1)
+  - Crashlytics (3.14.0):
+    - Fabric (~> 1.10.2)
   - DoubleConversion (1.1.6)
-  - Fabric (1.10.1)
+  - Fabric (1.10.2)
   - Folly (2018.10.22.00):
     - boost-for-react-native
     - DoubleConversion
@@ -196,9 +196,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
-  Crashlytics: 5aa8e90dcbf2f34898b4f5a0037787531246cca0
+  Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
-  Fabric: f6f21452846788bb44595d73e9909d79d328e617
+  Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   React: ff7ee2ae5ee1c1d9ae2183b4111045b25294bb01
@@ -227,6 +227,6 @@ SPEC CHECKSUMS:
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   yoga: c2c050f6ae6e222534760cc82f559b89214b67e2
 
-PODFILE CHECKSUM: 89920aa954491a835695e1004cf5e21a09f67d55
+PODFILE CHECKSUM: 5d7e88b32816168c431bb966207588f3728ff816
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.7.5

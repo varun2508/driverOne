@@ -1,23 +1,24 @@
-import { types, flow } from 'mobx-state-tree';
-import { AsyncStorage } from 'react-native';
+import { types, flow } from "mobx-state-tree";
+import { AsyncStorage } from "react-native";
 
-import { navigate } from '@shared/helpers';
-import api from 'api';
+import { navigate } from "@shared/helpers";
+import api from "api";
 
 const Profile = types
-  .model('Profile', {
-    email: types.optional(types.string, ''),
-    errorMessage: types.optional(types.string, ''),
+  .model("Profile", {
+    email: types.optional(types.string, ""),
+    errorMessage: types.optional(types.string, "")
   })
-  .actions((self) => {
+  .actions(self => {
     const logIn = flow(function* logIn(data, componentId) {
       try {
-        const response = yield api.post('/login', data);
-        const { token, email } = response;
-        yield AsyncStorage.setItem('token', token);
-
-        self.email = email;
-        navigate('App', componentId);
+        // const response = yield api.post('/login', data);
+        // const { token, email } = response;
+        // yield AsyncStorage.setItem('token', token);
+        yield AsyncStorage.setItem("token", "asddfsgjklnlk");
+        console.log("------trying to navigate----");
+        // self.email = email;
+        navigate("App", componentId);
       } catch (e) {
         const { message } = e.response.data;
         self.errorMessage = message;
@@ -26,12 +27,12 @@ const Profile = types
 
     const registration = flow(function* registration(data, componentId) {
       try {
-        const response = yield api.post('/register', data);
+        const response = yield api.post("/register", data);
         const { token, email } = response;
-        yield AsyncStorage.setItem('token', token);
+        yield AsyncStorage.setItem("token", token);
         self.email = email;
 
-        navigate('App', componentId);
+        navigate("App", componentId);
       } catch (e) {
         const { message } = e.response.data;
         self.errorMessage = message;
@@ -40,7 +41,7 @@ const Profile = types
 
     return {
       logIn,
-      registration,
+      registration
     };
   })
   .create();

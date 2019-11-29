@@ -7,6 +7,8 @@ import com.facebook.react.PackageList;
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
+import com.swmansion.reanimated.ReanimatedPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.horcrux.svg.SvgPackage;
@@ -45,7 +47,10 @@ public class MainApplication extends NavigationApplication {
                     // No need to add RnnPackage and MainReactPackage
                             return Arrays.<ReactPackage>asList(
                         // eg. new VectorIconsPackage()
-                                    new SvgPackage()
+                                    new SvgPackage(),
+																		new VectorIconsPackage(),
+																		new ReanimatedPackage(),
+																		new RNGestureHandlerPackage()
                             );
         }
 
