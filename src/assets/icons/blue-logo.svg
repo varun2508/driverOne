@@ -5,9 +5,9 @@
     <desc>Created with Sketch.</desc>
     <defs>
         <radialGradient cx="90.3447555%" cy="-17.2321569%" fx="90.3447555%" fy="-17.2321569%" r="505.153853%" gradientTransform="translate(0.903448,-0.172322),scale(0.221445,1.000000),rotate(163.015072),scale(1.000000,0.562261),translate(-0.903448,0.172322)" id="radialGradient-1">
-            <stop stop-color="#2182D9" offset="0%"></stop>
-            <stop stop-color="#4395DF" offset="61.9303268%"></stop>
-            <stop stop-color="#FFFFFF" offset="100%"></stop>
+            <stop stop-color="#2182D9" offset="100%"></stop>
+            <stop stop-color="#4395DF" offset="51.9303268%"></stop>
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
         </radialGradient>
     </defs>
     <g id="Drivers-Side" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">

@@ -1,9 +1,9 @@
-import React from 'react';
-import { Image, View, TouchableOpacity, Text } from 'react-native';
-import { Button, Input } from 'react-native-elements';
-import styled from 'styled-components/native';
-import { Navigation } from 'react-native-navigation';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import React from "react";
+import { Image, View, TouchableOpacity, Text } from "react-native";
+import { Button, Input } from "react-native-elements";
+import styled from "styled-components/native";
+import { Navigation } from "react-native-navigation";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 
 import {
   Card,
@@ -11,8 +11,8 @@ import {
   JobPreferences,
   Qualifications,
   Policy,
-  DriverStateVerification,
-} from '@shared';
+  DriverStateVerification
+} from "@shared";
 
 const UpdateProfile = ({ componentId, data }) => {
   const backNavigation = () => {
@@ -21,9 +21,9 @@ const UpdateProfile = ({ componentId, data }) => {
 
   const { key, title } = data;
   const Label = () => (
-    <View style={{ display: 'flex', flexDirection: 'row' }}>
+    <View style={{ display: "flex", flexDirection: "row" }}>
       <Text style={{ marginRight: 5 }}>About me</Text>
-      <Text style={{ color: '#82c0fb' }}>(Viewable by employers)</Text>
+      <Text style={{ color: "#82c0fb" }}>(Viewable by employers)</Text>
     </View>
   );
 
@@ -33,9 +33,13 @@ const UpdateProfile = ({ componentId, data }) => {
       <Input
         label={<Label />}
         multiline
-        containerStyle={{ paddingHorizontal: 0, marginBottom: 10, marginTop: 10 }}
+        containerStyle={{
+          paddingHorizontal: 0,
+          marginBottom: 10,
+          marginTop: 10
+        }}
         numberOfLiness={10}
-        style={{ height: 200, textAlignVertical: 'top' }}
+        style={{ height: 200, textAlignVertical: "top" }}
       />
     </ProfileContainer>
   );
@@ -45,18 +49,18 @@ const UpdateProfile = ({ componentId, data }) => {
     Preferences: <JobPreferences />,
     Qualifications: <Qualifications />,
     Policy: <Policy />,
-    DriverVerified: <DriverStateVerification />,
+    DriverVerified: <DriverStateVerification />
   };
   return (
     <Container>
       <View style={{ flex: 1 }}>
         <Header>
-          <Name>Hi Jhon</Name>
+          <Name>Hi John</Name>
           <ProfileImg>
             <Image
               resizeMode="cover"
-              source={{ uri: 'https://picsum.photos/700' }}
-              style={{ height: '100%', width: '100%', borderRadius: 100 }}
+              source={{ uri: "https://picsum.photos/700" }}
+              style={{ height: "100%", width: "100%", borderRadius: 100 }}
             />
           </ProfileImg>
         </Header>
@@ -75,7 +79,7 @@ const UpdateProfile = ({ componentId, data }) => {
           </Card>
         </CardWrapper>
       </View>
-      {!key === 'DriverVerified' && (
+      {!key === "DriverVerified" && (
         <Button
           containerStyle={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}
           onPress={() => {}}

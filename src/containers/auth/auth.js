@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
-import styled from 'styled-components/native';
-import { Button } from 'react-native-elements';
-import { observer } from 'mobx-react';
-import AuthStore from '@mobx/auth';
+import React, { Component } from "react";
+import { StyleSheet } from "react-native";
+import styled from "styled-components/native";
+import { Button } from "react-native-elements";
+import { observer } from "mobx-react";
+import AuthStore from "@mobx/auth";
 
-import { BlueLogo } from 'assets/icons';
-import { Login, Registration } from './components';
+import { BlueLogo } from "assets/icons";
+import { Login, Registration } from "./components";
 
 @observer
 class Auth extends Component {
@@ -18,19 +18,19 @@ class Auth extends Component {
         background: {
           translucent: true,
           blur: false,
-          color: '#f8f8f8',
+          color: "#f8f8f8"
         },
         noBorder: true,
         visible: true,
         backButton: {
-          visible: false,
-        },
-      },
+          visible: false
+        }
+      }
     };
   }
 
   state = {
-    isLogIn: false,
+    isLogIn: false
   };
 
   componentDidMount() {
@@ -38,7 +38,7 @@ class Auth extends Component {
     this.setState({ isLogIn });
   }
 
-  handlerAuth = (isLogIn) => {
+  handlerAuth = isLogIn => {
     this.setState({ isLogIn });
   };
 
@@ -97,11 +97,11 @@ const styles = StyleSheet.create({
   isLogin: {
     opacity: 1,
     borderBottomWidth: 1,
-    borderBottomColor: '#4a90e2',
+    borderBottomColor: "#4a90e2"
   },
   button: {
-    marginTop: 73,
-  },
+    marginTop: 73
+  }
 });
 
 const Wrapper = styled.View`

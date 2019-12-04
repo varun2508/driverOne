@@ -1,64 +1,64 @@
-import React from 'react';
-import { Image } from 'react-native';
-import { ListItem, Button } from 'react-native-elements';
-import styled from 'styled-components/native';
+import React from "react";
+import { Image, AsyncStorage } from "react-native";
+import { ListItem, Button } from "react-native-elements";
+import styled from "styled-components/native";
 
-import { navigate } from '@shared/helpers';
-import { Card } from '@shared';
+import { navigate } from "@shared/helpers";
+import { Card } from "@shared";
 
 const list = [
   {
-    title: 'Profile',
-    icon: 'person-outline',
+    title: "Profile",
+    icon: "person-outline",
     value: {
-      key: 'Profile',
-      title: 'Your Profile',
-    },
+      key: "Profile",
+      title: "Your Profile"
+    }
   },
   {
-    title: 'Job Preferences',
-    icon: 'assignment',
+    title: "Job Preferences",
+    icon: "assignment",
     value: {
-      key: 'Preferences',
-      title: 'Job Preferences',
-    },
+      key: "Preferences",
+      title: "Job Preferences"
+    }
   },
   {
-    title: 'Qualifications',
-    icon: 'check-circle',
+    title: "Qualifications",
+    icon: "check-circle",
     value: {
-      key: 'Qualifications',
-      title: 'Qualifications',
-    },
+      key: "Qualifications",
+      title: "Qualifications"
+    }
   },
   {
-    title: 'Driver One Employment Verified',
-    icon: 'verified-user',
+    title: "Driver One Employment Verified",
+    icon: "verified-user",
     value: {
-      key: 'DriverVerified',
-      title: 'Driver One Employment',
-    },
-  },
+      key: "DriverVerified",
+      title: "Driver One Employment"
+    }
+  }
 ];
 
 const Profile = ({ componentId }) => {
-  const navigateTo = (value) => {
-    navigate('UpdateProfile', componentId, value);
+  const navigateTo = value => {
+    navigate("UpdateProfile", componentId, value);
   };
 
   const navigation = () => {
-    navigate('HowItWorks', componentId);
+    navigate("HowItWorks", componentId);
   };
 
   return (
     <Container>
       <Header>
-        <Name>Hi Jhon</Name>
+        <Name>Hi John</Name>
         <ProfileImg>
           <Image
             resizeMode="cover"
-            source={{ uri: 'https://picsum.photos/700' }}
-            style={{ height: '100%', width: '100%', borderRadius: 100 }}
+            source={{ uri: "https://picsum.photos/700" }}
+            style={{ height: "100%", width: "100%", borderRadius: 100 }}
           />
         </ProfileImg>
       </Header>
@@ -66,15 +66,15 @@ const Profile = ({ componentId }) => {
         <Card containerStyle={{ paddingBottom: 0 }}>
           <Statistic>
             <Stats>
-              <Amount>4</Amount>
+              <Amount>0</Amount>
               <SubText>Pending jobs</SubText>
             </Stats>
             <Stats>
-              <Amount>1</Amount>
+              <Amount>0</Amount>
               <SubText>Active job</SubText>
             </Stats>
             <Stats>
-              <Amount>4.7</Amount>
+              <Amount>0</Amount>
               <SubText>Your rating</SubText>
             </Stats>
           </Statistic>
@@ -84,44 +84,47 @@ const Profile = ({ componentId }) => {
                 key={i}
                 titleStyle={{ fontSize: 14 }}
                 title={item.title}
-                leftIcon={{ name: item.icon, color: 'gray' }}
+                leftIcon={{ name: item.icon, color: "gray" }}
                 bottomDivider
                 onPress={() => navigateTo(item.value)}
-                chevron={{ color: '#64abef' }}
+                chevron={{ color: "#64abef" }}
               />
             ))}
             <ListItem
               title="Make a Referral"
               titleStyle={{ fontSize: 14 }}
-              leftIcon={{ name: 'people', color: 'gray' }}
+              leftIcon={{ name: "people", color: "gray" }}
               bottomDivider
               onPress={() => navigation()}
-              chevron={{ color: '#64abef' }}
+              chevron={{ color: "#64abef" }}
             />
           </NavigationBar>
         </Card>
         <ListItem
           title="Training Video"
           containerStyle={{
-            shadowColor: '#999',
+            shadowColor: "#999",
             shadowOffset: { width: 0, height: 0.5 },
             shadowOpacity: 0.5,
             shadowRadius: 1,
             elevation: 1,
-            borderRadius: 4,
+            borderRadius: 4
           }}
           titleStyle={{ fontSize: 14 }}
           style={{ marginTop: 20 }}
-          leftIcon={{ name: 'tv' }}
+          leftIcon={{ name: "tv" }}
           bottomDivider
           onPress={() => {}}
-          chevron={{ color: '#64abef' }}
+          chevron={{ color: "#64abef" }}
         />
       </CardWrapper>
 
       <Button
         containerStyle={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}
-        onPress={() => {}}
+        onPress={async () => {
+          await AsyncStorage.removeItem("token");
+          navigate("AuthScreen", componentId, {});
+        }}
         title="LOG OUT"
       />
     </Container>

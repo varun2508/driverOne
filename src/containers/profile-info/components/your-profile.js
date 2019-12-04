@@ -1,7 +1,7 @@
 /* eslint-disable import/named */
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import { YourProfile, Card } from '@shared';
+import { YourProfile, Card } from "@shared";
 
 class Profile extends Component {
   state = {};

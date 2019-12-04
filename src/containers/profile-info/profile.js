@@ -1,12 +1,19 @@
-import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
-import styled from 'styled-components/native';
-import { Button } from 'react-native-elements';
-import { observer } from 'mobx-react';
+import React, { Component } from "react";
+import { View, StyleSheet } from "react-native";
+import styled from "styled-components/native";
+import { Button } from "react-native-elements";
+import { observer } from "mobx-react";
 
-import User from '@mobx/user';
+import User from "@mobx/user";
 
-import { Header, YourProfile, JobPreferences, Qualifications, Policy, Buttons } from './components';
+import {
+  Header,
+  YourProfile,
+  JobPreferences,
+  Qualifications,
+  Policy,
+  Buttons
+} from "./components";
 
 @observer
 class Profile extends Component {
@@ -15,13 +22,13 @@ class Profile extends Component {
       topBar: {
         height: 0,
         visible: false,
-        noBorder: true,
-      },
+        noBorder: true
+      }
     };
   }
 
   state = {
-    step: 0,
+    step: 0
   };
 
   nextStep = () => {
@@ -39,10 +46,14 @@ class Profile extends Component {
     const { profile } = User;
 
     const { firstName, lastName, locationId } = profile;
+    // const isActive = !(firstName && lastName && locationId);
 
-    const isActive = !(firstName && lastName && locationId);
-
-    const arr = [<YourProfile />, <JobPreferences />, <Qualifications />, <Policy />];
+    const arr = [
+      <YourProfile />,
+      <JobPreferences />,
+      <Qualifications />,
+      <Policy />
+    ];
     return (
       <Container>
         <View>
@@ -57,7 +68,7 @@ class Profile extends Component {
             <Circle isActive={step === 3} />
           </Dots>
           {!step ? (
-            <Button onPress={this.nextStep} title="Next" disabled={isActive} />
+            <Button onPress={this.nextStep} title="Next" />
           ) : (
             <ButtonContainer>
               <Button
@@ -81,12 +92,12 @@ const styles = StyleSheet.create({
   outline: {
     flex: 1,
     height: 40,
-    marginRight: 10,
+    marginRight: 10
   },
   button: {
     flex: 1,
-    height: 40,
-  },
+    height: 40
+  }
 });
 
 const Container = styled.View`
@@ -112,7 +123,7 @@ const Circle = styled.View`
   height: 10px;
   width: 10px;
   border-radius: 100;
-  background-color: ${({ isActive }) => (isActive ? '#2090fb' : '#A7CBEE')};
+  background-color: ${({ isActive }) => (isActive ? "#2090fb" : "#A7CBEE")};
 `;
 
 const ButtonContainer = styled.View`

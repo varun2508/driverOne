@@ -50,7 +50,8 @@ public class MainApplication extends NavigationApplication {
                                     new SvgPackage(),
 																		new VectorIconsPackage(),
 																		new ReanimatedPackage(),
-																		new RNGestureHandlerPackage()
+																		new RNGestureHandlerPackage(),
+																		new LinearGradientPackage()
                             );
         }
 

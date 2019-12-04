@@ -1,17 +1,27 @@
-import React from 'react';
-import styled from 'styled-components/native';
-import Swiper from 'react-native-web-swiper';
+import React from "react";
+import styled from "styled-components/native";
+import Swiper from "react-native-web-swiper";
 
-import { Cash, Track, Rating, Chat1, Chat2 } from 'assets/icons';
+import { Cash, Track, Rating, Chat1, Chat2 } from "assets/icons";
 
 const Sliders = () => (
-  <Swiper>
+  <Swiper
+    controlsProps={{
+      dotsTouchable: false,
+      prevPos: false,
+      nextPos: false,
+      dotActiveStyle: {
+        backgroundColor: "white"
+      },
+      dotProps: { badgeStyle: { backgroundColor: "#a4cdf1", marginLeft: 18 } }
+    }}
+  >
     <Slide>
       <Track height={120} />
       <DescriptionContainer>
         <FirstText>
-          <Text>Be your own boss</Text>
-          <Text>Drive when you want</Text>
+          <BoldText>Be your own boss</BoldText>
+          <BoldText>Drive when you want</BoldText>
         </FirstText>
         <SecondText>
           <Text>Work as much or little as you want</Text>
@@ -23,11 +33,11 @@ const Sliders = () => (
       <Rating height={120} />
       <DescriptionContainer>
         <FirstText>
-          <Text>Build a reputation</Text>
+          <BoldText>Build a reputation</BoldText>
         </FirstText>
         <SecondText>
           <Text>Earn an individual rating and get </Text>
-          <Text>rewarded for safe drivin</Text>
+          <Text>rewarded for safe driving.</Text>
         </SecondText>
       </DescriptionContainer>
     </Slide>
@@ -35,8 +45,8 @@ const Sliders = () => (
       <Cash height={120} />
       <DescriptionContainer>
         <FirstText>
-          <Text>Sign up here to see a world </Text>
-          <Text>where drivers come first</Text>
+          <BoldText>Sign up here to see a world </BoldText>
+          <BoldText>where drivers come first</BoldText>
         </FirstText>
         <SecondText>
           <Text>Quick signup process. Make $$ </Text>
@@ -71,7 +81,14 @@ const DescriptionContainer = styled.View`
 `;
 const Text = styled.Text`
   color: #fff;
-  font-size: 18px;
+  font-size: 20px;
+`;
+
+const BoldText = styled.Text`
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 1.2;
 `;
 
 const FirstText = styled.View`

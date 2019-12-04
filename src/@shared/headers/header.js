@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components/native';
+import React from "react";
+import styled from "styled-components/native";
 
-import { Logo } from 'assets/icons';
+import { Logo } from "assets/icons";
 
 const Header = () => (
   <Container>
@@ -12,7 +12,7 @@ const Header = () => (
 export default Header;
 
 const Container = styled.View`
-  background: #7ac0ff;
+  background: #61aff4;
   display: flex;
   align-items: center;
   justify-content: center;
