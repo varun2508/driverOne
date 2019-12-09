@@ -1,5 +1,5 @@
 /* eslint-disable import/named */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import { Input } from "react-native-elements";
 import { observer } from "mobx-react";
@@ -10,17 +10,17 @@ import { LocationInput } from "@shared";
 const YourProfile = () => {
   const { setProfileInfo, profile } = User;
 
-  const [firstName, setFirstName] = useState(profile.firstName);
-  const [lastName, setLastName] = useState(profile.lastName);
+  const [firstName, setFirstName] = useState(profile.first_name);
+  const [lastName, setLastName] = useState(profile.last_name);
 
   const handleFirstName = value => {
     setFirstName(value);
-    setProfileInfo({ firstName: value });
+    setProfileInfo({ first_name: value });
   };
 
   const handleLastName = value => {
     setLastName(value);
-    setProfileInfo({ lastName: value });
+    setProfileInfo({ last_name: value });
   };
 
   return (
@@ -54,7 +54,7 @@ const YourProfile = () => {
           name="locationId"
           placeholder={{ label: "Location", value: null, color: "#000" }}
           label="Location"
-          location={profile.locationId}
+          location={profile.location}
         />
       </View>
     </>

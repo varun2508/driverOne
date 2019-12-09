@@ -5,7 +5,7 @@ const baseURL = "http://52.34.12.148";
 const api = axios.create({
   baseURL,
   timeout: 1000,
-  headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" }
+  headers: { "Content-Type": "application/json" }
 });
 
 api.interceptors.response.use(

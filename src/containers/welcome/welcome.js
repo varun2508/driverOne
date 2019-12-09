@@ -11,7 +11,7 @@ import { Sliders } from "./components";
 const WelcomeScreen = ({ componentId }) => {
   const navigateTo = props => {
     const isLogIn = props === "Log In";
-
+    console.log("------componentId----", componentId);
     navigate("AuthScreen", componentId, { isLogIn });
   };
   return (

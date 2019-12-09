@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
 import styled from "styled-components/native";
 import { Button } from "react-native-elements";
 import { observer } from "mobx-react";
+import { goHome } from "navigation";
 
 import User from "@mobx/user";
-
+import Auth from "@mobx/auth";
 import {
   Header,
   YourProfile,
@@ -28,7 +29,31 @@ class Profile extends Component {
   }
 
   state = {
-    step: 0
+    step: 0,
+    loading: true
+  };
+
+  componentDidMount() {
+    console.log("----------effect");
+    this.fetchData();
+    this.setState({
+      loading: true
+    });
+  }
+
+  fetchData = async () => {
+    await Auth.getMe();
+    const { first_name, last_name } = User.profile;
+    this.setState({
+      loading: false
+    });
+    console.log("------first_name----", first_name);
+    console.log("------last_name----", last_name);
+
+    if (first_name && last_name) {
+      console.log("------componentId----", this.props.componentId);
+      // goHome();
+    }
   };
 
   nextStep = () => {
@@ -45,8 +70,8 @@ class Profile extends Component {
     const { step } = this.state;
     const { profile } = User;
 
-    const { firstName, lastName, locationId } = profile;
-    // const isActive = !(firstName && lastName && locationId);
+    const { first_name: firstName, last_name: lastName, locationId } = profile;
+    const isActive = !(firstName && lastName && locationId);
 
     const arr = [
       <YourProfile />,
@@ -54,6 +79,15 @@ class Profile extends Component {
       <Qualifications />,
       <Policy />
     ];
+
+    if (this.state.loading) {
+      return (
+        <Container>
+          <ActivityIndicator size="small" color="#61aff4" />
+        </Container>
+      );
+    }
+
     return (
       <Container>
         <View>
@@ -68,7 +102,7 @@ class Profile extends Component {
             <Circle isActive={step === 3} />
           </Dots>
           {!step ? (
-            <Button onPress={this.nextStep} title="Next" />
+            <Button onPress={this.nextStep} title="Next" disabled={isActive} />
           ) : (
             <ButtonContainer>
               <Button

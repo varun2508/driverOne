@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet } from "react-native";
 import styled from "styled-components/native";
 import RNPickerSelect from "react-native-picker-select";
@@ -13,16 +13,17 @@ const defaultPlaceholder = {
 };
 const { setProfileInfo } = User;
 const options = [
-  { value: 0, label: "New York", disabled: true },
-  { value: 1, label: "Chicago" },
-  { value: 2, label: "Austin" },
-  { value: 3, label: "Los Angeles" },
-  { value: 4, label: "Houston" },
-  { value: 5, label: "Philadelphia" },
-  { value: 6, label: "Phoenix" },
-  { value: 7, label: "San Antonio" },
-  { value: 8, label: "San Diego" },
-  { value: 9, label: "Dallas" }
+  { value: 0, label: "New York, NY", disabled: true },
+  { value: 1, label: "Chicago, IL" },
+  { value: 2, label: "Austin, TX" },
+  { value: 3, label: "Los Angeles, CA" },
+  { value: 4, label: "Houston, TX" },
+  { value: 5, label: "Philadelphia, PA" },
+  { value: 6, label: "Phoenix, AZ" },
+  { value: 7, label: "Portland, OR" },
+  { value: 8, label: "Seattle, WA" },
+  { value: 9, label: "Omaha, NE" },
+  { value: 10, label: "Newark, NJ" }
 ];
 
 const LocationInput = ({
@@ -31,10 +32,18 @@ const LocationInput = ({
   placeholder = defaultPlaceholder,
   name
 }) => {
-  const [locationId, setLocationId] = useState(location);
+  const [locationId, setLocationId] = useState(0);
+  useEffect(() => {
+    options.forEach(el => {
+      if (el.label === location) {
+        setLocationId(el.value);
+      }
+    });
+  }, []);
 
   const handleLocation = value => {
-    setProfileInfo({ [name]: value });
+    console.log("-----handleLocation-----", value, [name]);
+    setProfileInfo({ [name]: value, location: options[value].label });
     setLocationId(value);
   };
 
@@ -77,7 +86,8 @@ const pickerSelectStyles = StyleSheet.create({
     height: 20,
     color: "#000",
     paddingLeft: 10,
-    paddingBottom: 5
+    paddingBottom: 5,
+    fontSize: 18
   },
   inputAndroid: {
     width: "100%",

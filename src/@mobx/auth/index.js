@@ -3,6 +3,7 @@ import { AsyncStorage } from "react-native";
 import { Alert } from "react-native";
 import { navigate } from "@shared/helpers";
 import api from "api";
+import User from "@mobx/user";
 
 const Profile = types
   .model("Profile", {
@@ -12,15 +13,15 @@ const Profile = types
   .actions(self => {
     const logIn = flow(function* logIn(data, componentId) {
       try {
-        const searchParams = Object.keys(data)
-          .map(key => {
-            console.log("----key------", key);
-            return (
-              encodeURIComponent(key) + "=" + encodeURIComponent(data[key])
-            );
-          })
-          .join("&");
-        const response = yield api.post("/api/user/login", searchParams);
+        // const searchParams = Object.keys(data)
+        //   .map(key => {
+        //     console.log("----key------", key);
+        //     return (
+        //       encodeURIComponent(key) + "=" + encodeURIComponent(data[key])
+        //     );
+        //   })
+        //   .join("&");
+        const response = yield api.post("/api/user/login", data);
         const { token, email } = response;
         yield AsyncStorage.setItem("token", token);
         console.log("------trying to navigate----");
@@ -59,13 +60,17 @@ const Profile = types
       }
     });
 
-    const getMe = flow(function* getMe(data, componentId) {
+    const getMe = flow(function* getMe() {
       try {
-        const response = yield api.get("/api/user/me", data);
-        const { email } = response;
+        const token = yield AsyncStorage.getItem("token");
+        const response = yield api.get("/api/user/me", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
 
-        console.log("------getMe----", email);
-        self.email = email;
+        User.setProfileInfo(response);
+        return;
       } catch (e) {
         const { message } = e.response.data;
         self.errorMessage = message;
