@@ -1,15 +1,21 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
+import React, { useEffect } from "react";
+import { StyleSheet, Text, View, AsyncStorage } from "react-native";
 
-import Icons from '@mobx/icons';
-import { PreviewScreens, goHome, profileDetails } from './src/navigation';
+import Icons from "@mobx/icons";
+import {
+  PreviewScreens,
+  goHome,
+  profileDetails,
+  JobsScreen
+} from "./src/navigation";
 
 const App = () => {
   const checkToken = async () => {
-    const loalToken = await AsyncStorage.getItem('token');
+    const loalToken = await AsyncStorage.getItem("token");
     if (loalToken) {
-      // goHome();
-      profileDetails();
+      //goHome();
+      // profileDetails();
+      JobsScreen();
     } else {
       // goHome();
       PreviewScreens();
@@ -36,18 +42,18 @@ export default App;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F5FCFF"
   },
   welcome: {
     fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    textAlign: "center",
+    margin: 10
   },
   instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    textAlign: "center",
+    color: "#333333",
+    marginBottom: 5
+  }
 });
