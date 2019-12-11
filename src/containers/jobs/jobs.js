@@ -1,31 +1,49 @@
 import React, { useState } from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, Text } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 
-import PendingTab from './PendingTab';
-import ActiveTab from './ActiveTab';
-import CompletedTab from './CompletedTab';
-import ClosedTab from './ClosedTab';
+import PendingTab from './pending-tab';
+import ActiveTab from './active-tab';
+import CompletedTab from './completed-tab';
+import ClosedTab from './closed-tab';
 
 const Jobs = () => {
   const [index, setIndex] = useState(0);
 
   return (
     <>
+      {console.log('lohasdsa')}
       <TabView
+        navigationState={{
+          index,
+          routes: [
+            { key: '0', title: 'Pending' },
+            { key: '1', title: 'Active' },
+            { key: '2', title: 'Completed' },
+            { key: '3', title: 'Closed' },
+          ],
+        }}
+        renderScene={SceneMap({
+          0: PendingTab,
+          1: ActiveTab,
+          2: CompletedTab,
+          3: ClosedTab,
+        })}
         renderTabBar={(props) => (
           <TabBar
             {...props}
             indicatorStyle={{
               backgroundColor: '#193ed9',
             }}
+            activeColor="red"
             style={{
               backgroundColor: '#fff',
+              color: 'red',
               height: 40,
               marginTop: 40,
             }}
             labelStyle={{
-              color: '#193ed9',
+              color: '#b1abad',
               fontSize: 14,
               textTransform: 'capitalize',
               paddingTop: 0,
@@ -35,27 +53,21 @@ const Jobs = () => {
             tabStyle={{
               padding: 0,
             }}
-            contentContainerStyle={{ marginTop: 0, marginBottom: 0 }}
+            getLabelText={({ route }) => {
+              return (
+                <Text
+                  style={{
+                    color: +route.key === index ? '#193ed9' : '#bdb8ba',
+                  }}
+                >
+                  {route.title}
+                </Text>
+              );
+            }}
           />
         )}
-        navigationState={{
-          index,
-          routes: [
-            { key: 'first', title: 'Pending' },
-            { key: 'second', title: 'Active' },
-            { key: 'third', title: 'Completed' },
-            { key: 'fourth', title: 'Closed' },
-          ],
-        }}
-        renderScene={SceneMap({
-          first: PendingTab,
-          second: ActiveTab,
-          third: CompletedTab,
-          fourth: ClosedTab,
-        })}
-        tabStyle={{ backgroundColor: 'red' }}
-        onIndexChange={(indexTab) => setIndex(indexTab)}
         initialLayout={{ width: Dimensions.get('window').width }}
+        onIndexChange={(indexTab) => setIndex(indexTab)}
       />
     </>
   );

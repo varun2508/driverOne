@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import CardJob from '@shared/components/cards/CardJob';
-import { SimpleButton } from '@shared';
+
+import { SimpleButton } from '@shared/components/buttons';
 
 const jobsList = [
   {

@@ -199,6 +199,7 @@ dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation project(':react-native-navigation')
     implementation project(':react-native-svg')
+    implementation project(':react-native-linear-gradient')
 
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermesvm/android/";

@@ -9,8 +9,8 @@ const App = () => {
     const loalToken = await AsyncStorage.getItem('token');
     if (loalToken) {
       // goHome();
-      profileDetails();
-      // JobsScreen();
+      // profileDetails();
+      JobsScreen();
     } else {
       // goHome();
       PreviewScreens();
