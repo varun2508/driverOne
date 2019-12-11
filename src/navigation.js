@@ -1,21 +1,21 @@
-import { Navigation } from "react-native-navigation";
-import { getSnapshot } from "mobx-state-tree";
-import Icons from "@mobx/icons";
+import { Navigation } from 'react-native-navigation';
+import { getSnapshot } from 'mobx-state-tree';
+import Icons from '@mobx/icons';
 
 const goToMain = async () => {
   Navigation.setRoot({
     root: {
       stack: {
-        id: "WelcomeScreen",
+        id: 'WelcomeScreen',
         children: [
           {
             component: {
-              name: "WelcomeScreen"
-            }
-          }
-        ]
-      }
-    }
+              name: 'WelcomeScreen',
+            },
+          },
+        ],
+      },
+    },
   });
 };
 
@@ -23,16 +23,16 @@ const profileDetails = () => {
   Navigation.setRoot({
     root: {
       stack: {
-        id: "ProfileInfoScreen",
+        id: 'ProfileInfoScreen',
         children: [
           {
             component: {
-              name: "ProfileInfoScreen"
-            }
-          }
-        ]
-      }
-    }
+              name: 'ProfileInfoScreen',
+            },
+          },
+        ],
+      },
+    },
   });
 };
 
@@ -43,28 +43,28 @@ function PreviewScreens() {
         children: [
           {
             component: {
-              name: "WelcomeScreen",
+              name: 'WelcomeScreen',
               options: {
                 topBar: {
                   title: {
                     component: {
-                      name: "NavHeader"
-                    }
+                      name: 'NavHeader',
+                    },
                   },
                   background: {
-                    color: "#61aff4"
+                    color: '#61aff4',
                   },
                   noBorder: true,
                   drawBehind: false,
                   visible: true,
-                  animate: false
-                }
-              }
-            }
-          }
-        ]
-      }
-    }
+                  animate: false,
+                },
+              },
+            },
+          },
+        ],
+      },
+    },
   });
 }
 
@@ -77,23 +77,44 @@ const defaultTobBarOption = {
   transparent: true,
   elevation: 0,
   background: {
-    color: "transparent"
-  }
+    color: 'transparent',
+  },
 };
-const goHome = async props => {
+
+const JobsScreen = () => {
+  Navigation.setRoot({
+    root: {
+      stack: {
+        id: 'JobsScreen',
+        children: [
+          {
+            component: {
+              name: 'JobsScreen',
+            },
+          },
+        ],
+        options: {
+          topBar: defaultTobBarOption,
+        },
+      },
+    },
+  });
+};
+
+const goHome = async (props) => {
   const Icon = getSnapshot(Icons.icons);
-  const iconColor = "#8e8e93";
-  const textColor = "#8e8e93";
-  const selectedTextColor = "#0393FD";
-  const selectedIconColor = "#0393FD";
+  const iconColor = '#8e8e93';
+  const textColor = '#8e8e93';
+  const selectedTextColor = '#0393FD';
+  const selectedIconColor = '#0393FD';
 
   return Navigation.setRoot({
     root: {
       bottomTabs: {
         options: {
           bottomTabs: {
-            currentTabIndex: 3
-          }
+            currentTabIndex: 3,
+          },
         },
         children: [
           {
@@ -101,10 +122,10 @@ const goHome = async props => {
               children: [
                 {
                   component: {
-                    name: "SearchScreen",
-                    passProps: props
-                  }
-                }
+                    name: 'SearchScreen',
+                    passProps: props,
+                  },
+                },
               ],
               options: {
                 topBar: defaultTobBarOption,
@@ -113,19 +134,19 @@ const goHome = async props => {
                   iconColor,
                   textColor,
                   selectedTextColor,
-                  icon: Icon.Search
-                }
-              }
-            }
+                  icon: Icon.Search,
+                },
+              },
+            },
           },
           {
             stack: {
               children: [
                 {
                   component: {
-                    name: "JobsScreen"
-                  }
-                }
+                    name: 'JobsScreen',
+                  },
+                },
               ],
               options: {
                 topBar: defaultTobBarOption,
@@ -134,19 +155,19 @@ const goHome = async props => {
                   iconColor,
                   textColor,
                   selectedTextColor,
-                  icon: Icon.Work
-                }
-              }
-            }
+                  icon: Icon.Work,
+                },
+              },
+            },
           },
           {
             stack: {
               children: [
                 {
                   component: {
-                    name: "PaymentScreen"
-                  }
-                }
+                    name: 'PaymentScreen',
+                  },
+                },
               ],
               options: {
                 topBar: defaultTobBarOption,
@@ -155,21 +176,21 @@ const goHome = async props => {
                   iconColor,
                   textColor,
                   selectedTextColor,
-                  icon: Icon.LocalAtm
-                }
-              }
-            }
+                  icon: Icon.LocalAtm,
+                },
+              },
+            },
           },
           {
             stack: {
-              id: "ProfileInfoScreen",
+              id: 'ProfileInfoScreen',
               children: [
                 {
                   component: {
-                    name: "ProfileScreen",
-                    passProps: props
-                  }
-                }
+                    name: 'ProfileScreen',
+                    passProps: props,
+                  },
+                },
               ],
               options: {
                 topBar: defaultTobBarOption,
@@ -178,15 +199,15 @@ const goHome = async props => {
                   iconColor,
                   textColor,
                   selectedTextColor,
-                  icon: Icon.Person
-                }
-              }
-            }
-          }
-        ]
-      }
-    }
+                  icon: Icon.Person,
+                },
+              },
+            },
+          },
+        ],
+      },
+    },
   });
 };
 
-export { goToMain, profileDetails, PreviewScreens, goHome };
+export { goToMain, profileDetails, PreviewScreens, goHome, JobsScreen };
