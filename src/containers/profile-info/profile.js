@@ -56,8 +56,19 @@ class Profile extends Component {
     }
   };
 
-  nextStep = () => {
+  updateInfo = async () => {
+    const data = User.profile;
+
+    await Auth.updateProfile(data);
+    this.setState({
+      loading: false
+    });
+    return;
+  };
+
+  nextStep = async () => {
     const { step } = this.state;
+    await this.updateInfo();
     this.setState({ step: step + 1 });
   };
 

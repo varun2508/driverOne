@@ -22,7 +22,7 @@ const YourProfile = () => {
     setLastName(value);
     setProfileInfo({ last_name: value });
   };
-
+  console.log("----------profile", profile);
   return (
     <>
       <Input
@@ -52,7 +52,7 @@ const YourProfile = () => {
       <View style={{ marginTop: 20 }}>
         <LocationInput
           name="locationId"
-          placeholder={{ label: "Location", value: null, color: "#000" }}
+          placeholder={{ label: "Location", value: "", color: "#000" }}
           label="Location"
           location={profile.location}
         />

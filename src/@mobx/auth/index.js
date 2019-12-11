@@ -33,19 +33,9 @@ const Profile = types
       }
     });
 
-    const registration = flow(function* registration(data, componentId) {
+    const registration = flow(function* registration(data) {
       try {
         console.log("----------data", data);
-        // const formdata = new FormData(data);
-        const searchParams = Object.keys(data)
-          .map(key => {
-            console.log("----key------", key);
-            return (
-              encodeURIComponent(key) + "=" + encodeURIComponent(data[key])
-            );
-          })
-          .join("&");
-        console.log("----------sending", searchParams);
         const response = yield api.post("/api/user/register", searchParams);
         const { email } = response;
         // yield AsyncStorage.setItem("token", token);
@@ -77,10 +67,29 @@ const Profile = types
       }
     });
 
+    const updateProfile = flow(function* updateProfile(data) {
+      try {
+        console.log("----------data", data);
+        const token = yield AsyncStorage.getItem("token");
+        const response = yield api.patch("/api/user/profile", data, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        Alert.alert("You were successfully updated! ");
+        console.log("----------resposnes", response);
+      } catch (e) {
+        const { message } = e.response.data;
+        self.errorMessage = message;
+      }
+    });
+
     return {
       logIn,
       registration,
-      getMe
+      getMe,
+      updateProfile
     };
   })
   .create();

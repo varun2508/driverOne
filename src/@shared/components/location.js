@@ -13,7 +13,7 @@ const defaultPlaceholder = {
 };
 const { setProfileInfo } = User;
 const options = [
-  { value: 0, label: "New York, NY", disabled: true },
+  { value: 0, label: "New York, NY" },
   { value: 1, label: "Chicago, IL" },
   { value: 2, label: "Austin, TX" },
   { value: 3, label: "Los Angeles, CA" },
@@ -32,7 +32,7 @@ const LocationInput = ({
   placeholder = defaultPlaceholder,
   name
 }) => {
-  const [locationId, setLocationId] = useState(0);
+  const [locationId, setLocationId] = useState("");
   useEffect(() => {
     options.forEach(el => {
       if (el.label === location) {
