@@ -3,9 +3,9 @@ import styled from 'styled-components/native';
 import { Rating } from 'react-native-elements';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-const CardJob = ({ name, city, date, status, duration, price, logo, rating, tab }) => {
+const CardJob = ({ name, city, date, status, duration, price, logo, rating, tab, onPress }) => {
   return (
-    <Card>
+    <Card onPress={onPress} activeOpacity={1}>
       <HeaderCard>
         <LeftHeaderPart>
           <ImageContainer>
@@ -44,7 +44,7 @@ const icon = {
   color: '#2182d9',
 };
 
-const Card = styled.View`
+const Card = styled.TouchableOpacity`
   width: 100%;
   margin-top: 20px;
   box-shadow: 1px 4px 5px rgba(0, 0, 0, 0.34);
@@ -106,3 +106,7 @@ const CardImage = styled.Image`
   width: 70px;
   height: 50px;
 `;
+
+CardJob.defaulProps = {
+  onPress: () => {},
+};
