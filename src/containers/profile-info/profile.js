@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { View, StyleSheet, ActivityIndicator } from "react-native";
-import styled from "styled-components/native";
-import { Button } from "react-native-elements";
-import { observer } from "mobx-react";
-import { goHome } from "navigation";
+import React, { Component } from 'react';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import styled from 'styled-components/native';
+import { Button } from 'react-native-elements';
+import { observer } from 'mobx-react';
+import { goHome } from 'navigation';
 
-import User from "@mobx/user";
-import Auth from "@mobx/auth";
+import User from '@mobx/user';
+import Auth from '@mobx/auth';
 import {
   Header,
   YourProfile,
@@ -14,7 +14,7 @@ import {
   Qualifications,
   Policy,
   Buttons
-} from "./components";
+} from './components';
 
 @observer
 class Profile extends Component {
@@ -34,7 +34,6 @@ class Profile extends Component {
   };
 
   componentDidMount() {
-    console.log("----------effect");
     this.fetchData();
     this.setState({
       loading: true
@@ -47,13 +46,6 @@ class Profile extends Component {
     this.setState({
       loading: false
     });
-    console.log("------first_name----", first_name);
-    console.log("------last_name----", last_name);
-
-    if (first_name && last_name) {
-      console.log("------componentId----", this.props.componentId);
-      // goHome();
-    }
   };
 
   updateInfo = async () => {
@@ -85,7 +77,7 @@ class Profile extends Component {
     const isActive = !(firstName && lastName && locationId);
 
     const arr = [
-      <YourProfile />,
+      <YourProfile screen={'classProfie'} />,
       <JobPreferences />,
       <Qualifications />,
       <Policy />
@@ -168,7 +160,7 @@ const Circle = styled.View`
   height: 10px;
   width: 10px;
   border-radius: 100;
-  background-color: ${({ isActive }) => (isActive ? "#2090fb" : "#A7CBEE")};
+  background-color: ${({ isActive }) => (isActive ? '#2090fb' : '#A7CBEE')};
 `;
 
 const ButtonContainer = styled.View`

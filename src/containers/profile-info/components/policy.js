@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Linking, View, StyleSheet } from "react-native";
-import { Input } from "react-native-elements";
-import styled from "styled-components/native";
+import React, { useState } from 'react';
+import { Linking, View, StyleSheet } from 'react-native';
+import { Input } from 'react-native-elements';
+import styled from 'styled-components/native';
 
-import { Card } from "@shared";
+import { Card } from '@shared';
 
 const Policy = () => {
-  const [digits, setDigit] = useState("");
+  const [digits, setDigit] = useState('');
 
   return (
     <Card title="Join the Driver One Team!">
@@ -21,8 +21,8 @@ const Policy = () => {
       </Text>
       <TextLink>For more information please visit:</TextLink>
       <Text
-        style={{ color: "blue" }}
-        onPress={() => Linking.openURL("https://www.joindriverone.com/")}
+        style={{ color: 'blue' }}
+        onPress={() => Linking.openURL('https://www.joindriverone.com/')}
       >
         https://www.joindriverone.com/
       </Text>
@@ -39,7 +39,10 @@ const Policy = () => {
             containerStyle={styles.input}
             keyboardType="numeric"
             maxLength={6}
-            textAlign={"center"}
+            textAlign={'center'}
+            style={{
+              letterSpacing: 2
+            }}
           />
         </InputContainer>
       </ReferralCodeContainer>
@@ -63,19 +66,26 @@ const Text = styled.Text`
 
 const TextLink = styled.Text``;
 
-const ReferralCodeContainer = styled.View``;
+const ReferralCodeContainer = styled.View`
+  justify-content: center;
+  flex: 1;
+  flex-direction: column;
+`;
 
 const Label = styled.Text`
   font-size: 24px;
   margin-bottom: 11px;
+  align-self: center;
 `;
 
 const SubText = styled.Text`
   font-size: 16px;
   margin-bottom: 20px;
+  align-self: center;
 `;
 
 const InputContainer = styled.View`
   display: flex;
   flex-direction: row;
+  align-self: center;
 `;

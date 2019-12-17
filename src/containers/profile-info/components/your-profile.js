@@ -9,7 +9,7 @@ class Profile extends Component {
   render() {
     return (
       <Card title="Your Profile">
-        <YourProfile />
+        <YourProfile screen={"onboarding"} />
       </Card>
     );
   }

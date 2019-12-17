@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
-import { isEmpty } from 'ramda';
 import { observer } from 'mobx-react';
 
 import User from '@mobx/user';
@@ -11,34 +10,34 @@ const Buttons = ({ nextStep, step }) => {
   const { profile } = User;
   const [isUpdated, setUpdatedState] = useState(false);
   const {
-    checkState,
-    priceRange,
-    pickupPointId,
-    deliveryLocationid,
+    pay_from,
+    pay_to,
+    pickup_points,
+    delivery_locations,
     classLicince,
-    contractLength,
+    contractLength
   } = profile;
 
   useEffect(() => {
     if (
-      (step === 1 && !isEmpty(checkState)) ||
-      priceRange.length > 0 ||
-      pickupPointId ||
-      deliveryLocationid
+      pickup_points.length ||
+      delivery_locations.length ||
+      pay_from < 30 ||
+      pay_to < 30
     ) {
       setUpdatedState(true);
     } else {
       setUpdatedState(false);
     }
-  }, [checkState, priceRange, pickupPointId, deliveryLocationid]);
+  }, []);
 
-  useEffect(() => {
-    if (step === 2 && (classLicince || contractLength)) {
-      setUpdatedState(true);
-    } else {
-      setUpdatedState(false);
-    }
-  }, [classLicince, contractLength]);
+  // useEffect(() => {
+  //   if (step === 2 && (classLicince || contractLength)) {
+  //     setUpdatedState(true);
+  //   } else {
+  //     setUpdatedState(false);
+  //   }
+  // }, [classLicince, contractLength]);
 
   const confirmHandle = () => {
     setUpdatedState(false);
@@ -52,11 +51,18 @@ const Buttons = ({ nextStep, step }) => {
     }
     nextStep();
   };
-
   return isUpdated ? (
-    <Button containerStyle={styles.button} onPress={confirmHandle} title="Confirm" />
+    <Button
+      containerStyle={styles.button}
+      onPress={confirmHandle}
+      title="Confirm"
+    />
   ) : (
-    <Button containerStyle={styles.button} onPress={handleNextStep} title="Skip" />
+    <Button
+      containerStyle={styles.button}
+      onPress={handleNextStep}
+      title="Skip"
+    />
   );
 };
 
@@ -66,10 +72,10 @@ const styles = StyleSheet.create({
   outline: {
     flex: 1,
     height: 40,
-    marginRight: 10,
+    marginRight: 10
   },
   button: {
     flex: 1,
-    height: 40,
-  },
+    height: 40
+  }
 });

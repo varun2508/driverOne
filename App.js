@@ -2,12 +2,17 @@ import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 
 import Icons from '@mobx/icons';
-import { PreviewScreens, goHome, profileDetails, JobsScreen } from './src/navigation';
+import {
+  PreviewScreens,
+  goHome,
+  profileDetails,
+  JobsScreen
+} from './src/navigation';
 
 const App = () => {
   const checkToken = async () => {
-    const loalToken = await AsyncStorage.getItem('token');
-    if (loalToken) {
+    const localToken = await AsyncStorage.getItem('token');
+    if (localToken) {
       // goHome();
       profileDetails();
       // JobsScreen();
@@ -39,16 +44,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#F5FCFF'
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10,
+    margin: 10
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 5,
-  },
+    marginBottom: 5
+  }
 });

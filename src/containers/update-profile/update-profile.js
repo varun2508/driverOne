@@ -1,9 +1,12 @@
-import React from "react";
-import { Image, View, TouchableOpacity, Text } from "react-native";
-import { Button, Input } from "react-native-elements";
-import styled from "styled-components/native";
-import { Navigation } from "react-native-navigation";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+import React from 'react';
+import { Image, View, TouchableOpacity } from 'react-native';
+import { Button } from 'react-native-elements';
+import styled from 'styled-components/native';
+import { Navigation } from 'react-native-navigation';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
+import User from '@mobx/user';
+import Auth from '@mobx/auth';
 
 import {
   Card,
@@ -12,7 +15,7 @@ import {
   Qualifications,
   Policy,
   DriverStateVerification
-} from "@shared";
+} from '@shared';
 
 const UpdateProfile = ({ componentId, data }) => {
   const backNavigation = () => {
@@ -20,27 +23,17 @@ const UpdateProfile = ({ componentId, data }) => {
   };
 
   const { key, title } = data;
-  const Label = () => (
-    <View style={{ display: "flex", flexDirection: "row" }}>
-      <Text style={{ marginRight: 5 }}>About me</Text>
-      <Text style={{ color: "#82c0fb" }}>(Viewable by employers)</Text>
-    </View>
-  );
+
+  const updateInfo = async () => {
+    const { profile } = User;
+
+    await Auth.updateProfile(profile);
+    return null;
+  };
 
   const Profile = () => (
     <ProfileContainer>
-      <YourProfile />
-      <Input
-        label={<Label />}
-        multiline
-        containerStyle={{
-          paddingHorizontal: 0,
-          marginBottom: 10,
-          marginTop: 10
-        }}
-        numberOfLiness={10}
-        style={{ height: 200, textAlignVertical: "top" }}
-      />
+      <YourProfile screen="updateProfie" />
     </ProfileContainer>
   );
 
@@ -59,8 +52,8 @@ const UpdateProfile = ({ componentId, data }) => {
           <ProfileImg>
             <Image
               resizeMode="cover"
-              source={{ uri: "https://picsum.photos/700" }}
-              style={{ height: "100%", width: "100%", borderRadius: 100 }}
+              source={{ uri: 'https://picsum.photos/700' }}
+              style={{ height: '100%', width: '100%', borderRadius: 100 }}
             />
           </ProfileImg>
         </Header>
@@ -79,13 +72,12 @@ const UpdateProfile = ({ componentId, data }) => {
           </Card>
         </CardWrapper>
       </View>
-      {!key === "DriverVerified" && (
-        <Button
-          containerStyle={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}
-          onPress={() => {}}
-          title="Confirm"
-        />
-      )}
+
+      <Button
+        containerStyle={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}
+        onPress={() => updateInfo()}
+        title="Confirm"
+      />
     </Container>
   );
 };

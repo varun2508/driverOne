@@ -1,32 +1,23 @@
-import { types, flow } from "mobx-state-tree";
-import { AsyncStorage } from "react-native";
-import { Alert } from "react-native";
-import { navigate } from "@shared/helpers";
-import api from "api";
-import User from "@mobx/user";
+import { types, flow } from 'mobx-state-tree';
+import { AsyncStorage } from 'react-native';
+import { Alert } from 'react-native';
+import { navigate } from '@shared/helpers';
+import api from 'api';
+import User from '@mobx/user';
 
 const Profile = types
-  .model("Profile", {
-    email: types.optional(types.string, ""),
-    errorMessage: types.optional(types.string, "")
+  .model('Profile', {
+    email: types.optional(types.string, ''),
+    errorMessage: types.optional(types.string, '')
   })
   .actions(self => {
     const logIn = flow(function* logIn(data, componentId) {
       try {
-        // const searchParams = Object.keys(data)
-        //   .map(key => {
-        //     console.log("----key------", key);
-        //     return (
-        //       encodeURIComponent(key) + "=" + encodeURIComponent(data[key])
-        //     );
-        //   })
-        //   .join("&");
-        const response = yield api.post("/api/user/login", data);
+        const response = yield api.post('/api/user/login', data);
         const { token, email } = response;
-        yield AsyncStorage.setItem("token", token);
-        console.log("------trying to navigate----");
+        yield AsyncStorage.setItem('token', token);
         self.email = email;
-        navigate("App", componentId);
+        navigate('App', componentId);
       } catch (e) {
         const { message } = e.response.data;
         self.errorMessage = message;
@@ -35,15 +26,13 @@ const Profile = types
 
     const registration = flow(function* registration(data) {
       try {
-        console.log("----------data", data);
-        const response = yield api.post("/api/user/register", searchParams);
+        const response = yield api.post('/api/user/register', data);
         const { email } = response;
         // yield AsyncStorage.setItem("token", token);
         self.email = email;
-        console.log("-----response-----", response);
         // navigate("App", componentId);
-        Alert.alert("You were successfully registered! Please log in!");
-        navigateTo("Log In");
+        Alert.alert('You were successfully registered! Please log in!');
+        navigateTo('Log In');
       } catch (e) {
         const { message } = e.response.data;
         self.errorMessage = message;
@@ -52,8 +41,8 @@ const Profile = types
 
     const getMe = flow(function* getMe() {
       try {
-        const token = yield AsyncStorage.getItem("token");
-        const response = yield api.get("/api/user/me", {
+        const token = yield AsyncStorage.getItem('token');
+        const response = yield api.get('/api/user/me', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -69,16 +58,79 @@ const Profile = types
 
     const updateProfile = flow(function* updateProfile(data) {
       try {
-        console.log("----------data", data);
-        const token = yield AsyncStorage.getItem("token");
-        const response = yield api.patch("/api/user/profile", data, {
+        const token = yield AsyncStorage.getItem('token');
+        const response = yield api.patch('/api/user/profile', data, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
+      } catch (e) {
+        const { message } = e.response.data;
+        self.errorMessage = message;
+      }
+    });
 
-        Alert.alert("You were successfully updated! ");
-        console.log("----------resposnes", response);
+    const addPickUpPoint = flow(function* addPickUpPoint(data) {
+      try {
+        const token = yield AsyncStorage.getItem('token');
+        const response = yield api.post('/api/user/pickup-points', data, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        User.setProfileInfo(response);
+      } catch (e) {
+        const { message } = e.response.data;
+        self.errorMessage = message;
+      }
+    });
+
+    const addDeliveryLocations = flow(function* addDeliveryLocations(data) {
+      try {
+        const token = yield AsyncStorage.getItem('token');
+        const response = yield api.post('/api/user/delivery-locations', data, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        User.setProfileInfo(response);
+
+        console.log('response on addDeliveryLocations', response);
+      } catch (e) {
+        const { message } = e.response.data;
+        self.errorMessage = message;
+      }
+    });
+
+    const deleteDeliveryLocations = flow(function* deleteDeliveryLocations(
+      data
+    ) {
+      try {
+        const token = yield AsyncStorage.getItem('token');
+        const response = yield api.delete('/api/user/delivery-locations', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          data
+        });
+        User.setProfileInfo(response);
+        console.log('response on delete delevery', response);
+      } catch (e) {
+        const { message } = e.response.data;
+        self.errorMessage = message;
+      }
+    });
+
+    const deletePickupPoints = flow(function* deletePickupPoints(data) {
+      try {
+        const token = yield AsyncStorage.getItem('token');
+        const response = yield api.delete('/api/user/pickup-points', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          data
+        });
+        User.setProfileInfo(response);
       } catch (e) {
         const { message } = e.response.data;
         self.errorMessage = message;
@@ -89,7 +141,11 @@ const Profile = types
       logIn,
       registration,
       getMe,
-      updateProfile
+      updateProfile,
+      addPickUpPoint,
+      addDeliveryLocations,
+      deletePickupPoints,
+      deleteDeliveryLocations
     };
   })
   .create();
