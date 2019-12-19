@@ -78,16 +78,36 @@ class LocationInput extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { arrayOfpoints } = this.props;
-
-    if (this.props.arrayOfpoints.length !== prevProps.arrayOfpoints.length) {
+    if (
+      arrayOfpoints &&
+      prevProps.arrayOfpoints &&
+      arrayOfpoints.length !== prevProps.arrayOfpoints.length
+    ) {
       this.setLocation();
     }
   }
 
-  handleLocation = value => {
-    const { name } = this.props;
+  handleLocation = async value => {
+    const { name, label } = this.props;
+
     setProfileInfo({ [name]: value, location: options[value].label });
-    this.setState({ locationName: options[value].label, locationId: value });
+    await this.setState(prevState => {
+      return { locationName: options[value].label, locationId: value };
+    });
+
+    const { locationName } = this.state;
+    if (Platform.OS !== 'ios') {
+      if (label === 'Pickup point') {
+        await Auth.addPickUpPoint({
+          pickup_point: locationName
+        });
+      }
+      if (label === 'Delivery location') {
+        await Auth.addDeliveryLocations({
+          delivery_location: locationName
+        });
+      }
+    }
   };
 
   onDonePress = async () => {
@@ -142,12 +162,14 @@ class LocationInput extends React.Component {
               onDonePress={() => this.onDonePress()}
             />
           </Wrapper>
-          <Icon
-            name="plus"
-            size={12}
-            color="#86939e"
-            style={{ marginBottom: 5, marginLeft: -25 }}
-          />
+          {Platform.OS === 'ios' && (
+            <Icon
+              name="plus"
+              size={12}
+              color="#86939e"
+              style={{ marginBottom: 5, marginLeft: -25 }}
+            />
+          )}
         </Container>
         <LocationsWrapper>
           {locations.map(el => {

@@ -8,7 +8,7 @@ import Search from './search/search';
 import ProfileScreen from './profile/profile';
 import Jobs from './jobs/jobs';
 import Payments from './payments/payments';
-import ProfileInfoScreen from './profile-info/profile';
+import ProfileOnboardingScreen from './profile-onboarding/profile';
 import UpdateProfile from './update-profile/update-profile';
 import App from '../../App';
 import { HowItWorks, Referal } from './referal';
@@ -18,7 +18,10 @@ export default function registerScreens() {
   Navigation.registerComponent('App', () => App);
   Navigation.registerComponent('WelcomeScreen', () => WelcomeScreen);
   Navigation.registerComponent('AuthScreen', () => AuthScreen);
-  Navigation.registerComponent('ProfileInfoScreen', () => ProfileInfoScreen);
+  Navigation.registerComponent(
+    'ProfileOnboardingScreen',
+    () => ProfileOnboardingScreen
+  );
   Navigation.registerComponent('PaymentScreen', () => Payments);
   Navigation.registerComponent('JobsScreen', () => Jobs);
   Navigation.registerComponent('ProfileScreen', () => ProfileScreen);

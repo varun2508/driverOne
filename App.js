@@ -32,7 +32,7 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.welcome}> Loading </Text>
+      <Text style={styles.welcome}> Loading... </Text>
     </View>
   );
 };

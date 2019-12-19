@@ -94,8 +94,6 @@ const Profile = types
           }
         });
         User.setProfileInfo(response);
-
-        console.log('response on addDeliveryLocations', response);
       } catch (e) {
         const { message } = e.response.data;
         self.errorMessage = message;
@@ -114,7 +112,6 @@ const Profile = types
           data
         });
         User.setProfileInfo(response);
-        console.log('response on delete delevery', response);
       } catch (e) {
         const { message } = e.response.data;
         self.errorMessage = message;

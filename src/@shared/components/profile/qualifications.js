@@ -10,19 +10,20 @@ const Qualifications = () => {
   const { profile, setProfileInfo } = User;
 
   const [classes, setClass] = useState(profile.classLicince);
-  const [contractLength, setcontractLength] = useState(profile.contractLength || {});
+  const [contractLength, setcontractLength] = useState(
+    profile.contractLength || {}
+  );
 
-  const handleContract = (value) => {
+  const handleContract = value => {
     setcontractLength({ [value]: true });
     setProfileInfo({ contractLength: { [value]: true } });
   };
 
-  const handleClass = (value) => {
+  const handleClass = value => {
     setClass(value);
     setProfileInfo({ classLicince: value });
   };
 
-  console.log(profile.classLicince, 'clsses');
   return (
     <>
       <ClassesContainer>
@@ -101,11 +102,11 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     paddingBottom: 5,
     marginLeft: 0,
-    backgroundColor: 'transparent',
+    backgroundColor: 'transparent'
   },
   text: {
-    fontWeight: '100',
-  },
+    fontWeight: '100'
+  }
 });
 
 const ClassesContainer = styled.View`

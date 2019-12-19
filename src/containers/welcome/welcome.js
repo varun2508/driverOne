@@ -1,21 +1,20 @@
-import React from "react";
-import { StyleSheet } from "react-native";
-import styled from "styled-components/native";
-import { Button } from "react-native-elements";
-import LinearGradient from "react-native-linear-gradient";
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
+import { Button } from 'react-native-elements';
+import LinearGradient from 'react-native-linear-gradient';
 
-import { navigate } from "@shared/helpers";
+import { navigate } from '@shared/helpers';
 
-import { Sliders } from "./components";
+import { Sliders } from './components';
 
 const WelcomeScreen = ({ componentId }) => {
   const navigateTo = props => {
-    const isLogIn = props === "Log In";
-    console.log("------componentId----", componentId);
-    navigate("AuthScreen", componentId, { isLogIn });
+    const isLogIn = props === 'Log In';
+    navigate('AuthScreen', componentId, { isLogIn });
   };
   return (
-    <LinearGradient colors={["#61aff4", "#2282d9"]} style={styles.container}>
+    <LinearGradient colors={['#61aff4', '#2282d9']} style={styles.container}>
       <Sliders />
       <ButtonContainer>
         <Button
@@ -24,16 +23,16 @@ const WelcomeScreen = ({ componentId }) => {
           buttonStyle={styles.buttonColor}
           onPress={navigateTo}
           titleStyle={{
-            fontWeight: "bold",
+            fontWeight: 'bold',
             fontSize: 14
           }}
         />
         <Button
           title="LOG IN"
           buttonStyle={styles.button}
-          onPress={() => navigateTo("Log In")}
+          onPress={() => navigateTo('Log In')}
           titleStyle={{
-            fontWeight: "bold",
+            fontWeight: 'bold',
             fontSize: 14
           }}
         />
@@ -46,18 +45,18 @@ export default WelcomeScreen;
 
 const styles = StyleSheet.create({
   buttonColor: {
-    backgroundColor: "#fff",
+    backgroundColor: '#fff',
     width: 176,
     marginRight: 15,
-    borderColor: "#fff",
+    borderColor: '#fff',
     borderWidth: 3,
     borderRadius: 8,
     height: 32,
     paddingTop: 3
   },
   button: {
-    width: "100%",
-    borderColor: "#fff",
+    width: '100%',
+    borderColor: '#fff',
     borderWidth: 3,
     borderRadius: 8,
     height: 32,

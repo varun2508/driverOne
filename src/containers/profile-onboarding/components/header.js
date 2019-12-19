@@ -1,18 +1,18 @@
-import React from "react";
-import styled from "styled-components/native";
-import { StyleSheet } from "react-native";
+import React from 'react';
+import styled from 'styled-components/native';
+import { StyleSheet } from 'react-native';
 
-import LinearGradient from "react-native-linear-gradient";
+import LinearGradient from 'react-native-linear-gradient';
 
 const Header = () => {
   return (
     <LinearGradient
-      colors={["#2282d9", "#61aff4"]}
-      start={{ x: 0.0, y: 0.25 }}
-      end={{ x: 0.5, y: 1.0 }}
+      colors={['#0f2ba1', '#61aff4']}
+      start={{ x: 0.0, y: 0.6 }}
+      end={{ x: 0.7, y: 1.0 }}
       style={styles.container}
     >
-      <H1 h3 style={{ fontSize: 28, color: "#fff", letterSpacing: 1 }}>
+      <H1 h3 style={{ fontSize: 28, color: '#fff', letterSpacing: 1 }}>
         Welcome to Driver One!
       </H1>
       <H3>Before you get started, help us get to know</H3>
@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
     height: 218,
     marginRight: -21,
     marginLeft: -21,
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
     paddingTop: 64
   }
 });

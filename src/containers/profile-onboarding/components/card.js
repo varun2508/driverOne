@@ -25,13 +25,13 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
-    elevation: 1,
+    elevation: 1
   },
   scroll: {
     paddingHorizontal: 31,
     paddingTop: 31,
-    paddingBottom: 41,
-  },
+    paddingBottom: 41
+  }
 });
 
 const Title = styled.Text`
@@ -45,6 +45,7 @@ const Container = styled.View`
   margin-top: -30px;
   max-height: ${({ ht }) => ht};
   box-shadow: 10px 5px 5px black;
+  border: 1px solid red;
 `;
 
 const Body = styled.View`

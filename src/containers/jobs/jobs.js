@@ -12,7 +12,6 @@ const Jobs = () => {
 
   return (
     <>
-      {console.log('lohasdsa')}
       <TabView
         navigationState={{
           index,
@@ -20,27 +19,27 @@ const Jobs = () => {
             { key: '0', title: 'Pending' },
             { key: '1', title: 'Active' },
             { key: '2', title: 'Completed' },
-            { key: '3', title: 'Closed' },
-          ],
+            { key: '3', title: 'Closed' }
+          ]
         }}
         renderScene={SceneMap({
           0: PendingTab,
           1: ActiveTab,
           2: CompletedTab,
-          3: ClosedTab,
+          3: ClosedTab
         })}
-        renderTabBar={(props) => (
+        renderTabBar={props => (
           <TabBar
             {...props}
             indicatorStyle={{
-              backgroundColor: '#193ed9',
+              backgroundColor: '#193ed9'
             }}
             activeColor="red"
             style={{
               backgroundColor: '#fff',
               color: 'red',
               height: 40,
-              marginTop: 40,
+              marginTop: 40
             }}
             labelStyle={{
               color: '#b1abad',
@@ -48,16 +47,16 @@ const Jobs = () => {
               textTransform: 'capitalize',
               paddingTop: 0,
               fontWeight: '600',
-              paddingBottom: 0,
+              paddingBottom: 0
             }}
             tabStyle={{
-              padding: 0,
+              padding: 0
             }}
             getLabelText={({ route }) => {
               return (
                 <Text
                   style={{
-                    color: +route.key === index ? '#193ed9' : '#bdb8ba',
+                    color: +route.key === index ? '#193ed9' : '#bdb8ba'
                   }}
                 >
                   {route.title}
@@ -67,7 +66,7 @@ const Jobs = () => {
           />
         )}
         initialLayout={{ width: Dimensions.get('window').width }}
-        onIndexChange={(indexTab) => setIndex(indexTab)}
+        onIndexChange={indexTab => setIndex(indexTab)}
       />
     </>
   );

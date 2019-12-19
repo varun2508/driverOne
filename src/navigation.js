@@ -10,12 +10,12 @@ const goToMain = async () => {
         children: [
           {
             component: {
-              name: 'WelcomeScreen',
-            },
-          },
-        ],
-      },
-    },
+              name: 'WelcomeScreen'
+            }
+          }
+        ]
+      }
+    }
   });
 };
 
@@ -23,16 +23,16 @@ const profileDetails = () => {
   Navigation.setRoot({
     root: {
       stack: {
-        id: 'ProfileInfoScreen',
+        id: 'ProfileOnboardingScreen',
         children: [
           {
             component: {
-              name: 'ProfileInfoScreen',
-            },
-          },
-        ],
-      },
-    },
+              name: 'ProfileOnboardingScreen'
+            }
+          }
+        ]
+      }
+    }
   });
 };
 
@@ -48,23 +48,23 @@ function PreviewScreens() {
                 topBar: {
                   title: {
                     component: {
-                      name: 'NavHeader',
-                    },
+                      name: 'NavHeader'
+                    }
                   },
                   background: {
-                    color: '#61aff4',
+                    color: '#61aff4'
                   },
                   noBorder: true,
                   drawBehind: false,
                   visible: true,
-                  animate: false,
-                },
-              },
-            },
-          },
-        ],
-      },
-    },
+                  animate: false
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
   });
 }
 
@@ -77,8 +77,8 @@ const defaultTobBarOption = {
   transparent: true,
   elevation: 0,
   background: {
-    color: 'transparent',
-  },
+    color: 'transparent'
+  }
 };
 
 const JobsScreen = () => {
@@ -89,19 +89,19 @@ const JobsScreen = () => {
         children: [
           {
             component: {
-              name: 'JobsScreen',
-            },
-          },
+              name: 'JobsScreen'
+            }
+          }
         ],
         options: {
-          topBar: defaultTobBarOption,
-        },
-      },
-    },
+          topBar: defaultTobBarOption
+        }
+      }
+    }
   });
 };
 
-const goHome = async (props) => {
+const goHome = async props => {
   const Icon = getSnapshot(Icons.icons);
   const iconColor = '#8e8e93';
   const textColor = '#8e8e93';
@@ -113,8 +113,8 @@ const goHome = async (props) => {
       bottomTabs: {
         options: {
           bottomTabs: {
-            currentTabIndex: 3,
-          },
+            currentTabIndex: 3
+          }
         },
         children: [
           {
@@ -123,9 +123,9 @@ const goHome = async (props) => {
                 {
                   component: {
                     name: 'SearchScreen',
-                    passProps: props,
-                  },
-                },
+                    passProps: props
+                  }
+                }
               ],
               options: {
                 topBar: defaultTobBarOption,
@@ -134,19 +134,19 @@ const goHome = async (props) => {
                   iconColor,
                   textColor,
                   selectedTextColor,
-                  icon: Icon.Search,
-                },
-              },
-            },
+                  icon: Icon.Search
+                }
+              }
+            }
           },
           {
             stack: {
               children: [
                 {
                   component: {
-                    name: 'JobsScreen',
-                  },
-                },
+                    name: 'JobsScreen'
+                  }
+                }
               ],
               options: {
                 topBar: defaultTobBarOption,
@@ -155,19 +155,19 @@ const goHome = async (props) => {
                   iconColor,
                   textColor,
                   selectedTextColor,
-                  icon: Icon.Work,
-                },
-              },
-            },
+                  icon: Icon.Work
+                }
+              }
+            }
           },
           {
             stack: {
               children: [
                 {
                   component: {
-                    name: 'PaymentScreen',
-                  },
-                },
+                    name: 'PaymentScreen'
+                  }
+                }
               ],
               options: {
                 topBar: defaultTobBarOption,
@@ -176,21 +176,21 @@ const goHome = async (props) => {
                   iconColor,
                   textColor,
                   selectedTextColor,
-                  icon: Icon.LocalAtm,
-                },
-              },
-            },
+                  icon: Icon.LocalAtm
+                }
+              }
+            }
           },
           {
             stack: {
-              id: 'ProfileInfoScreen',
+              id: 'ProfileOnboardingScreen',
               children: [
                 {
                   component: {
                     name: 'ProfileScreen',
-                    passProps: props,
-                  },
-                },
+                    passProps: props
+                  }
+                }
               ],
               options: {
                 topBar: defaultTobBarOption,
@@ -199,14 +199,14 @@ const goHome = async (props) => {
                   iconColor,
                   textColor,
                   selectedTextColor,
-                  icon: Icon.Person,
-                },
-              },
-            },
-          },
-        ],
-      },
-    },
+                  icon: Icon.Person
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
   });
 };
 

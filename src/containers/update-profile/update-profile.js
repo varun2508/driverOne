@@ -14,7 +14,8 @@ import {
   JobPreferences,
   Qualifications,
   Policy,
-  DriverStateVerification
+  DriverStateVerification,
+  ProfileHeader
 } from '@shared';
 
 const UpdateProfile = ({ componentId, data }) => {
@@ -47,16 +48,7 @@ const UpdateProfile = ({ componentId, data }) => {
   return (
     <Container>
       <View style={{ flex: 1 }}>
-        <Header>
-          <Name>Hi John</Name>
-          <ProfileImg>
-            <Image
-              resizeMode="cover"
-              source={{ uri: 'https://picsum.photos/700' }}
-              style={{ height: '100%', width: '100%', borderRadius: 100 }}
-            />
-          </ProfileImg>
-        </Header>
+        <ProfileHeader />
         <CardWrapper>
           <Card containerStyle={{ paddingBottom: 0 }}>
             <TitleContainer>

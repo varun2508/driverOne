@@ -1,128 +1,144 @@
-import React from "react";
-import { Image, AsyncStorage } from "react-native";
-import { ListItem, Button } from "react-native-elements";
-import styled from "styled-components/native";
+import React, { useState, useEffect } from 'react';
+import { AsyncStorage } from 'react-native';
+import { ListItem, Button } from 'react-native-elements';
+import styled from 'styled-components/native';
+import { navigate } from '@shared/helpers';
+import { Card, ProfileHeader } from '@shared';
+import { Loader } from '@shared/components';
 
-import { navigate } from "@shared/helpers";
-import { Card } from "@shared";
+import User from '@mobx/user';
+import Auth from '@mobx/auth';
 
 const list = [
   {
-    title: "Profile",
-    icon: "person-outline",
+    title: 'Profile',
+    icon: 'person-outline',
     value: {
-      key: "Profile",
-      title: "Your Profile"
+      key: 'Profile',
+      title: 'Your Profile'
     }
   },
   {
-    title: "Job Preferences",
-    icon: "assignment",
+    title: 'Job Preferences',
+    icon: 'assignment',
     value: {
-      key: "Preferences",
-      title: "Job Preferences"
+      key: 'Preferences',
+      title: 'Job Preferences'
     }
   },
   {
-    title: "Qualifications",
-    icon: "check-circle",
+    title: 'Qualifications',
+    icon: 'check-circle',
     value: {
-      key: "Qualifications",
-      title: "Qualifications"
+      key: 'Qualifications',
+      title: 'Qualifications'
     }
   },
   {
-    title: "Driver One Employment Verified",
-    icon: "verified-user",
+    title: 'Driver One Employment Verified',
+    icon: 'verified-user',
     value: {
-      key: "DriverVerified",
-      title: "Driver One Employment"
+      key: 'DriverVerified',
+      title: 'Driver One Employment'
     }
   }
 ];
 
 const Profile = ({ componentId }) => {
+  const { setProfileInfo, profile } = User;
+  const [loading, setLoading] = useState(true);
   const navigateTo = value => {
-    navigate("UpdateProfile", componentId, value);
+    navigate('UpdateProfile', componentId, value);
   };
 
+  const fetchData = async () => {
+    await Auth.getMe();
+    const { first_name, last_name } = User.profile;
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchData();
+    // setLoading(true);
+  }, []);
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <Container>
-      <Header>
-        <Name>Hi John</Name>
-        <ProfileImg>
-          <Image
-            resizeMode="cover"
-            source={{ uri: "https://picsum.photos/700" }}
-            style={{ height: "100%", width: "100%", borderRadius: 100 }}
-          />
-        </ProfileImg>
-      </Header>
-      <CardWrapper>
-        <Card containerStyle={{ paddingBottom: 0 }}>
-          <Statistic>
-            <Stats>
-              <Amount>0</Amount>
-              <SubText>Pending jobs</SubText>
-            </Stats>
-            <Stats>
-              <Amount>0</Amount>
-              <SubText>Active job</SubText>
-            </Stats>
-            <Stats>
-              <Amount>0</Amount>
-              <SubText>Your rating</SubText>
-            </Stats>
-          </Statistic>
-          <NavigationBar>
-            {list.map((item, i) => (
+      <ProfileHeader name={profile.first_name} imageSrc={''} />
+      <ScrollViewWrapper>
+        <CardWrapper>
+          <Card containerStyle={{ paddingBottom: 0 }}>
+            <Statistic>
+              <Stats>
+                <Amount>0</Amount>
+                <SubText>Pending jobs</SubText>
+              </Stats>
+              <Stats>
+                <Amount>0</Amount>
+                <SubText>Active job</SubText>
+              </Stats>
+              <Stats>
+                <Amount>0</Amount>
+                <SubText>Your rating</SubText>
+              </Stats>
+            </Statistic>
+            <NavigationBar>
+              {list.map((item, i) => (
+                <ListItem
+                  key={i}
+                  titleStyle={{ fontSize: 14 }}
+                  title={item.title}
+                  leftIcon={{ name: item.icon, color: 'gray' }}
+                  bottomDivider
+                  onPress={() => navigateTo(item.value)}
+                  chevron={{ color: '#64abef' }}
+                />
+              ))}
               <ListItem
-                key={i}
+                title="Make a Referral"
                 titleStyle={{ fontSize: 14 }}
-                title={item.title}
-                leftIcon={{ name: item.icon, color: "gray" }}
+                leftIcon={{ name: 'people', color: 'gray' }}
                 bottomDivider
-                onPress={() => navigateTo(item.value)}
-                chevron={{ color: "#64abef" }}
+                // onPress={() => navigate("HowItWorks", componentId)}
+                chevron={{ color: '#64abef' }}
               />
-            ))}
-            <ListItem
-              title="Make a Referral"
-              titleStyle={{ fontSize: 14 }}
-              leftIcon={{ name: "people", color: "gray" }}
-              bottomDivider
-              // onPress={() => navigate("HowItWorks", componentId)}
-              chevron={{ color: "#64abef" }}
-            />
-          </NavigationBar>
-        </Card>
-        <ListItem
-          title="Training Video"
-          containerStyle={{
-            shadowColor: "#999",
-            shadowOffset: { width: 0, height: 0.5 },
-            shadowOpacity: 0.5,
-            shadowRadius: 1,
-            elevation: 1,
-            borderRadius: 4
-          }}
-          titleStyle={{ fontSize: 14 }}
-          style={{ marginTop: 20 }}
-          leftIcon={{ name: "tv" }}
-          bottomDivider
-          onPress={() => {}}
-          chevron={{ color: "#64abef" }}
-        />
-      </CardWrapper>
+            </NavigationBar>
+          </Card>
+          <ListItem
+            title="Training Video"
+            containerStyle={{
+              shadowColor: '#999',
+              shadowOffset: { width: 0, height: 0.5 },
+              shadowOpacity: 0.5,
+              shadowRadius: 1,
+              elevation: 1,
+              borderRadius: 4
+            }}
+            titleStyle={{ fontSize: 14 }}
+            style={{ marginTop: 20 }}
+            leftIcon={{ name: 'tv' }}
+            bottomDivider
+            onPress={() => {}}
+            chevron={{ color: '#64abef' }}
+          />
+        </CardWrapper>
 
-      <Button
-        containerStyle={{ marginLeft: 20, marginRight: 20, marginTop: 20 }}
-        onPress={async () => {
-          await AsyncStorage.removeItem("token");
-          navigate("AuthScreen", componentId, {});
-        }}
-        title="LOG OUT"
-      />
+        <Button
+          containerStyle={{
+            marginLeft: 20,
+            marginRight: 20,
+            marginTop: 20,
+            marginBottom: 20
+          }}
+          onPress={async () => {
+            await AsyncStorage.removeItem('token');
+            navigate('AuthScreen', componentId, {});
+          }}
+          title="LOG OUT"
+        />
+      </ScrollViewWrapper>
     </Container>
   );
 };
@@ -160,32 +176,12 @@ const Statistic = styled.View`
   flex-direction: row;
   justify-content: space-between;
 `;
-const Name = styled.Text`
-  font-size: 24px;
-  color: #fff;
-`;
 
 const CardWrapper = styled.View`
   margin-right: 20px;
   margin-left: 20px;
 `;
 
-const Header = styled.View`
-  display: flex;
-  flex: 0.8;
-  height: 234px;
-  z-index: 9;
-  background-color: #82c0fb;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-`;
-
-const ProfileImg = styled.View`
-  height: 100px;
-  width: 100px;
-  border-radius: 100;
-  position: absolute;
-  background-color: gray;
-  bottom: -30px;
+const ScrollViewWrapper = styled.ScrollView`
+  margin-top: 40px;
 `;
