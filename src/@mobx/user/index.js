@@ -8,6 +8,7 @@ const User = types
   })
   .actions(self => {
     const setProfileInfo = data => {
+      console.log('-----data in mobx', data);
       const selfUser = getSnapshot(self.user);
       const user = { ...selfUser, ...data };
       self.user = user;

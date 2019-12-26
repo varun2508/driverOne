@@ -45,7 +45,6 @@ const Container = styled.View`
   margin-top: -30px;
   max-height: ${({ ht }) => ht};
   box-shadow: 10px 5px 5px black;
-  border: 1px solid red;
 `;
 
 const Body = styled.View`

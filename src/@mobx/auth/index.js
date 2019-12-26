@@ -59,11 +59,13 @@ const Profile = types
     const updateProfile = flow(function* updateProfile(data) {
       try {
         const token = yield AsyncStorage.getItem('token');
-        const response = yield api.patch('/api/user/profile', data, {
+        const response = yield api.patch('/api/driver/profile', data, {
           headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
           }
         });
+        User.setProfileInfo(response);
       } catch (e) {
         const { message } = e.response.data;
         self.errorMessage = message;
@@ -134,6 +136,27 @@ const Profile = types
       }
     });
 
+    const uploadAvatar = flow(function* uploadAvatar(data) {
+      const token = yield AsyncStorage.getItem('token');
+      const url = `http://52.34.12.148/api/driver/photo`;
+      const options = {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'image/jpeg'
+        },
+        body: data
+      };
+      return fetch(url, options)
+        .then(async response => {
+          const resp = await response.json();
+          User.setProfileInfo(resp);
+        })
+        .catch(e => {
+          console.log('--error on uploading', e.response.data);
+        });
+    });
+
     return {
       logIn,
       registration,
@@ -142,7 +165,8 @@ const Profile = types
       addPickUpPoint,
       addDeliveryLocations,
       deletePickupPoints,
-      deleteDeliveryLocations
+      deleteDeliveryLocations,
+      uploadAvatar
     };
   })
   .create();

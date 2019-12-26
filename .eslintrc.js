@@ -37,13 +37,14 @@ module.exports = {
       {
         singleQuote: true,
         semi: true,
-        printWidth: 100,
+        printWidth: 80,
         trailingComma: 'none',
         tabWidth: 2,
-        arrowParens: 'always'
+        arrowParens: 'never'
       }
     ],
-    camelcase: [2, { properties: 'never' }]
+    camelcase: [0, { properties: 'never' }],
+    'arrow-parens': 'always'
   },
   plugins: ['prettier', 'module-resolver'],
   settings: {

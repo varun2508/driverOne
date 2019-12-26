@@ -7,6 +7,7 @@ import com.facebook.react.PackageList;
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
+import com.imagepicker.ImagePickerPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.swmansion.reanimated.ReanimatedPackage;
@@ -53,7 +54,8 @@ public class MainApplication extends NavigationApplication {
 																		new VectorIconsPackage(),
 																		new ReanimatedPackage(),
 																		new RNGestureHandlerPackage(),
-																		new LinearGradientPackage()
+																		new LinearGradientPackage(),
+																		new ImagePickerPackage()
                             );
         }
 

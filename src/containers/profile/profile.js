@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, RefreshControl } from 'react-native';
 import { ListItem, Button } from 'react-native-elements';
 import styled from 'styled-components/native';
 import { navigate } from '@shared/helpers';
 import { Card, ProfileHeader } from '@shared';
 import { Loader } from '@shared/components';
-
+import { baseURL } from '../../utils/constants';
+import { observer } from 'mobx-react';
 import User from '@mobx/user';
 import Auth from '@mobx/auth';
 
@@ -45,29 +46,35 @@ const list = [
 ];
 
 const Profile = ({ componentId }) => {
-  const { setProfileInfo, profile } = User;
+  const { profile } = User;
   const [loading, setLoading] = useState(true);
+  const imageSrc = `${baseURL}${profile.photo}`;
+
   const navigateTo = value => {
     navigate('UpdateProfile', componentId, value);
   };
 
   const fetchData = async () => {
+    console.log('----------fetching');
+    setLoading(true);
     await Auth.getMe();
-    const { first_name, last_name } = User.profile;
     setLoading(false);
   };
 
   useEffect(() => {
     fetchData();
-    // setLoading(true);
   }, []);
   if (loading) {
     return <Loader />;
   }
   return (
     <Container>
-      <ProfileHeader name={profile.first_name} imageSrc={''} />
-      <ScrollViewWrapper>
+      <ProfileHeader name={profile.first_name} imageSrc={imageSrc} />
+      <ScrollViewWrapper
+        refreshControl={
+          <RefreshControl refreshing={loading} onRefresh={fetchData} />
+        }
+      >
         <CardWrapper>
           <Card containerStyle={{ paddingBottom: 0 }}>
             <Statistic>
@@ -101,7 +108,7 @@ const Profile = ({ componentId }) => {
                 titleStyle={{ fontSize: 14 }}
                 leftIcon={{ name: 'people', color: 'gray' }}
                 bottomDivider
-                // onPress={() => navigate("HowItWorks", componentId)}
+                onPress={() => navigate('HowItWorks', componentId)}
                 chevron={{ color: '#64abef' }}
               />
             </NavigationBar>
@@ -143,7 +150,7 @@ const Profile = ({ componentId }) => {
   );
 };
 
-export default Profile;
+export default observer(Profile);
 
 const Container = styled.View`
   display: flex;

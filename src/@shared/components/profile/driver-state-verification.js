@@ -1,45 +1,59 @@
-import React from "react";
-import { Linking } from "react-native";
-import styled from "styled-components/native";
+import React from 'react';
+import { Linking } from 'react-native';
+import styled from 'styled-components/native';
+import { Card, BackButton } from '@shared';
 
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const DriverStateVerification = ({ state = "update" }) => {
+const DriverStateVerification = ({
+  state = 'update',
+  title,
+  screen,
+  componentId
+}) => {
   const Title = {
-    "verified-user": "Your Driver One application was successful!",
-    report: "Please submit application to Driver One",
-    update: "Your application to Driver One is pending."
+    'verified-user': 'Your Driver One application was successful!',
+    report: 'Please submit application to Driver One',
+    update: 'Your application to Driver One is pending.'
   };
 
   const TextLocal = {
-    "verified-user":
-      " After careful reveiw of your application, you have been approved to apply to any job listedon Driver Hub",
+    'verified-user':
+      ' After careful reveiw of your application, you have been approved to apply to any job listedon Driver Hub',
     update:
-      "We are currently reviewing your application. Please check back in 1-2 business days for an updated status",
-    report: ""
+      'We are currently reviewing your application. Please check back in 1-2 business days for an updated status',
+    report: ''
   };
 
   const textState = TextLocal[state];
   const titleState = Title[state];
   return (
     <Container>
-      <IconContainer>
-        <MaterialIcons color="#64abef" name={state} size={24} />
-      </IconContainer>
-      <H2>{titleState}</H2>
-      <Text>{textState}</Text>
-      <Text>Why do I need approval?</Text>
-      <Text>
-        In order to apply and view job details, we require drivers to go through
-        a quick application process on our website.
-      </Text>
-      <TextLink>For more information please visit:</TextLink>
-      <Text
-        style={{ color: "blue" }}
-        onPress={() => Linking.openURL("https://www.joindriverone.com/")}
-      >
-        https://www.joindriverone.com/
-      </Text>
+      <CardWrapper>
+        <Card containerStyle={{ paddingBottom: 0 }}>
+          <TitleContainer>
+            <ScreenTitle>{title}</ScreenTitle>
+          </TitleContainer>
+          {screen !== 'onboarding' && <BackButton componentId={componentId} />}
+          <IconContainer>
+            <MaterialIcons color="#64abef" name={state} size={24} />
+          </IconContainer>
+          <H2>{titleState}</H2>
+          <Text>{textState}</Text>
+          <Text>Why do I need approval?</Text>
+          <Text>
+            In order to apply and view job details, we require drivers to go
+            through a quick application process on our website.
+          </Text>
+          <TextLink>For more information please visit:</TextLink>
+          <Text
+            style={{ color: 'blue' }}
+            onPress={() => Linking.openURL('https://www.joindriverone.com/')}
+          >
+            https://www.joindriverone.com/
+          </Text>
+        </Card>
+      </CardWrapper>
     </Container>
   );
 };
@@ -67,3 +81,13 @@ const H2 = styled.Text`
 `;
 
 const TextLink = styled.Text``;
+const TitleContainer = styled.View`
+  align-self: center;
+`;
+const ScreenTitle = styled.Text`
+  font-size: 20px;
+`;
+const CardWrapper = styled.View`
+  margin-right: 20px;
+  margin-left: 20px;
+`;

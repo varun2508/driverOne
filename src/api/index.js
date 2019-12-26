@@ -1,11 +1,10 @@
-import axios from "axios";
-
-const baseURL = "http://52.34.12.148";
+import axios from 'axios';
+import { baseURL } from '../utils/constants';
 
 const api = axios.create({
   baseURL,
-  timeout: 1000,
-  headers: { "Content-Type": "application/json" }
+  timeout: 1000
+  // headers: { 'Content-Type': 'application/json' }
 });
 
 api.interceptors.response.use(

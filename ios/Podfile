@@ -45,6 +45,8 @@ target 'driverone' do
 
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
+  pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
   target 'driveroneTests' do
     inherit! :search_paths
     # Pods for testing

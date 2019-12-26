@@ -13,8 +13,8 @@ const App = () => {
   const checkToken = async () => {
     const localToken = await AsyncStorage.getItem('token');
     if (localToken) {
-      goHome();
-      // profileDetails();
+      // goHome();
+      profileDetails();
       // JobsScreen();
     } else {
       // goHome();

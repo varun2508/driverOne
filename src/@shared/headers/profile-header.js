@@ -1,26 +1,45 @@
-import React from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import { StyleSheet, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import { Loader } from '@shared/components';
 
-const ProfileHeader = ({ name, imageSrc }) => (
-  <Header>
-    <LinearGradient
-      colors={['#0f2ba1', '#61aff4']}
-      start={{ x: 0.0, y: 0.6 }}
-      end={{ x: 0.7, y: 1.0 }}
-      style={styles.container}
-    />
-    <ProfileImg>
-      <Name>Hi {name}!</Name>
-      <Image
-        resizeMode="cover"
-        source={{ uri: 'https://picsum.photos/700' }}
-        style={{ height: '100%', width: '100%', borderRadius: 100 }}
+const ProfileHeader = ({ name, imageSrc, loading }) => {
+  // const [imageSrcNew, setImageSrcNew] = useState('');
+  // useEffect(() => {
+  //   console.log('----------useEfect in header');
+  //   if (loading) {
+  //     setImageSrcNew('');
+  //   } else {
+  //     setImageSrcNew(imageSrc);
+  //   }
+  // }, [imageSrc]);
+  return (
+    <Header>
+      <LinearGradient
+        colors={['#0f2ba1', '#61aff4']}
+        start={{ x: 0.0, y: 0.6 }}
+        end={{ x: 0.7, y: 1.0 }}
+        style={styles.container}
       />
-    </ProfileImg>
-  </Header>
-);
+      <ProfileImg>
+        <Name>Hi {name}!</Name>
+        {loading ? (
+          <Loader />
+        ) : (
+          <Image
+            resizeMode="cover"
+            source={{
+              uri: imageSrc,
+              cache: 'reload'
+            }}
+            style={{ height: '100%', width: '100%', borderRadius: 100 }}
+          />
+        )}
+      </ProfileImg>
+    </Header>
+  );
+};
 
 export default ProfileHeader;
 
@@ -53,6 +72,7 @@ const ProfileImg = styled.View`
 `;
 const Name = styled.Text`
   font-size: 24px;
+  width: 200px;
   color: #fff;
   top: -50px;
   position: absolute;

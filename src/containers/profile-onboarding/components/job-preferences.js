@@ -1,13 +1,8 @@
 import React from 'react';
 
-import { JobPreferences, Card } from '@shared';
+import { JobPreferences } from '@shared';
 
-const Preferences = () => {
-  return (
-    <Card title="Your Job Preferences">
-      <JobPreferences />
-    </Card>
-  );
-};
-
+const Preferences = () => (
+  <JobPreferences screen={'onboarding'} title="Your Job Preferences" />
+);
 export default Preferences;
