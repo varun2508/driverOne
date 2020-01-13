@@ -40,11 +40,10 @@ module.exports = {
         printWidth: 80,
         trailingComma: 'none',
         tabWidth: 2,
-        arrowParens: 'never'
+        arrowParens: 'avoid'
       }
     ],
-    camelcase: [0, { properties: 'never' }],
-    'arrow-parens': 'always'
+    camelcase: [0, { properties: 'never' }]
   },
   plugins: ['prettier', 'module-resolver'],
   settings: {

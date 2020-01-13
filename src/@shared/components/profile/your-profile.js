@@ -82,7 +82,6 @@ const YourProfile = ({ screen, title, componentId, setLoading }) => {
   //     goHome();
   //   }
   // }, []);
-  console.log('--------profile.first_name--', profile.first_name);
   return (
     <>
       <CardWrapper>

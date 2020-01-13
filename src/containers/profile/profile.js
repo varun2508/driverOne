@@ -55,7 +55,6 @@ const Profile = ({ componentId }) => {
   };
 
   const fetchData = async () => {
-    console.log('----------fetching');
     setLoading(true);
     await Auth.getMe();
     setLoading(false);
@@ -139,10 +138,7 @@ const Profile = ({ componentId }) => {
             marginTop: 20,
             marginBottom: 20
           }}
-          onPress={async () => {
-            await AsyncStorage.removeItem('token');
-            navigate('AuthScreen', componentId, {});
-          }}
+          onPress={() => Auth.logout(componentId)}
           title="LOG OUT"
         />
       </ScrollViewWrapper>

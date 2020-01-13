@@ -70,7 +70,7 @@ class Profile extends Component {
   };
 
   render() {
-    const { step } = this.state;
+    const { step, loading } = this.state;
     const { profile } = User;
 
     const { first_name: firstName, last_name: lastName, locationId } = profile;
@@ -83,7 +83,7 @@ class Profile extends Component {
       <Policy />
     ];
 
-    if (this.state.loading) {
+    if (loading) {
       return (
         <Container>
           <ActivityIndicator size="small" color="#61aff4" />

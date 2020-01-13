@@ -56,6 +56,22 @@ const Profile = types
       }
     });
 
+    const logout = flow(function* logout(componentId) {
+      try {
+        const token = yield AsyncStorage.getItem('token');
+        yield api.post('/api/user/logout', null, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        yield AsyncStorage.removeItem('token');
+        navigate('AuthScreen', componentId, {});
+      } catch (e) {
+        const { message } = e.response.data;
+        self.errorMessage = message;
+      }
+    });
     const updateProfile = flow(function* updateProfile(data) {
       try {
         const token = yield AsyncStorage.getItem('token');
@@ -75,7 +91,7 @@ const Profile = types
     const addPickUpPoint = flow(function* addPickUpPoint(data) {
       try {
         const token = yield AsyncStorage.getItem('token');
-        const response = yield api.post('/api/user/pickup-points', data, {
+        const response = yield api.post('/api/driver/pickup-points', data, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -90,11 +106,15 @@ const Profile = types
     const addDeliveryLocations = flow(function* addDeliveryLocations(data) {
       try {
         const token = yield AsyncStorage.getItem('token');
-        const response = yield api.post('/api/user/delivery-locations', data, {
-          headers: {
-            Authorization: `Bearer ${token}`
+        const response = yield api.post(
+          '/api/driver/delivery-locations',
+          data,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
           }
-        });
+        );
         User.setProfileInfo(response);
       } catch (e) {
         const { message } = e.response.data;
@@ -107,7 +127,7 @@ const Profile = types
     ) {
       try {
         const token = yield AsyncStorage.getItem('token');
-        const response = yield api.delete('/api/user/delivery-locations', {
+        const response = yield api.delete('/api/driver/delivery-locations', {
           headers: {
             Authorization: `Bearer ${token}`
           },
@@ -123,7 +143,7 @@ const Profile = types
     const deletePickupPoints = flow(function* deletePickupPoints(data) {
       try {
         const token = yield AsyncStorage.getItem('token');
-        const response = yield api.delete('/api/user/pickup-points', {
+        const response = yield api.delete('/api/driver/pickup-points', {
           headers: {
             Authorization: `Bearer ${token}`
           },
@@ -158,9 +178,10 @@ const Profile = types
     });
 
     return {
-      logIn,
       registration,
+      logIn,
       getMe,
+      logout,
       updateProfile,
       addPickUpPoint,
       addDeliveryLocations,

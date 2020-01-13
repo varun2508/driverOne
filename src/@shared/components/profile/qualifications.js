@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import styled from 'styled-components/native';
@@ -14,20 +14,46 @@ import {
 const Qualifications = ({ screen, title, componentId }) => {
   const { profile, setProfileInfo } = User;
 
-  const [classes, setClass] = useState(profile.classLicince);
-  const [contractLength, setcontractLength] = useState(
-    profile.contractLength || {}
-  );
-
-  const handleContract = value => {
-    setcontractLength({ [value]: true });
-    setProfileInfo({ contractLength: { [value]: true } });
-  };
+  const [classes, setClass] = useState(profile.license);
+  const [endorsements, setEndorsements] = useState(profile.endorsement || {});
 
   const handleClass = value => {
-    setClass(value);
-    setProfileInfo({ classLicince: value });
+    if (value === 'A') {
+      setClass({
+        a: true,
+        b: false,
+        c: false
+      });
+    }
+    if (value === 'B') {
+      setClass({
+        a: false,
+        b: true,
+        c: false
+      });
+    }
+    if (value === 'C') {
+      setClass({
+        a: false,
+        b: false,
+        c: true
+      });
+    }
+
+    setProfileInfo({ license: classes });
   };
+
+  const handleEndorsement = value => {
+    setEndorsements({ ...endorsements, [value]: !endorsements[value] });
+    // setProfileInfo({ contractLength: { [value]: true } });
+  };
+
+  useEffect(() => {
+    setProfileInfo({
+      endorsement: endorsements,
+      license: classes
+    });
+  }, [classes, endorsements]);
 
   return (
     <>
@@ -47,62 +73,62 @@ const Qualifications = ({ screen, title, componentId }) => {
             <Text>License Classes</Text>
             <Classes>
               <TouchableOpacity onPress={() => handleClass('A')}>
-                <ButtonContainer isActvie={classes === 'A'}>
-                  <ClassText isActvie={classes === 'A'}>A</ClassText>
+                <ButtonContainer isActive={classes.a}>
+                  <ClassText isActive={classes.a}>A</ClassText>
                 </ButtonContainer>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleClass('B')}>
-                <ButtonContainer isActvie={classes === 'B'}>
-                  <ClassText isActvie={classes === 'B'}>B</ClassText>
+                <ButtonContainer isActive={classes.b}>
+                  <ClassText isActive={classes.b}>B</ClassText>
                 </ButtonContainer>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleClass('C')}>
-                <ButtonContainer isActvie={classes === 'C'}>
-                  <ClassText isActvie={classes === 'C'}>C</ClassText>
+                <ButtonContainer isActive={classes.c}>
+                  <ClassText isActive={classes.c}>C</ClassText>
                 </ButtonContainer>
               </TouchableOpacity>
             </Classes>
           </ClassesContainer>
-          <Text style={{ marginBottom: 10 }}>Contract Length </Text>
+          <Text style={{ marginBottom: 10 }}>Endorsements </Text>
           <CheckBox
             title="T - Double/Triple Trailers"
-            checked={contractLength.T}
-            onPress={() => handleContract('T')}
+            checked={endorsements.t}
+            onPress={() => handleEndorsement('t')}
             containerStyle={styles.container}
             textStyle={styles.text}
           />
           <CheckBox
             title="P - Passenger"
-            checked={contractLength.P}
-            onPress={() => handleContract('P')}
+            checked={endorsements.p}
+            onPress={() => handleEndorsement('p')}
             containerStyle={styles.container}
             textStyle={styles.text}
           />
           <CheckBox
             title="N - Tank Vehicle"
-            checked={contractLength.N}
-            onPress={() => handleContract('N')}
+            checked={endorsements.n}
+            onPress={() => handleEndorsement('n')}
             containerStyle={styles.container}
             textStyle={styles.text}
           />
           <CheckBox
             title="H - Hazardous Materials"
-            checked={contractLength.H}
-            onPress={() => handleContract('H')}
+            checked={endorsements.h}
+            onPress={() => handleEndorsement('h')}
             containerStyle={styles.container}
             textStyle={styles.text}
           />
           <CheckBox
             title="X - Combination of tank vehicle and hazardous materials endorsements"
-            checked={contractLength.X}
-            onPress={() => handleContract('X')}
+            checked={endorsements.x}
+            onPress={() => handleEndorsement('x')}
             containerStyle={styles.container}
             textStyle={styles.text}
           />
           <CheckBox
             title="TC - TWIC card"
-            checked={contractLength.TC}
-            onPress={() => handleContract('TC')}
+            checked={endorsements.tc}
+            onPress={() => handleEndorsement('tc')}
             containerStyle={styles.container}
             textStyle={styles.text}
           />
@@ -140,7 +166,7 @@ const Classes = styled.View`
 `;
 
 const ClassText = styled.Text`
-  color: ${({ isActvie }) => (!isActvie ? '#2182d9' : '#fff')};
+  color: ${({ isActive }) => (!isActive ? '#2182d9' : '#fff')};
   font-weight: bold;
 `;
 
@@ -148,7 +174,7 @@ const ButtonContainer = styled.View`
   width: 47px;
   height: 27px;
   margin-right: 15px;
-  background-color: ${({ isActvie }) => (isActvie ? '#2182d9' : '#fff')};
+  background-color: ${({ isActive }) => (isActive ? '#2182d9' : '#fff')};
   border-width: 1px;
   border-color: #2182d9;
   border-radius: 20px;

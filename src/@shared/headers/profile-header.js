@@ -5,15 +5,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import { Loader } from '@shared/components';
 
 const ProfileHeader = ({ name, imageSrc, loading }) => {
-  // const [imageSrcNew, setImageSrcNew] = useState('');
-  // useEffect(() => {
-  //   console.log('----------useEfect in header');
-  //   if (loading) {
-  //     setImageSrcNew('');
-  //   } else {
-  //     setImageSrcNew(imageSrc);
-  //   }
-  // }, [imageSrc]);
   return (
     <Header>
       <LinearGradient

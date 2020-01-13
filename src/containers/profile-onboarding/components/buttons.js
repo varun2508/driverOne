@@ -4,6 +4,7 @@ import { Button } from 'react-native-elements';
 import { observer } from 'mobx-react';
 
 import User from '@mobx/user';
+import Auth from '@mobx/auth';
 import { goHome } from 'navigation';
 
 const Buttons = ({ nextStep, step }) => {
@@ -14,8 +15,8 @@ const Buttons = ({ nextStep, step }) => {
     pay_to,
     pickup_points,
     delivery_locations,
-    classLicince,
-    contractLength
+    license,
+    endorsement
   } = profile;
 
   useEffect(() => {
@@ -31,25 +32,26 @@ const Buttons = ({ nextStep, step }) => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   if (step === 2 && (classLicince || contractLength)) {
-  //     setUpdatedState(true);
-  //   } else {
-  //     setUpdatedState(false);
-  //   }
-  // }, [classLicince, contractLength]);
+  useEffect(() => {
+    if (step === 2 && (license.a || license.b || license.c)) {
+      setUpdatedState(true);
+    } else {
+      setUpdatedState(false);
+    }
+  }, [license, endorsement]);
 
   const confirmHandle = () => {
     setUpdatedState(false);
+    Auth.updateProfile(profile);
     nextStep();
   };
 
   const handleNextStep = () => {
-    if (step === 3) {
+    if (step === 4) {
       goHome();
-      return;
+    } else {
+      nextStep();
     }
-    nextStep();
   };
   return isUpdated ? (
     <Button

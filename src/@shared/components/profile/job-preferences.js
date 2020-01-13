@@ -20,24 +20,16 @@ const time = { week: false, sixMonths: false, year: false, permanent: false };
 const JobPreferences = ({ screen, title, componentId }) => {
   const { profile, setProfileInfo } = User;
   const {
-    checkState,
-    priceRange,
-    contract_week,
-    contract_sixmonths,
-    contract_year,
-    contract_permanent,
+    contract_type,
+    license,
+    endorsement,
     delivery_locations: deliveryLocations,
     pickup_points: pickupPoints,
     pay_from,
     pay_to
   } = profile;
-  const [multiSliderValue, setMultiSliderValuesChange] = useState(priceRange);
-  const [selectedContractLength, setTime] = useState({
-    contract_week,
-    contract_sixmonths,
-    contract_year,
-    contract_permanent
-  });
+  // const [multiSliderValue, setMultiSliderValuesChange] = useState(priceRange);
+  const [selectedContractLength, setTime] = useState(contract_type);
   const [payFromLocal, setPayFrom] = useState(pay_from);
   const [payToLocal, setPayTo] = useState(pay_to);
 
@@ -48,9 +40,46 @@ const JobPreferences = ({ screen, title, componentId }) => {
   };
 
   const handleContract = value => {
-    setTime({ [value]: true });
-    setProfileInfo({ [value]: true });
+    if (value === 'one_week') {
+      setTime({
+        one_week: true,
+        three_months: false,
+        one_year: false,
+        permanent: false
+      });
+    }
+    if (value === 'three_months') {
+      setTime({
+        one_week: false,
+        three_months: true,
+        one_year: false,
+        permanent: false
+      });
+    }
+    if (value === 'one_year') {
+      setTime({
+        one_week: false,
+        three_months: false,
+        one_year: true,
+        permanent: false
+      });
+    }
+    if (value === 'permanent') {
+      setTime({
+        one_week: false,
+        three_months: false,
+        one_year: false,
+        permanent: true
+      });
+    }
   };
+
+  useEffect(() => {
+    setProfileInfo({
+      contract_type: selectedContractLength
+    });
+  }, [selectedContractLength]);
+
   return (
     <>
       <CardWrapper>
@@ -152,29 +181,29 @@ const JobPreferences = ({ screen, title, componentId }) => {
               <Text style={{ marginBottom: 10 }}>Contract Length </Text>
               <CheckBox
                 title="1 week"
-                checked={selectedContractLength.contract_week}
-                onPress={() => handleContract('contract_week')}
+                checked={selectedContractLength.one_week}
+                onPress={() => handleContract('one_week')}
                 containerStyle={styles.container}
                 textStyle={styles.text}
               />
               <CheckBox
                 title="3 - 6 months"
-                checked={selectedContractLength.contract_sixmonths}
-                onPress={() => handleContract('contract_sixmonths')}
+                checked={selectedContractLength.three_months}
+                onPress={() => handleContract('three_months')}
                 containerStyle={styles.container}
                 textStyle={styles.text}
               />
               <CheckBox
                 title="1 year"
-                checked={selectedContractLength.contract_year}
-                onPress={() => handleContract('contract_year')}
+                checked={selectedContractLength.one_year}
+                onPress={() => handleContract('one_year')}
                 containerStyle={styles.container}
                 textStyle={styles.text}
               />
               <CheckBox
                 title="Permanent"
-                checked={selectedContractLength.contract_permanent}
-                onPress={() => handleContract('contract_permanent')}
+                checked={selectedContractLength.permanent}
+                onPress={() => handleContract('permanent')}
                 containerStyle={styles.container}
                 textStyle={styles.text}
               />
