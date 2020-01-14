@@ -20,7 +20,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   [Fabric with:@[[Crashlytics class]]];
-  NSURL *jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  NSURL *jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
   [ReactNativeNavigation bootstrap:jsCodeLocation launchOptions:launchOptions];
   
   return YES;
