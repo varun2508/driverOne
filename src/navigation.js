@@ -113,7 +113,7 @@ const goHome = async props => {
       bottomTabs: {
         options: {
           bottomTabs: {
-            currentTabIndex: 3
+            currentTabIndex: 0
           }
         },
         children: [

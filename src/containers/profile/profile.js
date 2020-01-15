@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { AsyncStorage, RefreshControl } from 'react-native';
+import { RefreshControl } from 'react-native';
 import { ListItem, Button } from 'react-native-elements';
 import styled from 'styled-components/native';
 import { navigate } from '@shared/helpers';
-import { Card, ProfileHeader } from '@shared';
 import { Loader } from '@shared/components';
-import { baseURL } from '../../utils/constants';
 import { observer } from 'mobx-react';
 import User from '@mobx/user';
 import Auth from '@mobx/auth';
+import { Card, ProfileHeader } from '@shared';
+import { baseURL } from '../../utils/constants';
 
 const list = [
   {

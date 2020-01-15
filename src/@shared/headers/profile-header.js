@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 import { StyleSheet, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';

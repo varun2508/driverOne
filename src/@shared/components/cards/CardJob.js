@@ -2,8 +2,22 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { Rating } from 'react-native-elements';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-
-const CardJob = ({ name, city, date, status, duration, price, logo, rating, tab, onPress }) => {
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { greyColor } from '../../../utils/stylesConstants';
+const CardJob = ({
+  name,
+  city,
+  date,
+  status,
+  duration,
+  price,
+  logo,
+  rating,
+  tab,
+  onPress,
+  startsIn,
+  createdAt
+}) => {
   return (
     <Card onPress={onPress} activeOpacity={1}>
       <HeaderCard>
@@ -11,23 +25,39 @@ const CardJob = ({ name, city, date, status, duration, price, logo, rating, tab,
           <ImageContainer>
             <CardImage
               source={{
-                uri: logo,
+                uri: logo
               }}
             />
+            {rating && (
+              <Rating
+                imageSize={15}
+                readonly
+                startingValue={rating}
+                ratingCount={5}
+              />
+            )}
           </ImageContainer>
 
           <ContainerInfo>
             <Info>{name}</Info>
-            <Info>{city}</Info>
             <Info>
-              {duration} {price}
+              <Ionicons
+                name={'ios-pin'}
+                style={{ marginRight: 3, fontSize: 12 }}
+                size={12}
+              />{' '}
+              {city}
             </Info>
+            <Info>
+              {duration} &#9679; {price}
+            </Info>
+            <Info>Starts at {startsIn}</Info>
           </ContainerInfo>
         </LeftHeaderPart>
-        {rating && <Rating imageSize={15} readonly startingValue={rating} ratingCount={5} />}
+        {createdAt && <CreatedAtText>{createdAt} ago</CreatedAtText>}
       </HeaderCard>
       <FooterCard>
-        <Date>Applied on {date}</Date>
+        <Date>{date && `Applied on ${date}`}</Date>
         <StatusContainer>
           {tab !== 'completed' && <Status tab={tab}>{status}</Status>}
           {status === 'Submited' && <AntDesign style={icon} name="check" />}
@@ -41,7 +71,7 @@ export default CardJob;
 
 const icon = {
   fontSize: 15,
-  color: '#2182d9',
+  color: '#2182d9'
 };
 
 const Card = styled.TouchableOpacity`
@@ -74,12 +104,15 @@ const FooterCard = styled.View`
 `;
 
 const ContainerInfo = styled.View`
+  margin-top: -15px;
   margin-bottom: 15px;
   justify-content: space-between;
 `;
 
 const Info = styled.Text`
-  font-size: 12px;
+  font-size: 15px;
+  margin-bottom: 8px;
+  color: grey;
 `;
 
 const Date = styled.Text`
@@ -93,20 +126,26 @@ const StatusContainer = styled.Text`
 `;
 
 const Status = styled.Text`
-  color: ${(props) => (props.tab === 'closed' ? 'grey' : '#2182d9')} 
+  color: ${props => (props.tab === 'closed' ? 'grey' : '#2182d9')} 
+  font-size: 12px;
+`;
+
+const CreatedAtText = styled.Text`
+  /* color: 'grey'; */
   font-size: 12px;
 `;
 
 const ImageContainer = styled.View`
   margin: 0 10px 10px;
-  border: 1px solid #fee7d0;
 `;
 
 const CardImage = styled.Image`
-  width: 70px;
+  width: 75px;
   height: 50px;
+  border: 1px solid #fee7d0;
+  margin-bottom: 4px;
 `;
 
 CardJob.defaulProps = {
-  onPress: () => {},
+  onPress: () => {}
 };

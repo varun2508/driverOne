@@ -62,7 +62,7 @@ PODS:
     - React-cxxreact (= 0.60.4)
     - React-jsi (= 0.60.4)
   - React-jsinspector (0.60.4)
-  - react-native-image-picker (0.28.0):
+  - react-native-image-picker (0.28.1):
     - React
   - React-RCTActionSheet (0.60.4):
     - React-Core (= 0.60.4)
@@ -88,15 +88,15 @@ PODS:
   - React-RCTWebSocket (0.60.4):
     - React-Core (= 0.60.4)
     - React-fishhook (= 0.60.4)
-  - ReactNativeNavigation (3.2.0):
+  - ReactNativeNavigation (3.7.0):
     - React
-  - RNCAsyncStorage (1.6.1):
+  - RNCAsyncStorage (1.7.1):
     - React
-  - RNGestureHandler (1.4.1):
+  - RNGestureHandler (1.5.3):
     - React
-  - RNReanimated (1.3.0):
+  - RNReanimated (1.5.0):
     - React
-  - RNSVG (9.6.2):
+  - RNSVG (9.13.6):
     - React
   - RNVectorIcons (6.6.0):
     - React
@@ -220,7 +220,7 @@ SPEC CHECKSUMS:
   React-jsi: 21d3153b1153fbf6510a92b6b11e33e725cb7432
   React-jsiexecutor: 7549641e48bafae7bfee3f3ea19bf4901639c5de
   React-jsinspector: 73f24a02fa684ed6a2b828ba116874a2191ded88
-  react-native-image-picker: e6e06d4315e3c85bad17e4b2002cd29f11d202c8
+  react-native-image-picker: fd93361c666f397bdf72f9c6c23f13d2685b9173
   React-RCTActionSheet: 9f71d7ae3e8fb10e08d162cbf14c621349dbfab3
   React-RCTAnimation: 981d8c95b0e30918a9832ccac32af83562a27fae
   React-RCTBlob: 21e73d1020a302a75fed30dbaee9f15287b80baa
@@ -231,11 +231,11 @@ SPEC CHECKSUMS:
   React-RCTText: e0f224898b13af9aa036ea7cb3d438daa68c1044
   React-RCTVibration: 0bea40cd51bd089bd591a8f74c86e91fdf2666c5
   React-RCTWebSocket: 163873f4cdd5f1058a9483443404fc3801581cb6
-  ReactNativeNavigation: aad255980f20cc5d2001ed37972319f3789fea70
-  RNCAsyncStorage: 621bad7a889b5bf1583a52547f2dcd3a4d1ff15e
-  RNGestureHandler: 4cb47a93019c1a201df2644413a0a1569a51c8aa
-  RNReanimated: 6abbbae2e5e72609d85aabd92a982a94566885f1
-  RNSVG: ff9b094e39dd4a437ebe17d1c7ceed286e75f426
+  ReactNativeNavigation: bed6f504aa1a4dadd151503bf99d0ef96d06847f
+  RNCAsyncStorage: 44395cb9c7c1523104c2b499eb426ef7aff82bca
+  RNGestureHandler: 02905abe54e1f6e59c081a10b4bd689721e17aa6
+  RNReanimated: 1761c14b3982fc77fc9fdad6ea2f42ed861c342a
+  RNSVG: 8ba35cbeb385a52fd960fd28db9d7d18b4c2974f
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   yoga: c2c050f6ae6e222534760cc82f559b89214b67e2
 

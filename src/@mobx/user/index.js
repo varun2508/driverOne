@@ -1,6 +1,6 @@
 import { types, getSnapshot } from 'mobx-state-tree';
 
-const initialState = { checkState: {}, priceRange: [] };
+const initialState = {};
 
 const User = types
   .model('User', {
