@@ -1,19 +1,24 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import CardJob from '@shared/components/cards/CardJob';
-import { timeSince } from '@shared/helpers';
+import { timeSince, navigate } from '@shared/helpers';
 
-const ListTab = ({ jobsList }) => {
+const ListTab = ({ jobsList, componentId }) => {
   // const getPickUpPoint = pickup_points => {
   //   return pickup_points.forEach(element => {
   //     return element.location;
   //   });
   // };
+  const navigateTo = cardProps => {
+    console.log('----------navigating', cardProps);
+    navigate('JobDetails', componentId, cardProps);
+  };
   console.log('-------props---');
   return (
-    <View>
+    <ScrollView>
       {jobsList.map(
         ({
+          id,
           name,
           date_start,
           created_at,
@@ -22,12 +27,16 @@ const ListTab = ({ jobsList }) => {
           pay_from,
           pay_to,
           logo,
-          rating
+          rating,
+          pickup_points,
+          mileage,
+          equipment_type,
+          job_details
         }) => (
           <CardJob
-            key={name}
+            key={id}
             name={name}
-            city={'Newark, PA'}
+            city={pickup_points[0] ? pickup_points[0].location : '--'}
             startsIn={date_start}
             createdAt={timeSince(
               new Date(new Date(created_at.split(' ').join('T')))
@@ -40,10 +49,27 @@ const ListTab = ({ jobsList }) => {
             }
             rating={4}
             tab="closed"
+            onPress={() =>
+              navigateTo({
+                name,
+                date_start,
+                created_at,
+                status,
+                hours,
+                pay_from,
+                pay_to,
+                logo,
+                rating,
+                pickup_points,
+                equipment_type,
+                mileage,
+                job_details
+              })
+            }
           />
         )
       )}
-    </View>
+    </ScrollView>
   );
 };
 

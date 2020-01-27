@@ -18,13 +18,35 @@ const JobsList = types
         Jobs.setJobsInfo(response);
         return;
       } catch (e) {
+        console.log('-----error on get jobs-----', e);
+        const { message } = e.response.data;
+        self.errorMessage = message;
+      }
+    });
+
+    const searchJobs = flow(function* searchJobs(filters) {
+      console.log('------filters----', filters);
+      try {
+        const token = yield AsyncStorage.getItem('token');
+        const response = yield api.post('/api/job/search', filters, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          filters
+        });
+
+        Jobs.setJobsInfo(response);
+        console.log('----response on search------', response);
+        return;
+      } catch (e) {
         const { message } = e.response.data;
         self.errorMessage = message;
       }
     });
 
     return {
-      getAllJobs
+      getAllJobs,
+      searchJobs
     };
   })
   .create();

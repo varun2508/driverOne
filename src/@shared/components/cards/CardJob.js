@@ -142,7 +142,6 @@ const ImageContainer = styled.View`
 const CardImage = styled.Image`
   width: 75px;
   height: 50px;
-  border: 1px solid #fee7d0;
   margin-bottom: 4px;
 `;
 

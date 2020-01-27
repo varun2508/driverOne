@@ -4,7 +4,7 @@ import { Navigation } from 'react-native-navigation';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styled from 'styled-components/native';
 
-const BackButton = ({ componentId }) => {
+const BackButton = ({ componentId, backScreen }) => {
   const backNavigation = () => {
     Navigation.pop(componentId);
   };
@@ -12,7 +12,7 @@ const BackButton = ({ componentId }) => {
     <TouchableOpacity onPress={backNavigation}>
       <BackNavigation>
         <FontAwesome name="long-arrow-left" size={16} color="#64abef" />
-        <SubText>Back to dashboard</SubText>
+        <SubText>Back to {backScreen || 'dashboard'} </SubText>
       </BackNavigation>
     </TouchableOpacity>
   );

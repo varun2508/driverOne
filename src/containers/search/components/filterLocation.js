@@ -3,18 +3,8 @@ import { StyleSheet, Text, Platform } from 'react-native';
 import styled from 'styled-components/native';
 import RNPickerSelect from 'react-native-picker-select';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import User from '@mobx/user';
-import Auth from '@mobx/auth';
-// import { observer } from 'mobx-react';
+import { primaryColor, greyColor } from '../../../utils/stylesConstants';
 
-import { primaryColor, greyColor } from '../../utils/stylesConstants';
-
-const defaultPlaceholder = {
-  label: 'Select location',
-  value: null,
-  color: '#000'
-};
-const { setProfileInfo } = User;
 const options = [
   { value: 0, label: 'New York, NY' },
   { value: 1, label: 'Chicago, IL' },
@@ -29,122 +19,44 @@ const options = [
   { value: 10, label: 'Newark, NJ' }
 ];
 
-class LocationInput extends React.Component {
+class FilterLocation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       locationId: null,
       locationName: '',
-      locations: []
+      type: ''
     };
   }
 
-  componentDidMount() {
-    this.setLocation();
-  }
-
-  componentDidUpdate(prevProps) {
-    const { arrayOfpoints } = this.props;
-    if (
-      arrayOfpoints &&
-      prevProps.arrayOfpoints &&
-      arrayOfpoints.length !== prevProps.arrayOfpoints.length
-    ) {
-      this.setLocation();
-    }
-  }
-
-  setLocation = () => {
-    const { arrayOfpoints, location } = this.props;
-    const tempLocations = [];
-    options.forEach(el => {
-      arrayOfpoints &&
-        arrayOfpoints.forEach(point => {
-          if (point.pickup_point && el.label === point.pickup_point) {
-            tempLocations.push({
-              name: point.pickup_point,
-              id: point.id,
-              type: 'pickUpLocation'
-            });
-          }
-
-          if (point.delivery_location && el.label === point.delivery_location) {
-            tempLocations.push({
-              name: point.delivery_location,
-              id: point.id,
-              type: 'deliveryLocation'
-            });
-          }
-
-          if (location && el.label === location) {
-            this.setState({
-              locationId: el.value
-            });
-          }
-        });
+  handleLocation = async (value, type) => {
+    console.log('----------handle location', value);
+    await this.setState(() => {
+      return { locationName: options[value].label, locationId: value, type };
     });
-    this.setState({
-      locations: tempLocations
-    });
-  };
-
-  handleLocation = async value => {
-    const { name, label } = this.props;
-
-    setProfileInfo({ [name]: value, location: options[value].label });
-    await this.setState(prevState => {
-      return { locationName: options[value].label, locationId: value };
-    });
-
-    const { locationName } = this.state;
     if (Platform.OS !== 'ios') {
-      if (label === 'Pickup point') {
-        await Auth.addPickUpPoint({
-          pickup_point: locationName
-        });
-      }
-      if (label === 'Delivery location') {
-        await Auth.addDeliveryLocations({
-          delivery_location: locationName
-        });
-      }
+      console.log('----------android', value);
     }
   };
 
   onDonePress = async () => {
-    const { locationName } = this.state;
-    const { label } = this.props;
+    const { setLocation } = this.props;
+    const { locationName, type } = this.state;
 
+    console.log('----------done press');
     if (Platform.OS === 'ios') {
-      if (label === 'Pickup point') {
-        await Auth.addPickUpPoint({
-          pickup_point: locationName
-        });
-      }
-      if (label === 'Delivery location') {
-        await Auth.addDeliveryLocations({
-          delivery_location: locationName
-        });
-      }
-    }
-  };
-
-  onDelete = async (id, type) => {
-    if (type === 'pickUpLocation') {
-      await Auth.deletePickupPoints({ id });
-    }
-    if (type === 'deliveryLocation') {
-      await Auth.deleteDeliveryLocations({ id });
+      console.log('----------ios', locationName);
+      setLocation(locationName, type);
     }
   };
 
   render() {
-    const { label, placeholder } = this.props;
-
-    const { locationId, locations } = this.state;
+    const { label, placeholder, arrayOfpoints, name, onDelete } = this.props;
+    console.log('-----arrayOfpoints-----', arrayOfpoints);
+    const { locationId } = this.state;
     return (
       <WrapperContaiener>
-        {locationId ? <Label>{label}</Label> : null}
+        {label ? <LocationLabelText>{label}</LocationLabelText> : null}
 
         <Container>
           <Icon
@@ -155,7 +67,7 @@ class LocationInput extends React.Component {
           />
           <Wrapper>
             <RNPickerSelect
-              onValueChange={value => this.handleLocation(value)}
+              onValueChange={value => this.handleLocation(value, name)}
               placeholder={placeholder}
               style={pickerSelectStyles}
               items={options}
@@ -173,18 +85,18 @@ class LocationInput extends React.Component {
           )}
         </Container>
         <LocationsWrapper>
-          {locations.map(el => {
+          {arrayOfpoints.map((el, i) => {
             return (
               <AddedLocationContainer>
                 <Text>
-                  <LocationText>{el.name}</LocationText>
+                  <LocationText>{el}</LocationText>
                   <Text>{'  '}</Text>
                   <Icon
                     name="times"
                     size={12}
                     color="#fff"
                     onPress={() => {
-                      this.onDelete(el.id, el.type);
+                      onDelete(i, name);
                     }}
                   />
                 </Text>
@@ -197,7 +109,7 @@ class LocationInput extends React.Component {
   }
 }
 
-export default LocationInput;
+export default FilterLocation;
 
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
@@ -223,7 +135,8 @@ const pickerSelectStyles = StyleSheet.create({
 
 const WrapperContaiener = styled.View`
   min-height: 50px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
+  /* border: 1px solid red; */
 `;
 
 const LocationsWrapper = styled.View`
@@ -261,9 +174,8 @@ const Wrapper = styled.View`
   width: 100%;
 `;
 
-const Label = styled.Text`
-  color: #86939e;
-  margin-bottom: 5px;
-  font-size: 16px;
-  font-weight: bold;
+const LocationLabelText = styled.Text`
+  margin: 5px 0 10px 0px;
+  font-size: 14px;
+  color: #000;
 `;

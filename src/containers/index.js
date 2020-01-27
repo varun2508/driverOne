@@ -10,6 +10,7 @@ import Jobs from './jobs/jobs';
 import Payments from './payments/payments';
 import ProfileOnboardingScreen from './profile-onboarding/profile';
 import UpdateProfile from './update-profile/update-profile';
+import JobDetails from '../containers/search/components/jobDetails';
 import App from '../../App';
 import { HowItWorks, Referal } from './referal';
 
@@ -26,6 +27,7 @@ export default function registerScreens() {
   Navigation.registerComponent('JobsScreen', () => Jobs);
   Navigation.registerComponent('ProfileScreen', () => ProfileScreen);
   Navigation.registerComponent('SearchScreen', () => Search);
+  Navigation.registerComponent('JobDetails', () => JobDetails);
   Navigation.registerComponent('UpdateProfile', () => UpdateProfile);
   Navigation.registerComponent('HowItWorks', () => HowItWorks);
   Navigation.registerComponent('Referal', () => Referal);

@@ -12,12 +12,11 @@ import Header from './components/header';
 import ListTab from './components/listTab';
 import MapTab from './components/mapTab';
 
-const Search = () => {
+const Search = ({ componentId }) => {
   const [loading, setLoading] = useState(true);
   const [index, setIndex] = useState(0);
 
   const { allJobs } = Jobs;
-  console.log('----allJobs.data------', allJobs.data);
   const fetchData = async () => {
     setLoading(true);
     await JobsList.getAllJobs();
@@ -32,10 +31,9 @@ const Search = () => {
   }
 
   const renderScene = ({ route }) => {
-    console.log('--------route--', route);
     switch (route.key) {
       case '0':
-        return <ListTab jobsList={allJobs.data} />;
+        return <ListTab jobsList={allJobs.data} componentId={componentId} />;
       case '1':
         return <MapTab />;
       default:
@@ -49,13 +47,15 @@ const Search = () => {
       <TabView
         navigationState={{
           index,
-          routes: [{ key: '0', title: 'List' }, { key: '1', title: 'Map' }]
+          routes: [
+            { key: '0', title: 'List' },
+            { key: '1', title: 'Map' }
+          ]
         }}
         renderScene={props => renderScene(props)}
         renderTabBar={props => (
           <TabBar
             {...props}
-            // jobsList={allJobs.data}
             indicatorStyle={{
               backgroundColor: '#fff',
               height: 0
@@ -127,7 +127,7 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default observer(Search);
 
 const Container = styled.View`
   display: flex;

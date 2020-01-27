@@ -1,14 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import FontAwesome5Icons from 'react-native-vector-icons/FontAwesome5';
 import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome';
 import LinearGradient from 'react-native-linear-gradient';
-
+import JobsList from '@mobx/jobsApi';
+import FiltersModal from './filtersModal';
 import { primaryColor, greyColor } from '../../../utils/stylesConstants';
 
 import styled from 'styled-components/native';
 
 const Header = () => {
+  const [loading, setLoading] = useState(true);
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
+  };
+
+  const handleOpenModal = () => {
+    setIsOpenModal(true);
+  };
+  const searchJob = async e => {
+    setLoading(true);
+    await JobsList.searchJobs({
+      search_string: e
+    });
+    console.log('----------eeee', e);
+    setLoading(false);
+  };
   return (
     <View>
       <LinearGradient
@@ -28,18 +47,25 @@ const Header = () => {
             <Input
               placeholder="Search location, company, or job ..."
               placeholderTextColor={greyColor}
+              onChangeText={e => searchJob(e)}
             />
             <FontAwesomeIcons
               name="sliders"
               color={primaryColor}
               size={20}
               style={{ marginRight: 15 }}
+              onPress={() => handleOpenModal()}
             />
           </SearchBox>
           <FontAwesome5Icons
             name="sort-amount-down"
             color="#FFF"
             style={styles.icon}
+          />
+          <FiltersModal
+            isOpenModal={isOpenModal}
+            setIsOpenModal
+            handleCloseModal={handleCloseModal}
           />
         </Container>
       </LinearGradient>
