@@ -19,6 +19,7 @@ const options = {
   quality: 0.1,
   maxWidth: 500,
   maxHeight: 500,
+  allowsEditing: true,
   storageOptions: {
     skipBackup: true
   }

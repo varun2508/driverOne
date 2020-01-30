@@ -30,7 +30,6 @@ class FilterLocation extends React.Component {
   }
 
   handleLocation = async (value, type) => {
-    console.log('----------handle location', value);
     await this.setState(() => {
       return { locationName: options[value].label, locationId: value, type };
     });
@@ -43,16 +42,13 @@ class FilterLocation extends React.Component {
     const { setLocation } = this.props;
     const { locationName, type } = this.state;
 
-    console.log('----------done press');
     if (Platform.OS === 'ios') {
-      console.log('----------ios', locationName);
       setLocation(locationName, type);
     }
   };
 
   render() {
     const { label, placeholder, arrayOfpoints, name, onDelete } = this.props;
-    console.log('-----arrayOfpoints-----', arrayOfpoints);
     const { locationId } = this.state;
     return (
       <WrapperContaiener>

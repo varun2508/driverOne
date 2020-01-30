@@ -49,7 +49,7 @@ const CardJob = ({
               {city}
             </Info>
             <Info>
-              {duration} &#9679; {price}
+              {duration} <PointSymbol> &#9679; </PointSymbol> {price}
             </Info>
             <Info>Starts at {startsIn}</Info>
           </ContainerInfo>
@@ -113,6 +113,12 @@ const Info = styled.Text`
   font-size: 15px;
   margin-bottom: 8px;
   color: grey;
+`;
+
+const PointSymbol = styled.Text`
+  font-size: 7px;
+  margin-top: -6px;
+  border: 1px solid red;
 `;
 
 const Date = styled.Text`

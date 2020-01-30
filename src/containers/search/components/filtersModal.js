@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {
   View,
-  Text,
+  StyleSheet,
   Platform,
   DatePickerAndroid,
-  TouchableOpacity
+  ScrollView
 } from 'react-native';
 import { format } from 'date-fns';
 import { ModalComponent } from '@shared/components/modal';
@@ -15,6 +15,9 @@ import { primaryColor, greyColor } from '../../../utils/stylesConstants';
 import FilterLocation from './filterLocation';
 import IosDateModal from './iosDateModal';
 import Mileage from './mileage';
+import Hours from './hours';
+import PayRange from './payRange';
+
 // import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome';
 // import LinearGradient from 'react-native-linear-gradient';
 // import JobsList from '@mobx/jobsApi';
@@ -44,11 +47,6 @@ import Mileage from './mileage';
 // }
 
 const FiltersModal = ({ isOpenModal, setIsOpenModal, handleCloseModal }) => {
-  const [openDeliveryLocation, handleDeliveryLocation] = useState(false);
-  const [modalHourVisible, handleModalHourVisible] = useState(false);
-  const [dateTypeToChange, handleDateTypeToChange] = useState('from');
-  const [date, handleDate] = useState({ from: new Date(), to: new Date() });
-
   const [filters, setFilters] = useState({
     pickup_points: {},
     delivery_locations: {},
@@ -62,17 +60,25 @@ const FiltersModal = ({ isOpenModal, setIsOpenModal, handleCloseModal }) => {
     pay_from: '',
     pay_to: ''
   });
+  const [openDeliveryLocation, handleDeliveryLocation] = useState(false);
   const [pickupPoints, setPickUpPoints] = useState([]);
   const [deliveryPoints, setDeliveryPoints] = useState([]);
-
   const [finalPoints, setFinalPoints] = useState([]);
+  const [date, handleDate] = useState({ from: new Date(), to: new Date() });
+  const [dateTypeToChange, handleDateTypeToChange] = useState('from');
+  const [modalHourVisible, handleModalHourVisible] = useState(false);
+  const [mileageFrom, handleMileageFrom] = useState('20');
+  const [mileageTo, handleMileageTo] = useState('100');
+  const [hoursFrom, handleHoursFrom] = useState('0');
+  const [hoursTo, handleHoursTo] = useState('10');
+  const [payFrom, handlePayFrom] = useState('0');
+  const [payTo, handlePayTo] = useState('30');
 
   const handleOpenDeliveryLocation = () => {
     handleDeliveryLocation(!openDeliveryLocation);
   };
 
   const setLocation = (value, category) => {
-    console.log('----setLocation------', value, category);
     if (category === 'pickupPoint') {
       setPickUpPoints([...pickupPoints, value]);
     } else if (category === 'deliveryLocation') {
@@ -83,7 +89,6 @@ const FiltersModal = ({ isOpenModal, setIsOpenModal, handleCloseModal }) => {
   };
 
   const onDelete = async (index, category) => {
-    console.log('----------deleting', index, category);
     if (category === 'pickupPoint') {
       pickupPoints.splice(index, 1);
       const updatedPoints = pickupPoints;
@@ -110,7 +115,13 @@ const FiltersModal = ({ isOpenModal, setIsOpenModal, handleCloseModal }) => {
         ...finalPoints
       },
       date_start: format(date.from, 'MM/dd/yy'),
-      date_end: format(date.to, 'MM/dd/yy')
+      date_end: format(date.to, 'MM/dd/yy'),
+      mileage_from: mileageFrom,
+      mileage_to: mileageTo,
+      hours_from: hoursFrom,
+      hours_to: hoursTo,
+      pay_from: payFrom,
+      pay_to: payTo
     });
     handleCloseModal();
   };
@@ -141,12 +152,25 @@ const FiltersModal = ({ isOpenModal, setIsOpenModal, handleCloseModal }) => {
   const setDateForIos = (datePicked, type) => {
     handleDate({ ...date, [type]: datePicked });
   };
+  const multiSliderValuesChange = values => {
+    handleMileageFrom(values[0]);
+    handleMileageTo(values[1]);
+  };
 
+  const setHours = amount => {
+    handleHoursFrom(amount[0]);
+    handleHoursTo(amount[1]);
+  };
+  const multiSliderPayRangeChange = values => {
+    handlePayFrom(values[0]);
+    handlePayTo(values[1]);
+  };
   return (
     <ModalComponent
       isOpenModal={isOpenModal}
       setIsOpenModal={setIsOpenModal}
       handleCloseModal={handleCloseModal}
+      style={styles.modal}
     >
       <SaveButton onPress={() => applyFilters()}>
         <SaveButtonText>SAVE</SaveButtonText>
@@ -155,92 +179,125 @@ const FiltersModal = ({ isOpenModal, setIsOpenModal, handleCloseModal }) => {
         <TitleText>Filters</TitleText>
       </TitleTextContainer>
       <GreyText>Based on your profile preferences</GreyText>
-      <LocationContainer>
-        <FilterLocation
-          placeholder={{ label: 'Add location', value: '', color: greyColor }}
-          name="pickupPoint"
-          label="Pickup point"
-          arrayOfpoints={pickupPoints}
-          setLocation={setLocation}
-          onDelete={onDelete}
-        />
-        {openDeliveryLocation && (
-          <>
+      <View style={{ height: '80%' }}>
+        <ScrollView>
+          <LocationContainer>
             <FilterLocation
               placeholder={{
                 label: 'Add location',
                 value: '',
                 color: greyColor
               }}
-              name="deliveryLocation"
-              label="Delivery Location"
-              arrayOfpoints={deliveryPoints}
+              name="pickupPoint"
+              label="Pickup point"
+              arrayOfpoints={pickupPoints}
               setLocation={setLocation}
               onDelete={onDelete}
             />
+            {openDeliveryLocation && (
+              <>
+                <FilterLocation
+                  placeholder={{
+                    label: 'Add location',
+                    value: '',
+                    color: greyColor
+                  }}
+                  name="deliveryLocation"
+                  label="Delivery Location"
+                  arrayOfpoints={deliveryPoints}
+                  setLocation={setLocation}
+                  onDelete={onDelete}
+                />
 
-            <FilterLocation
-              placeholder={{
-                label: 'Add location',
-                value: '',
-                color: greyColor
-              }}
-              name="finalDestination"
-              label="Final Destination Point"
-              arrayOfpoints={finalPoints}
-              setLocation={setLocation}
-              onDelete={onDelete}
+                <FilterLocation
+                  placeholder={{
+                    label: 'Add location',
+                    value: '',
+                    color: greyColor
+                  }}
+                  name="finalDestination"
+                  label="Final Destination Point"
+                  arrayOfpoints={finalPoints}
+                  setLocation={setLocation}
+                  onDelete={onDelete}
+                />
+              </>
+            )}
+            <DeliveryLocationControl
+              onPress={() => handleOpenDeliveryLocation()}
+            >
+              <DeliveryLocationControlText>
+                {openDeliveryLocation && 'Close'} Delivery & Destination
+                Locations
+              </DeliveryLocationControlText>
+            </DeliveryLocationControl>
+          </LocationContainer>
+          <Devider />
+          <View>
+            <IosDateModal
+              modalHourVisible={modalHourVisible}
+              dateTypeToChange={dateTypeToChange}
+              date={date}
+              setDateForIos={setDateForIos}
+              handleModalHourVisible={handleModalHourVisible}
             />
-          </>
-        )}
-        <DeliveryLocationControl onPress={() => handleOpenDeliveryLocation()}>
-          <DeliveryLocationControlText>
-            {openDeliveryLocation && 'Close'} Delivery & Destination Locations
-          </DeliveryLocationControlText>
-        </DeliveryLocationControl>
-      </LocationContainer>
-      <Devider />
-      <View>
-        <IosDateModal
-          modalHourVisible={modalHourVisible}
-          dateTypeToChange={dateTypeToChange}
-          date={date}
-          setDateForIos={setDateForIos}
-          handleModalHourVisible={handleModalHourVisible}
-        />
-        <DatePickerLabel>Start Date</DatePickerLabel>
-        <DatesContainer>
-          <PickerContainer onPress={() => changeDate('from')}>
-            <MaterialIcons
-              style={{ marginTop: 2 }}
-              color={primaryColor}
-              name="date-range"
-              size={17}
+            <DatePickerLabel>Start Date</DatePickerLabel>
+            <DatesContainer>
+              <PickerContainer onPress={() => changeDate('from')}>
+                <MaterialIcons
+                  style={{ marginTop: 2 }}
+                  color={primaryColor}
+                  name="date-range"
+                  size={17}
+                />
+                <DatesText>{format(date.from, 'MM/dd/yy')}</DatesText>
+              </PickerContainer>
+              <DatesText>to</DatesText>
+              <PickerContainer onPress={() => changeDate('to')}>
+                <MaterialIcons
+                  style={{ marginTop: 2 }}
+                  color={primaryColor}
+                  name="date-range"
+                  size={17}
+                />
+                <DatesText>{format(date.to, 'MM/dd/yy')}</DatesText>
+              </PickerContainer>
+            </DatesContainer>
+          </View>
+          <Devider />
+          <SectionContainer>
+            <Mileage
+              multiSliderValuesChange={multiSliderValuesChange}
+              mileageFrom={mileageFrom}
+              mileageTo={mileageTo}
             />
-            <DatesText>{format(date.from, 'MM/dd/yy')}</DatesText>
-          </PickerContainer>
-          <DatesText>to</DatesText>
-          <PickerContainer onPress={() => changeDate('to')}>
-            <MaterialIcons
-              style={{ marginTop: 2 }}
-              color={primaryColor}
-              name="date-range"
-              size={17}
+          </SectionContainer>
+          <Devider />
+          <SectionContainer>
+            <Hours setHours={setHours} />
+          </SectionContainer>
+          <Devider />
+          <SectionContainer>
+            <PayRange
+              multiSliderPayRangeChange={multiSliderPayRangeChange}
+              payRangeFrom={payFrom}
+              payRangeTo={payTo}
             />
-            <DatesText>{format(date.to, 'MM/dd/yy')}</DatesText>
-          </PickerContainer>
-        </DatesContainer>
+          </SectionContainer>
+          <Devider />
+        </ScrollView>
       </View>
-      <Devider />
-      <MileageContainer>
-        <Mileage />
-      </MileageContainer>
-      <Devider />
     </ModalComponent>
   );
 };
 
 export default FiltersModal;
+
+const styles = StyleSheet.create({
+  modal: {
+    maxHeight: '90%'
+  }
+});
 
 const LocationContainer = styled.View`
   width: 80%;
@@ -314,6 +371,6 @@ const DatesText = styled.Text`
   margin: 0 10px 0 10px;
 `;
 
-const MileageContainer = styled.View`
+const SectionContainer = styled.View`
   margin: 10px 20px 10px 20px;
 `;

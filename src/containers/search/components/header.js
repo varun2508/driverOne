@@ -25,7 +25,6 @@ const Header = () => {
     await JobsList.searchJobs({
       search_string: e
     });
-    console.log('----------eeee', e);
     setLoading(false);
   };
   return (

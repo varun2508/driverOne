@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { RefreshControl } from 'react-native';
+import { RefreshControl, View } from 'react-native';
 import { ListItem, Button } from 'react-native-elements';
 import styled from 'styled-components/native';
 import { navigate } from '@shared/helpers';
-import { Loader } from '@shared/components';
 import { observer } from 'mobx-react';
 import User from '@mobx/user';
 import Auth from '@mobx/auth';
@@ -63,9 +62,7 @@ const Profile = ({ componentId }) => {
   useEffect(() => {
     fetchData();
   }, []);
-  if (loading) {
-    return <Loader />;
-  }
+
   return (
     <Container>
       <ProfileHeader name={profile.first_name} imageSrc={imageSrc} />
@@ -74,73 +71,78 @@ const Profile = ({ componentId }) => {
           <RefreshControl refreshing={loading} onRefresh={fetchData} />
         }
       >
-        <CardWrapper>
-          <Card containerStyle={{ paddingBottom: 0 }}>
-            <Statistic>
-              <Stats>
-                <Amount>0</Amount>
-                <SubText>Pending jobs</SubText>
-              </Stats>
-              <Stats>
-                <Amount>0</Amount>
-                <SubText>Active job</SubText>
-              </Stats>
-              <Stats>
-                <Amount>0</Amount>
-                <SubText>Your rating</SubText>
-              </Stats>
-            </Statistic>
-            <NavigationBar>
-              {list.map((item, i) => (
-                <ListItem
-                  key={i}
-                  titleStyle={{ fontSize: 14 }}
-                  title={item.title}
-                  leftIcon={{ name: item.icon, color: 'gray' }}
-                  bottomDivider
-                  onPress={() => navigateTo(item.value)}
-                  chevron={{ color: '#64abef' }}
-                />
-              ))}
+        {loading ? (
+          <View />
+        ) : (
+          <>
+            <CardWrapper>
+              <Card containerStyle={{ paddingBottom: 0 }}>
+                <Statistic>
+                  <Stats>
+                    <Amount>0</Amount>
+                    <SubText>Pending jobs</SubText>
+                  </Stats>
+                  <Stats>
+                    <Amount>0</Amount>
+                    <SubText>Active job</SubText>
+                  </Stats>
+                  <Stats>
+                    <Amount>0</Amount>
+                    <SubText>Your rating</SubText>
+                  </Stats>
+                </Statistic>
+                <NavigationBar>
+                  {list.map((item, i) => (
+                    <ListItem
+                      key={i}
+                      titleStyle={{ fontSize: 14 }}
+                      title={item.title}
+                      leftIcon={{ name: item.icon, color: 'gray' }}
+                      bottomDivider
+                      onPress={() => navigateTo(item.value)}
+                      chevron={{ color: '#64abef' }}
+                    />
+                  ))}
+                  <ListItem
+                    title="Make a Referral"
+                    titleStyle={{ fontSize: 14 }}
+                    leftIcon={{ name: 'people', color: 'gray' }}
+                    bottomDivider
+                    onPress={() => navigate('HowItWorks', componentId)}
+                    chevron={{ color: '#64abef' }}
+                  />
+                </NavigationBar>
+              </Card>
               <ListItem
-                title="Make a Referral"
+                title="Training Video"
+                containerStyle={{
+                  shadowColor: '#999',
+                  shadowOffset: { width: 0, height: 0.5 },
+                  shadowOpacity: 0.5,
+                  shadowRadius: 1,
+                  elevation: 1,
+                  borderRadius: 4
+                }}
                 titleStyle={{ fontSize: 14 }}
-                leftIcon={{ name: 'people', color: 'gray' }}
+                style={{ marginTop: 20 }}
+                leftIcon={{ name: 'tv' }}
                 bottomDivider
-                onPress={() => navigate('HowItWorks', componentId)}
+                onPress={() => {}}
                 chevron={{ color: '#64abef' }}
               />
-            </NavigationBar>
-          </Card>
-          <ListItem
-            title="Training Video"
-            containerStyle={{
-              shadowColor: '#999',
-              shadowOffset: { width: 0, height: 0.5 },
-              shadowOpacity: 0.5,
-              shadowRadius: 1,
-              elevation: 1,
-              borderRadius: 4
-            }}
-            titleStyle={{ fontSize: 14 }}
-            style={{ marginTop: 20 }}
-            leftIcon={{ name: 'tv' }}
-            bottomDivider
-            onPress={() => {}}
-            chevron={{ color: '#64abef' }}
-          />
-        </CardWrapper>
-
-        <Button
-          containerStyle={{
-            marginLeft: 20,
-            marginRight: 20,
-            marginTop: 20,
-            marginBottom: 20
-          }}
-          onPress={() => Auth.logout(componentId)}
-          title="LOG OUT"
-        />
+            </CardWrapper>
+            <Button
+              containerStyle={{
+                marginLeft: 20,
+                marginRight: 20,
+                marginTop: 20,
+                marginBottom: 20
+              }}
+              onPress={() => Auth.logout(componentId)}
+              title="LOG OUT"
+            />
+          </>
+        )}
       </ScrollViewWrapper>
     </Container>
   );

@@ -8,7 +8,9 @@ const h = height - 350;
 const Card = ({ children, title, containerStyle }) => {
   return (
     <Container style={styles.card} ht={h}>
-      <ScrollView contentContainerStyle={{ ...styles.scroll, ...containerStyle }}>
+      <ScrollView
+        contentContainerStyle={{ ...styles.scroll, ...containerStyle }}
+      >
         <Title>{title}</Title>
         <Body>{children}</Body>
       </ScrollView>
@@ -26,13 +28,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 1,
     elevation: 1,
-    zIndex: 1,
+    zIndex: 1
   },
   scroll: {
     paddingHorizontal: 31,
     paddingTop: 31,
-    paddingBottom: 41,
-  },
+    paddingBottom: 41
+  }
 });
 
 const Title = styled.Text`

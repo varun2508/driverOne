@@ -1,77 +1,102 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
+import format from 'date-fns/format';
 import LinearGradient from 'react-native-linear-gradient';
 import { BackButton } from '@shared';
-
 const JobDetails = props => {
-  console.log('-------props---', props);
   const { componentId } = props;
   const {
     name,
     date_start,
+    date_end,
     created_at,
     status,
     hours,
     pay_from,
     pay_to,
     mileage,
-    rating,
+    logo,
     pickup_points,
+    delivery_locations,
+    final_destinations,
     equipment_type,
     job_details
   } = props.data;
   return (
-    <ScrollView>
+    <View style={styles.container}>
       <LinearGradient
         colors={['#0f2ba1', '#61aff4']}
         start={{ x: 0.0, y: 0.6 }}
         end={{ x: 0.7, y: 1.0 }}
-        style={styles.container}
+        style={styles.gradiend}
       >
         <GradientText>
           Have questions? <UnderlineText>Contact us</UnderlineText> or call
           1-800-Drivers
         </GradientText>
       </LinearGradient>
-      <BackButtonContainer>
-        <BackButton componentId={componentId} backScreen="search" />
-      </BackButtonContainer>
-      <InfoContainer>
-        <CardImage
-          source={{
-            uri:
-              'https://pbs.twimg.com/profile_images/801363163740565505/BF44jfpn_400x400.jpg'
-          }}
-        />
-        <Text>Company name: {name || '--'}</Text>
-        <Text>
-          {hours}hours <PointSymbol> &#9679; </PointSymbol> {mileage}
-        </Text>
+      <ScrollView>
+        <BackButtonContainer>
+          <BackButton componentId={componentId} backScreen="search" />
+        </BackButtonContainer>
+        <InfoContainer>
+          <CardImage
+            source={{
+              uri: logo
+            }}
+          />
+          <Text>Company name: {name || '--'}</Text>
+          <Text>
+            {hours} hours <PointSymbol> &#9679; </PointSymbol> {mileage} miles
+          </Text>
 
-        <Text>
-          {`$${pay_from} - $${pay_to}`}{' '}
-          <GreyText> Rates based on experence</GreyText>
-        </Text>
-        <Text>Posted on {created_at}</Text>
-        <BoldText>Start Date</BoldText>
-        <Text>{date_start}</Text>
-        <BoldText>Locations</BoldText>
-        <Text>
-          {pickup_points && pickup_points[0] && pickup_points[0].location}
-        </Text>
-        <BoldText>Equipment Type</BoldText>
-        <Text>{equipment_type}</Text>
-        <BoldText>Details</BoldText>
-        <Text>{job_details}</Text>
-      </InfoContainer>
-    </ScrollView>
+          <Text>
+            {`$${pay_from} - $${pay_to}`}{' '}
+            <GreyText> Rates based on experence</GreyText>
+          </Text>
+          <Text>
+            Posted on {format(new Date(created_at.split(' ')[0]), 'MM/dd/yyyy')}
+          </Text>
+          <BoldText>Start Date</BoldText>
+          <Text>
+            {date_start &&
+              format(new Date(date_start.split(' ')[0]), 'MM/dd/yyyy')}{' '}
+            -{' '}
+            {date_end && format(new Date(date_end.split(' ')[0]), 'MM/dd/yyyy')}
+          </Text>
+          <BoldText>Locations</BoldText>
+          <Text>
+            Start:{' '}
+            {pickup_points[0] &&
+              pickup_points.map(el => <Text>{el.location}; </Text>)}
+          </Text>
+          <Text>
+            Delivery:{' '}
+            {delivery_locations[0] &&
+              delivery_locations.map(el => <Text>{el.location}; </Text>)}
+          </Text>
+          <Text>
+            End:{' '}
+            {final_destinations[0] &&
+              final_destinations.map(el => <Text>{el.location}; </Text>)}
+          </Text>
+          <BoldText>Equipment Type</BoldText>
+          <Text>{equipment_type}</Text>
+          <BoldText>Details</BoldText>
+          <Text>{job_details}</Text>
+        </InfoContainer>
+      </ScrollView>
+    </View>
   );
 };
 
 export default JobDetails;
 const styles = StyleSheet.create({
   container: {
+    marginTop: 40
+  },
+  gradiend: {
     display: 'flex',
     height: 60,
     width: '100%',

@@ -3,16 +3,12 @@ import { View, Text } from 'react-native';
 import styled from 'styled-components/native';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
 
-const Mileage = ({ multiSliderValuesChange, mileageFrom, mileageTo }) => {
+const PayRange = ({ multiSliderPayRangeChange, payRangeFrom, payRangeTo }) => {
   return (
     <View>
       <SwiperContainer>
         <Label>
-          <PickerLabel>Mileage</PickerLabel>
-          <Range>
-            <Text style={{ color: '#2182D9' }}>{mileageFrom} - </Text>
-            <Text style={{ color: '#2182D9' }}>{mileageTo} miles</Text>
-          </Range>
+          <PickerLabel>Pay Range</PickerLabel>
         </Label>
         <Price>
           <Text
@@ -20,14 +16,14 @@ const Mileage = ({ multiSliderValuesChange, mileageFrom, mileageTo }) => {
               marginRight: 10
             }}
           >
-            {'<25'}
+            {'$1'}
           </Text>
           <MultiSlider
-            values={[mileageFrom, mileageTo]}
-            onValuesChange={multiSliderValuesChange}
-            min={25}
+            values={[payRangeFrom, payRangeTo]}
+            onValuesChange={multiSliderPayRangeChange}
+            min={1}
             sliderLength={230}
-            max={100}
+            max={30}
             selectedStyle={{
               backgroundColor: '#2282d9'
             }}
@@ -69,7 +65,7 @@ const Mileage = ({ multiSliderValuesChange, mileageFrom, mileageTo }) => {
               marginLeft: 10
             }}
           >
-            100+
+            $30
           </Text>
         </Price>
       </SwiperContainer>
@@ -77,7 +73,7 @@ const Mileage = ({ multiSliderValuesChange, mileageFrom, mileageTo }) => {
   );
 };
 
-export default Mileage;
+export default PayRange;
 
 const PickerLabel = styled.Text`
   /* margin: 0 10px 0 20px; */

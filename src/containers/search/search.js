@@ -15,6 +15,7 @@ import MapTab from './components/mapTab';
 const Search = ({ componentId }) => {
   const [loading, setLoading] = useState(true);
   const [index, setIndex] = useState(0);
+  const [routeKey, setRouteKey] = useState('');
 
   const { allJobs } = Jobs;
   const fetchData = async () => {
@@ -26,14 +27,18 @@ const Search = ({ componentId }) => {
   useEffect(() => {
     fetchData();
   }, []);
-  if (loading) {
-    return <Loader />;
-  }
 
   const renderScene = ({ route }) => {
     switch (route.key) {
       case '0':
-        return <ListTab jobsList={allJobs.data} componentId={componentId} />;
+        return (
+          <ListTab
+            jobsList={allJobs.data}
+            componentId={componentId}
+            fetchData={fetchData}
+            loading={loading}
+          />
+        );
       case '1':
         return <MapTab />;
       default:
@@ -66,14 +71,13 @@ const Search = ({ componentId }) => {
               // justifyContent: 'space-around',
               // flexDirection: 'row',
               // borderWidth: 2,
-              // borderColor: 'red'
-
+              // borderColor: 'red',
               marginRight: '25%',
               marginLeft: '25%',
               alignContent: 'center',
               backgroundColor: '#fff',
               color: 'red',
-              height: 63
+              height: 45
             }}
             labelStyle={{
               color: { primaryColor },
@@ -81,26 +85,34 @@ const Search = ({ componentId }) => {
               textTransform: 'capitalize',
               paddingTop: 0,
               fontWeight: '600',
-              paddingBottom: 0
+              paddingBottom: 0,
+              borderWidth: 2,
+              borderColor: 'green'
             }}
             tabStyle={{
               width: 100,
               padding: 0,
-              borderWidth: 1,
-              borderColor: primaryColor,
-              // backgroundColor: index === 0 ? primaryColor : greyColor,
-              // borderRadius: 5,
-              marginTop: 15
+              marginTop: 5
             }}
             getLabelText={({ route }) => {
+              setRouteKey(+route.key);
               return (
                 <View
                   style={{
                     backgroundColor:
                       +route.key === index ? primaryColor : '#FFF',
-                    height: '100%',
+                    height: 30,
                     width: 99,
-                    // borderRadius: 5,
+                    borderWidth: 1,
+                    borderColor: primaryColor,
+                    marginRight: +route.key === 0 && -1,
+                    marginLeft: +route.key === 1 && -1,
+                    borderRightColor: +route.key === 0 && '#fff',
+                    borderLeftColor: +route.key === 1 && '#fff',
+                    borderTopLeftRadius: +route.key === 0 ? 10 : 0,
+                    borderTopRightRadius: +route.key === 1 ? 10 : 0,
+                    borderBottomLeftRadius: +route.key === 0 ? 10 : 0,
+                    borderBottomRightRadius: +route.key === 1 ? 10 : 0,
                     justifyContent: 'center',
                     alignContent: 'center',
                     alignItems: 'center'

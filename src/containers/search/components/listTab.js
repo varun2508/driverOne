@@ -1,26 +1,34 @@
-import React from 'react';
-import { View, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { RefreshControl, ScrollView } from 'react-native';
+import { Loader } from '@shared/components';
 import CardJob from '@shared/components/cards/CardJob';
 import { timeSince, navigate } from '@shared/helpers';
-
-const ListTab = ({ jobsList, componentId }) => {
+import { baseURL } from '../../../utils/constants';
+const ListTab = ({ jobsList, componentId, fetchData, loading }) => {
   // const getPickUpPoint = pickup_points => {
   //   return pickup_points.forEach(element => {
   //     return element.location;
   //   });
   // };
   const navigateTo = cardProps => {
-    console.log('----------navigating', cardProps);
     navigate('JobDetails', componentId, cardProps);
   };
-  console.log('-------props---');
+
+  if (loading) {
+    return <Loader />;
+  }
   return (
-    <ScrollView>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={loading} onRefresh={fetchData} />
+      }
+    >
       {jobsList.map(
         ({
           id,
           name,
           date_start,
+          date_end,
           created_at,
           status,
           hours,
@@ -29,6 +37,8 @@ const ListTab = ({ jobsList, componentId }) => {
           logo,
           rating,
           pickup_points,
+          delivery_locations,
+          final_destinations,
           mileage,
           equipment_type,
           job_details
@@ -44,23 +54,24 @@ const ListTab = ({ jobsList, componentId }) => {
             status={status}
             duration={`${hours} hours`}
             price={`$${pay_from} - $${pay_to}`}
-            logo={
-              'https://pbs.twimg.com/profile_images/801363163740565505/BF44jfpn_400x400.jpg'
-            }
+            logo={`${baseURL}${logo}`}
             rating={4}
             tab="closed"
             onPress={() =>
               navigateTo({
                 name,
                 date_start,
+                date_end,
                 created_at,
                 status,
                 hours,
                 pay_from,
                 pay_to,
-                logo,
+                logo: `${baseURL}${logo}`,
                 rating,
                 pickup_points,
+                delivery_locations,
+                final_destinations,
                 equipment_type,
                 mileage,
                 job_details

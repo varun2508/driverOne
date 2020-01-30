@@ -25,7 +25,7 @@ const JobsList = types
     });
 
     const searchJobs = flow(function* searchJobs(filters) {
-      console.log('------filters----', filters);
+      // console.log('------filters----', filters);
       try {
         const token = yield AsyncStorage.getItem('token');
         const response = yield api.post('/api/job/search', filters, {
@@ -36,7 +36,6 @@ const JobsList = types
         });
 
         Jobs.setJobsInfo(response);
-        console.log('----response on search------', response);
         return;
       } catch (e) {
         const { message } = e.response.data;
