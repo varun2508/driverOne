@@ -43,9 +43,60 @@ const JobsList = types
       }
     });
 
+    const applyToJob = flow(function* applyToJob(body) {
+      try {
+        const token = yield AsyncStorage.getItem('token');
+        const response = yield api.post('/api/driver/take-job', body, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        console.log('----------on job apply', response);
+        return;
+      } catch (e) {
+        const { message } = e.response.data;
+        self.errorMessage = message;
+      }
+    });
+
+    const getDriverPendingJobs = flow(function* getDriverPendingJobs(body) {
+      console.log('--------on getDriverPendingJobsbe fore call----', body);
+      try {
+        const token = yield AsyncStorage.getItem('token');
+        const response = yield api.get(
+          '/api/driver/jobs',
+          {
+            data: body
+            // headers: {
+            //   Authorization: `Bearer ${token}`
+            // }
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
+
+        // ('/api/driver/jobs', body, {
+        //   headers: {
+        //     Authorization: `Bearer ${token}`
+        //   }
+        // });
+        console.log('----------getDriverPendingJobsbe', response);
+        return;
+      } catch (e) {
+        console.log('-------error on get pending---');
+        const { message } = e.response.data;
+        self.errorMessage = message;
+      }
+    });
+
     return {
       getAllJobs,
-      searchJobs
+      searchJobs,
+      applyToJob,
+      getDriverPendingJobs
     };
   })
   .create();

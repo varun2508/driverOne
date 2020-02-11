@@ -4,9 +4,13 @@ import styled from 'styled-components/native';
 import format from 'date-fns/format';
 import LinearGradient from 'react-native-linear-gradient';
 import { BackButton } from '@shared';
+import JobsList from '@mobx/jobsApi';
+import { SimpleButton, FullScreenDevider } from '@shared';
+
 const JobDetails = props => {
   const { componentId } = props;
   const {
+    id,
     name,
     date_start,
     date_end,
@@ -23,6 +27,12 @@ const JobDetails = props => {
     equipment_type,
     job_details
   } = props.data;
+  const apply = async () => {
+    console.log('----------calling in component');
+    await JobsList.applyToJob({
+      job_id: id
+    });
+  };
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -86,6 +96,13 @@ const JobDetails = props => {
           <BoldText>Details</BoldText>
           <Text>{job_details}</Text>
         </InfoContainer>
+        <FullScreenDevider />
+        <SimpleButton
+          title={'Express Interest'}
+          style={{ marginLeft: 15, marginRight: 15 }}
+          titleStyle={{ fontSize: 20, fontWeight: 'bold' }}
+          onPress={apply}
+        />
       </ScrollView>
     </View>
   );

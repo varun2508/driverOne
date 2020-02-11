@@ -59,6 +59,7 @@ const ListTab = ({ jobsList, componentId, fetchData, loading }) => {
             tab="closed"
             onPress={() =>
               navigateTo({
+                id,
                 name,
                 date_start,
                 date_end,
